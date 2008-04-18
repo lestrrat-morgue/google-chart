@@ -1,0 +1,33 @@
+---
+global:
+  name: Google-Chart
+releases:
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - set the version to 0.03
+      - 'exposed user agent in Google::Chart so you can overlay it, e.g., for using a proxy'
+    date: 2007-12-24T14:34:55Z
+    tags: []
+    version: 0.03
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - set the version to 0.02
+      - moved things around (API is still fluid)
+      - added basic color support
+      - added more chart types
+      - added lib/Google/Chart/Type/Bar
+      - added lib/Google/Chart/Type/Bar.pm
+      - added lib/Google/Chart/Type/Line
+      - added lib/Google/Chart/Type/ScatterPlot.pm
+      - added lib/Google/Chart/Type/Venn.pm
+      - added lib/Google/Chart/Color
+      - added lib/Google/Chart/Color.pm
+    date: 2007-12-07T21:43:21Z
+    tags: []
+    version: 0.02
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - original version
+    date: 2007-12-06T19:37:44Z
+    tags: []
+    version: 0.01
