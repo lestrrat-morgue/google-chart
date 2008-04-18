@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 use base qw(Class::Factory::Enhanced);
@@ -16,7 +16,7 @@ __PACKAGE__->register_factory_type(
     data                   => 'Google::Chart::Data',
     data_simple_encoding   => 'Google::Chart::Data::SimpleEncoding',
     # data_text_encoding     => 'Google::Chart::Data::TextEncoding',
-    # data_extended_encoding => 'Google::Chart::Data::ExtendedEncoding',
+    data_extended_encoding => 'Google::Chart::Data::ExtendedEncoding',
     size                   => 'Google::Chart::Size',
     type                   => 'Google::Chart::Type',
     type_line              => 'Google::Chart::Type::Line::LineX',

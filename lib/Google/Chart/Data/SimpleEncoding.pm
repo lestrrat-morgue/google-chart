@@ -2,13 +2,15 @@ package Google::Chart::Data::SimpleEncoding;
 
 use strict;
 use warnings;
-use Data::Dumper;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 use base qw(Google::Chart::Data);
+
+
+use constant ENCODING_TYPE_VALUE => 's';
 
 
 sub encode_value_set {

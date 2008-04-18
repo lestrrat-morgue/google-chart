@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 use base qw(Google::Chart::Base);
@@ -16,6 +16,9 @@ __PACKAGE__
     ->mk_abstract_accessors(qw(encode_value_set));
 
 
+use constant ENCODING_TYPE_VALUE => '?';   # override in subclasses
+
+
 sub has_content {
     my $self = shift;
     $self->value_sets_count;
@@ -24,7 +27,8 @@ sub has_content {
 
 sub as_string {
     my $self = shift;
-    sprintf 'chd=s:%s',
+    sprintf 'chd=%s:%s',
+        $self->ENCODING_TYPE_VALUE,
         join ',' =>
         map { $self->encode_value_set($_) }
         $self->value_sets;

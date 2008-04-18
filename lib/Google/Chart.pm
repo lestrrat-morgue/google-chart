@@ -5,7 +5,7 @@ use warnings;
 use LWP::UserAgent;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 use base qw(

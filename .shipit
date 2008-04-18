@@ -1,6 +1,6 @@
 steps = ApplyYAMLChangeLogVersion, Manifest, DistTest, Commit, Tag, MakeDist, MyUploadCPAN, DistClean, Twitter
 
-svk.tagpattern = //local/cpan/tags/Google-Chart-%v
+svk.tagpattern = //local/coderepos/lang/perl/Google-Chart/tags/Google-Chart-%v
 
 twitter.config = ~/.twitterrc
 twitter.distname = Google-Chart

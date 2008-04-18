@@ -4,6 +4,20 @@ global:
 releases:
   - author: 'Marcel Gruenauer <marcel@cpan.org>'
     changes:
+      - set the version to 0.04
+      - '.shipit: fixed svk.tagpattern for CodeRepos'
+      - 'Makefile.PL: requires Test::Differences'
+      - 'Google::Chart::Data: made as_string() more generic'
+      - 'Google::Chart::Data::SimpleEncoding: uses new inherited as_string()'
+      - "Google::Chart::Factory: enabled mapping for 'data_extended_encoding' object type"
+      - 't/01_basic.t: uses Test::Differences'
+      - added lib/Google/Chart/Data/ExtendedEncoding.pm
+      - added t/02_extended_encoding.t
+    date: 2008-04-18T20:00:54Z
+    tags: []
+    version: 0.04
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
       - set the version to 0.03
       - 'exposed user agent in Google::Chart so you can overlay it, e.g., for using a proxy'
     date: 2007-12-24T14:34:55Z

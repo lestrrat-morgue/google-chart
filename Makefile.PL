@@ -12,6 +12,7 @@ requires 'Class::Factory::Enhanced';
 requires 'LWP::UserAgent';
 
 build_requires 'Test::More' => '0.70';
+build_requires 'Test::Differences';
 
 process_templates(
     first_year => 2007,
