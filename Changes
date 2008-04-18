@@ -13,7 +13,9 @@ releases:
       - 't/01_basic.t: uses Test::Differences'
       - added lib/Google/Chart/Data/ExtendedEncoding.pm
       - added t/02_extended_encoding.t
-    date: 2008-04-18T20:00:54Z
+      - updated MANIFEST
+      - updated MANIFEST
+    date: 2008-04-18T20:01:17Z
     tags: []
     version: 0.04
   - author: 'Marcel Gruenauer <marcel@cpan.org>'

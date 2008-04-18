@@ -13,6 +13,7 @@ inc/Module/Install/Template.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 inc/Test/Compile.pm
+inc/Test/Differences.pm
 inc/Test/More.pm
 inc/UNIVERSAL/require.pm
 lib/Google/Chart.pm
@@ -20,6 +21,7 @@ lib/Google/Chart/Base.pm
 lib/Google/Chart/Color.pm
 lib/Google/Chart/Color/Data.pm
 lib/Google/Chart/Data.pm
+lib/Google/Chart/Data/ExtendedEncoding.pm
 lib/Google/Chart/Data/SimpleEncoding.pm
 lib/Google/Chart/Factory.pm
 lib/Google/Chart/Size.pm
@@ -42,4 +44,5 @@ MANIFEST			This list of files
 META.yml
 README
 t/01_basic.t
+t/02_extended_encoding.t
 t/perlcriticrc
