@@ -15,7 +15,8 @@ releases:
       - added t/02_extended_encoding.t
       - updated MANIFEST
       - updated MANIFEST
-    date: 2008-04-18T20:01:17Z
+      - '.shipit: fixed svk.tagpattern'
+    date: 2008-05-29T12:05:17Z
     tags: []
     version: 0.04
   - author: 'Marcel Gruenauer <marcel@cpan.org>'
