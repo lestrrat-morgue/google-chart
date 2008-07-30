@@ -1,27 +1,19 @@
+use strict;
 use inc::Module::Install;
-include 'Module::AutoInstall';
 
 name 'Google-Chart';
-all_from 'lib/Google/Chart.pm';
-perl_version '5.006';
 
-requires 'Class::Accessor::Complex';
-requires 'Class::Accessor::Constructor';
-requires 'Class::Accessor::FactoryTyped' => '0.03';
-requires 'Class::Factory::Enhanced';
+all_from('lib/Google/Chart.pm');
+
 requires 'LWP::UserAgent';
+requires 'Moose', '0.54';
+requires 'Class::MOP', '0.63';
+requires 'URI';
+requires 'URI::Escape';
+requires 'Scalar::Util';
 
-build_requires 'Test::More' => '0.70';
-build_requires 'Test::Differences';
+test_requires 'Test::More';
+test_requires 'Test::Compile';
 
-process_templates(
-    first_year => 2007,
-    rest_from  => "$ENV{HOME}/.mitlib/standard_pod",
-    start_tag  => '{%',
-    end_tag    => '%}',
-);
-
-use_standard_tests(without => 'pod_coverage');
-auto_install;
 auto_include;
 WriteAll;

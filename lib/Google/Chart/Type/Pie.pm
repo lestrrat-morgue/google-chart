@@ -1,45 +1,53 @@
+# $Id$
+
 package Google::Chart::Type::Pie;
+use Moose;
+use Moose::Util::TypeConstraints;
 
-use strict;
-use warnings;
+with 'Google::Chart::Type::Simple';
 
+has 'pie_type' => (
+    is => 'rw',
+    isa => enum([ qw(2d 3d) ]),
+    required => 1,
+    default => '2d'
+);
 
-our $VERSION = '0.04';
+__PACKAGE__->meta->make_immutable;
 
+no Moose;
 
-use base qw(Google::Chart::Type);
+sub parameter_value {
+    my $self = shift;
 
+    return $self->pie_type eq '3d' ? 'p3' : 'p';
+}
 
 1;
 
-
 __END__
-
-{% USE p = PodGenerated %}
 
 =head1 NAME
 
-{% p.package %} - Draw a chart with Google Chart
+Google::Chart::Type::Pie - Google::Chart Pie Chart Type
 
 =head1 SYNOPSIS
 
-    {% p.package %}->new;
+  Google::Chart->new(
+    type => 'Pie'
+  );
 
-=head1 WARNING
+  Google::Chart->new(
+    type => {
+      module => 'Pie',
+      args   => {
+        pie_type => '3d'
+      }
+    }
+  );
 
-This is a very early alpha release. It is more a proof of concept, but for
-very simple cases it already works. Documentation and more complete support of
-the Google Chart API will follow shortly. For now, the code more or less is
-the documentation. Patches welcome.
+=head1 METHODS
 
-=head1 DESCRIPTION
-
-This set of classes uses the Google Chart API - see
-L<http://code.google.com/apis/chart/> - to draw charts.
-
-{% p.write_inheritance %}
-
-{% PROCESS standard_pod %}
+=head2 parameter_value
 
 =cut
-

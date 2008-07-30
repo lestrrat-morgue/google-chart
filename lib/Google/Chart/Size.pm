@@ -1,105 +1,72 @@
+# $Id$
+
 package Google::Chart::Size;
+use Moose;
+use Moose::Util::TypeConstraints;
+use Google::Chart::Types qw(hash_coercion);
 
-use strict;
-use warnings;
+use constant parameter_name => 'chs';
 
+with 'Google::Chart::QueryComponent::Simple';
 
-our $VERSION = '0.04';
+coerce 'Google::Chart::Size'
+    => from 'Str'
+    => via {
+        if (! /^(\d+)x(\d+)$/) {
+            confess "Could not parse $_ as size";
+        }
 
-
-use base qw(Google::Chart::Base);
-
-
-__PACKAGE__->mk_scalar_accessors(qw(x y));
-
-
-sub validate {
-    my ($self, $chart) = @_;
-
-    my @error;
-
-    if ($self->size_x < 0) {
-        push @error, sprintf 'width [%s] is negative', $self->size_x;
+        return Google::Chart::Size->new(width => $1, height => $2);
     }
+;
 
-    if ($self->size_x == 0) {
-        push @error, sprintf 'width [%s] is zero', $self->size_x;
-    }
+coerce 'Google::Chart::Size'
+    => from 'HashRef'
+    => hash_coercion( prefix => 'Google::Chart::Size', default => '+Google::Chart::Size' )
+;
 
-    if ($self->size_x > 1000) {
-        push @error, sprintf 'width [%s] is greater than 1000', $self->size_x;
-    }
+has 'width' => (
+    is => 'rw',
+    isa => 'Int',
+    required => 1
+);
 
-    if ($self->size_y < 0) {
-        push @error, sprintf 'height [%s] is negative', $self->size_y;
-    }
+has 'height' => (
+    is => 'rw',
+    isa => 'Int',
+    required => 1
+);
 
-    if ($self->size_y == 0) {
-        push @error, sprintf 'height [%s] is zero', $self->size_y;
-    }
+no Moose;
 
-    if ($self->size_y > 1000) {
-        push @error, sprintf 'height [%s] is greater than 1000', $self->size_x;
-    }
-
-    if ($self->size_x * $self->size_y > 300_000) {
-        push @error, sprintf 'area is more than 300,000 pixels';
-    }
-
-    @error;
-}
-
-
-sub has_content {
+sub parameter_value {
     my $self = shift;
-    defined($self->x) && defined $self->y;
+    return join('x', $self->width, $self->height);
 }
-
-
-sub as_string {
-    my $self = shift;
-    sprintf 'chs=%sx%s', int($self->x), int($self->y);
-}
-
 
 1;
 
-
 __END__
-
-{% USE p = PodGenerated %}
 
 =head1 NAME
 
-{% p.package %} - Draw a chart with Google Chart
+Google::Chart::Size - Google::Chart Size Specification
 
 =head1 SYNOPSIS
 
-    {% p.package %}->new;
+  Google::Chart->new(
+    size => "400x300"
+  )
 
-=head1 WARNING
-
-This is a very early alpha release. It is more a proof of concept, but for
-very simple cases it already works. Documentation and more complete support of
-the Google Chart API will follow shortly. For now, the code more or less is
-the documentation. Patches welcome.
-
-=head1 DESCRIPTION
-
-This set of classes uses the Google Chart API - see
-L<http://code.google.com/apis/chart/> - to draw charts.
+  Google::Chart->new(
+    size => {
+      width => 400,
+      height => 300
+    }
+  )
 
 =head1 METHODS
 
-=over 4
-
-{% p.write_methods %}
-
-=back
-
-{% p.write_inheritance %}
-
-{% PROCESS standard_pod %}
+=head2 parameter_value
 
 =cut
-

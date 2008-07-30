@@ -1,50 +1,14 @@
----
-global:
-  name: Google-Chart
-releases:
-  - author: 'Marcel Gruenauer <marcel@cpan.org>'
-    changes:
-      - set the version to 0.04
-      - '.shipit: fixed svk.tagpattern for CodeRepos'
-      - 'Makefile.PL: requires Test::Differences'
-      - 'Google::Chart::Data: made as_string() more generic'
-      - 'Google::Chart::Data::SimpleEncoding: uses new inherited as_string()'
-      - "Google::Chart::Factory: enabled mapping for 'data_extended_encoding' object type"
-      - 't/01_basic.t: uses Test::Differences'
-      - added lib/Google/Chart/Data/ExtendedEncoding.pm
-      - added t/02_extended_encoding.t
-      - updated MANIFEST
-      - updated MANIFEST
-      - '.shipit: fixed svk.tagpattern'
-    date: 2008-05-29T12:05:17Z
-    tags: []
-    version: 0.04
-  - author: 'Marcel Gruenauer <marcel@cpan.org>'
-    changes:
-      - set the version to 0.03
-      - 'exposed user agent in Google::Chart so you can overlay it, e.g., for using a proxy'
-    date: 2007-12-24T14:34:55Z
-    tags: []
-    version: 0.03
-  - author: 'Marcel Gruenauer <marcel@cpan.org>'
-    changes:
-      - set the version to 0.02
-      - moved things around (API is still fluid)
-      - added basic color support
-      - added more chart types
-      - added lib/Google/Chart/Type/Bar
-      - added lib/Google/Chart/Type/Bar.pm
-      - added lib/Google/Chart/Type/Line
-      - added lib/Google/Chart/Type/ScatterPlot.pm
-      - added lib/Google/Chart/Type/Venn.pm
-      - added lib/Google/Chart/Color
-      - added lib/Google/Chart/Color.pm
-    date: 2007-12-07T21:43:21Z
-    tags: []
-    version: 0.02
-  - author: 'Marcel Gruenauer <marcel@cpan.org>'
-    changes:
-      - original version
-    date: 2007-12-06T19:37:44Z
-    tags: []
-    version: 0.01
+Changes
+======
+
+0.05000_03 29 Jul 2008
+  * Make Data::Extended capable of handling multiple sets of data (danjou)
+  * Add proper color support and legend support (danjou)
+
+0.05000_02 25 Jul 2008
+  * Fix Fill::LinearStripes and Fill::LinearGradient
+  * Slight modification Google::Chart accessor generation
+
+0.05000_01 24 Jul 2008
+  * Mooooooooooooooose
+  * Backwards incompatible! Beware!

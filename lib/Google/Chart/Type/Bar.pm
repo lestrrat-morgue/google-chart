@@ -1,45 +1,59 @@
+# $Id$
+
 package Google::Chart::Type::Bar;
+use Moose;
+use Moose::Util::TypeConstraints;
 
-use strict;
-use warnings;
+with 'Google::Chart::Type::Simple';
 
+enum 'Google::Chart::Type::Bar::Orientation' => qw(horizontal vertical);
 
-our $VERSION = '0.04';
+has 'colored' => (
+    is => 'rw',
+    isa => 'Bool',
+    required => 1,
+    default => 0,
+);
 
+has 'orientation' => (
+    is => 'rw',
+    isa => 'Google::Chart::Type::Bar::Orientation',
+    required => 1,
+    default => 'vertical',
+);
 
-use base qw(Google::Chart::Type);
+__PACKAGE__->meta->make_immutable;
 
+no Moose;
+
+sub parameter_value {
+    my $self = shift;
+
+    return sprintf( 'b%s%s', 
+        $self->orientation eq 'vertical' ? 'v' : 'h',
+        $self->colored                   ? 'g' : 's'
+    );
+}
 
 1;
 
-
 __END__
-
-{% USE p = PodGenerated %}
 
 =head1 NAME
 
-{% p.package %} - Draw a chart with Google Chart
+Google::Chart::Type::Bar - Google::Chart Bar Type
 
 =head1 SYNOPSIS
 
-    {% p.package %}->new;
+  Google::Chart->new(
+    type => {
+      module => "Bar",
+      orientation => "horizontal",
+    }
+  );
 
-=head1 WARNING
+=head1 METHODS
 
-This is a very early alpha release. It is more a proof of concept, but for
-very simple cases it already works. Documentation and more complete support of
-the Google Chart API will follow shortly. For now, the code more or less is
-the documentation. Patches welcome.
-
-=head1 DESCRIPTION
-
-This set of classes uses the Google Chart API - see
-L<http://code.google.com/apis/chart/> - to draw charts.
-
-{% p.write_inheritance %}
-
-{% PROCESS standard_pod %}
+=head2 parameter_value
 
 =cut
-

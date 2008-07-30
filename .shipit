@@ -1,9 +1,0 @@
-steps = ApplyYAMLChangeLogVersion, Manifest, DistTest, Commit, Tag, MakeDist, MyUploadCPAN, DistClean, Twitter
-
-svk.tagpattern = //local/coderepos/Google-Chart/tags/Google-Chart-%v
-
-twitter.config = ~/.twitterrc
-twitter.distname = Google-Chart
-twitter.message = shipped %d %v - soon at %u
-
-

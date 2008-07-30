@@ -1,114 +1,124 @@
+# $Id$
+
 package Google::Chart;
-
-use strict;
-use warnings;
+use Moose;
+use Google::Chart::Axis;
+use Google::Chart::Legend;
+use Google::Chart::Color;
+use Google::Chart::Data;
+use Google::Chart::Size;
+use Google::Chart::Type;
+use Google::Chart::Types;
 use LWP::UserAgent;
+use URI;
+use overload
+    '""' => \&as_uri,
+    fallback => 1,
+;
+our $USER_AGENT;
 
+use constant BASE_URI => URI->new("http://chart.apis.google.com/chart");
 
-our $VERSION = '0.04';
+our $VERSION   = '0.05000';
+our $AUTHORITY = 'cpan:DMAKI';
 
-
-use base qw(
-    Google::Chart::Base
-    Google::Chart::Factory
-);
-
-
-__PACKAGE__
-    ->mk_scalar_accessors(qw(title ua))
-    ->mk_factory_typed_accessors('Google::Chart::Factory',
-        data       => 'data',
-        type       => 'type',
-        size       => 'size',
-        color_data => 'color_data',
-    );
-
-
-use constant DEFAULTS => (
-    ua => LWP::UserAgent->new,
-);
-
-
-use constant API_URI => 'http://chart.apis.google.com/chart?';
-
-
-sub make_obj {
-    my $self = shift;
-    Google::Chart::Factory->make_object_for_type(@_);
-}
-
-
-# Convenience methods for using underlying objects
-
-sub set_size {
-    my $self = shift;
-    my ($x, $y);
-    if (@_ == 1 && ref $_[0] eq 'ARRAY') {
-        ($x, $y) = @{ $_[0] };
-    } else {
-        ($x, $y) = @_;
+my %COMPONENTS = (
+    type => {
+        is => 'rw',
+        does => 'Google::Chart::Type',
+        coerce => 1,
+        required => 1,
+    },
+    data => {
+        is       => 'rw',
+        does     => 'Google::Chart::Data',
+        coerce   => 1,
+    },
+    color => {
+        is       => 'rw',
+        isa      => 'Google::Chart::Color',
+        coerce   => 1,
+    },
+    legend => {
+        is       => 'rw',
+        does     => 'Google::Chart::Legend',
+        coerce   => 1,
+    },
+    size => {
+        is       => 'rw',
+        isa      => 'Google::Chart::Size',
+        coerce   => 1,
+        required => 1,
+        lazy     => 1,
+        default  => sub { Google::Chart::Size->new( width => 400, height => 300 ) },
+    },
+    marker => {
+        is       => 'rw',
+        isa      => 'Google::Chart::Marker',
+        coerce   => 1,
+    },
+    axis => {
+        is       => 'rw',
+        isa      => 'Google::Chart::Axis',
+        coerce   => 1,
+    },
+    fill => {
+        is       => 'rw',
+        does     => 'Google::Chart::Fill',
+        coerce   => 1
     }
-    $self->size->x($x);
-    $self->size->y($y);
+);
+my @COMPONENTS = keys %COMPONENTS;
+
+{
+    while (my ($name, $spec) = each %COMPONENTS ) {
+        has $name => %$spec;
+    }
 }
 
+has 'ua' => (
+    is       => 'rw',
+    isa      => 'LWP::UserAgent',
+    required => 1,
+    lazy     => 1,
+    default  => sub { $USER_AGENT ||= LWP::UserAgent->new() }
+);
 
-sub type_name {
-    my ($self, $type_name, @args) = @_;
-    $self->type($self->make_obj($type_name, @args));
-}
+__PACKAGE__->meta->make_immutable;
 
+no Moose;
 
-sub data_spec {
-    my ($self, $args) = @_;
-    die "data_spec has no 'encoding' key\n" unless $args->{encoding};
-    my $encoding = delete $args->{encoding};
-    $self->data($self->make_obj($encoding, %$args));
-}
+# XXX 
+# We need a trigger function that gets called whenever a component
+# is set, so we can validate if the combination of components are
+# actually feasible.
 
-
-sub colors {
-    my ($self, @args) = @_;
-    @args =
-        map { $self->make_obj('color')->guess($_) }
-        @args;
-    $self->color_data(colors => \@args);
-}
-
-
-# End of convenience methods
-
-
-sub validate {
+sub as_uri {
     my $self = shift;
-    my @error = map { $self->$_->validate } qw(
-        size type data color_data
-    );
-    die join "\n" => @error if @error;
+
+    my %query;
+    foreach my $c (@COMPONENTS) {
+        my $component = $self->$c;
+        next unless $component;
+        my @params = $component->as_query;
+        while (@params) {
+            my ($name, $value) = splice(@params, 0, 2);
+            next unless length $value;
+            $query{$name} = $value;
+        }
+    }
+
+    # If in case you want to change this for debugging or whatever...
+    my $uri = $ENV{GOOGLE_CHART_URI} ? 
+        URI->new($ENV{GOOGLE_CHART_URI}) :
+        BASE_URI->clone;
+    $uri->query_form( %query );
+    return $uri;
 }
-
-
-sub get_url {
-    my $self = shift;
-    my $url = $self->API_URI .
-        join '&' =>
-        map { $self->$_->as_string }
-        grep { $self->$_->has_content }
-        qw(size data type color_data);
-}
-
-
-sub img_tag {
-    my $self = shift;
-    my $url = $self->get_url;
-    $url =~ s/&/&amp;/g;
-    qq{<IMG SRC="$url" />};
-}
-
 
 sub render {
     my $self = shift;
-    my $response = $self->ua->get($self->get_url);
+    my $response = $self->ua->get($self->as_uri);
 
     if ($response->is_success) {
         return $response->content;
@@ -116,7 +126,6 @@ sub render {
         die $response->status_line;
     }
 }
-
 
 sub render_to_file {
     my ($self, $filename) = @_;
@@ -126,61 +135,141 @@ sub render_to_file {
     close $fh or die "can't close $filename: $!\n";
 }
 
-
 1;
-
 
 __END__
 
-{% USE p = PodGenerated %}
+=encoding UTF-8
 
 =head1 NAME
 
-{% p.package %} - Draw a chart with Google Chart
+Google::Chart - Interface to Google Charts API
 
 =head1 SYNOPSIS
 
-    use Google::Chart;
-    
-    my $chart = Google::Chart->new(
-        type_name => 'type_pie_3d',
-        set_size  => [ 300, 100 ],
-        data_spec => {
-            encoding  => 'data_simple_encoding',
-            max_value => 100,
-            value_sets => [ [ map { $_ * 10 } 0..10 ] ],
-        },
-    );
+  use Google::Chart;
 
-    print $chart->get_url;
-    $chart->render_to_file('my_chart.png');
+  my $chart = Google::Chart->new(
+    type => "Bar",
+    data => [ 1, 2, 3, 4, 5 ]
+  );
 
-=head1 WARNING
+  print $chart->as_uri, "\n"; # or simply print $chart, "\n"
 
-This is a very early alpha release. It is more a proof of concept, but for
-very simple cases it already works. Documentation and more complete support of
-the Google Chart API will follow shortly. For now, the code more or less is
-the documentation. Patches welcome.
+  $chart->render_to_file( filename => 'filename.png' );
 
-I've neverthless released the distribution, in the I<spirit of one-point-oh>,
-as Douglas Coupland puts it, or rather, in the spirit of point-oh-one.
+=head1 DESCRITPION
 
-=head1 DESCRIPTION
+Google::Chart provides a Perl Interface to Google Charts API 
+(http://code.google.com/apis/chart/).
 
-This set of classes uses the Google Chart API - see
-L<http://code.google.com/apis/chart/> - to draw charts.
+Please note that version 0.05000 is a major rewrite, and has little to no
+backwards compatibility.
 
 =head1 METHODS
 
+=head2 new(%args)
+
 =over 4
 
-{% p.write_methods %}
+=item type
+
+Specifies the chart type, such as line, bar, pie, etc. If given a string like
+'Bar', it will instantiate an instance of Google::Chart::Type::Bar by
+invoking argument-less constructor.
+
+If you want to pass parameters to the constructor, either pass in an
+already instanstiated object, or pass in a hash, which will be coerced to
+the appropriate object
+
+  my $chart = Google::Chart->new(
+    type => {
+      module => "Bar",
+      args   => {
+        orientation => "horizontal"
+      }
+    }
+  );
+
+=item size
+
+Specifies the chart size. Strings like "400x300", hash references, or already
+instantiated objects can be used:
+
+  my $chart = Google::Chart->new(
+    size => "400x300",
+  );
+
+  my $chart = Google::Chart->new(
+    size => {
+      width => 400,
+      height => 300
+    }
+  );
+
+=item marker
+
+Specifies the markers that go on line charts.
+
+=item axis
+
+Specifies the axis labels and such that go on line and bar charts
 
 =back
 
-{% p.write_inheritance %}
+=head2 as_uri()
 
-{% PROCESS standard_pod %}
+Returns the URI that represents the chart object.
 
+=head2 render()
+
+Generates the chart image, and returns the contents.
+
+=head2 render_to_file( %args )
+
+Generates the chart, and writes the contents out to the file specified by
+`filename' parameter
+
+=head1 FEEDBACK
+
+We don't believe that we fully utilize Google Chart's abilities. So there
+might be things missing, things that should be changed for easier use.
+If you find any such case, PLEASE LET US KNOW! Suggestions are welcome, but
+code snippets, pseudocode, or even better, test cases, are most welcome.
+
+=head1 TODO
+
+=over 4
+
+=item Standardize Interface
+
+Objects need to expect data in a standard format. This is not the case yet.
+(comments welcome)
+
+=item Adding New Components Is Cumbersome
+
+There must be an easy way to just plug it in.
+
+=item Moose-ish Errors
+
+I've been reported that some Moose-related errors occur on certain platforms.
+I have not been able to reproduce it myself, so if you do, please let me
+know.
+
+=back
+
+=head1 AUTHORS
+
+Daisuke Maki C<< <daisuke@endeworks.jp> >> (current maintainer)
+
+Nobuo Danjou C<< <nobuo.danjou@gmail.com> >>
+
+Marcel Grünauer C<< <marcel@cpan.org> >> (original author)
+
+=head1 LICENSE
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html
 =cut
-
