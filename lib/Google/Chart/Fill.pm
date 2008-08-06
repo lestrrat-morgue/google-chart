@@ -17,4 +17,15 @@ __END__
 
 Google::Chart::Fill - Base Fill Role
 
+=head1 SYNOPSIS
+
+  package NewFillType;
+  use Moose;
+
+  with 'Google::Chart::Fill';
+
+  no Moose;
+
+  sub parameter_value { ... }
+
 =cut

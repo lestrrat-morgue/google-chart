@@ -36,8 +36,23 @@ __END__
 
 Google::Chart::Fill::Solid - Apply Solid Fill
 
-=head1 METHODS
+=head1 SYNOPSIS
 
-=head2 parameter_value
+  use Google::Chart;
+  Google::Chart->new(
+    fill => {
+      args => {
+        color => "ffccff",
+        target => "bg",
+      }
+    }
+  );
+
+  Google::Chart->new(
+    fill => Google::Chart::Fill::Solid->new(
+      color => "ffcff",
+      target => "bg"
+    )
+  );
 
 =cut
