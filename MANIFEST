@@ -8,8 +8,8 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-inc/Test/Compile.pm
 inc/Test/More.pm
+inc/Test/UseAllModules.pm
 lib/Google/Chart.pm
 lib/Google/Chart/Axis.pm
 lib/Google/Chart/Axis/Item.pm

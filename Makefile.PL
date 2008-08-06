@@ -32,7 +32,7 @@ requires 'URI::Escape';
 requires 'Scalar::Util';
 
 test_requires 'Test::More';
-test_requires 'Test::Compile';
+test_requires 'Test::UseAllModules';
 
 auto_include;
 WriteAll;
