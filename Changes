@@ -1,6 +1,9 @@
 Changes
 ======
 
+0.05001 - 06 Aug 2008
+  * Attempt to fix tests by using Test::UseAllModules (rt #38233)
+
 0.05000 - 29 Jul 2008
   * Release new version. Please be careful as there are MANY backwards
     incompatible changes
