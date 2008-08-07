@@ -15,7 +15,7 @@ installing this *WILL* break your code if you have something that depends on it.
 
 Are you sure you want to continue? [y/N]
 EOM
-    if ($y_n !~ /^y(?:es)$/i) {
+    if ($y_n !~ /^y(?:es)?$/i) {
         exit 0;
     }
 }
