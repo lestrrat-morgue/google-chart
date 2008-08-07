@@ -1,6 +1,10 @@
 Changes
 ======
 
+0.05002 - 06 Aug 2008
+  * Fix stupid mistake in Makefile.PL to allow a simple "y" for
+    prompted question
+
 0.05001 - 06 Aug 2008
   * Attempt to fix tests by using Test::UseAllModules (rt #38233)
 

@@ -19,7 +19,7 @@ our $USER_AGENT;
 
 use constant BASE_URI => URI->new("http://chart.apis.google.com/chart");
 
-our $VERSION   = '0.05001';
+our $VERSION   = '0.05002';
 our $AUTHORITY = 'cpan:DMAKI';
 
 my %COMPONENTS = (
