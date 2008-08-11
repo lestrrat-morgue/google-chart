@@ -42,7 +42,7 @@ BEGIN
         type => {
             module => "Bar",
             args => {
-                colored => 1,
+                stacked => 0,
                 orientation => 'horizontal'
             }
         },

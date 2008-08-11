@@ -8,11 +8,11 @@ with 'Google::Chart::Type::Simple';
 
 enum 'Google::Chart::Type::Bar::Orientation' => qw(horizontal vertical);
 
-has 'colored' => (
+has 'stacked' => (
     is => 'rw',
     isa => 'Bool',
     required => 1,
-    default => 0,
+    default => 1,
 );
 
 has 'orientation' => (
@@ -31,7 +31,7 @@ sub parameter_value {
 
     return sprintf( 'b%s%s', 
         $self->orientation eq 'vertical' ? 'v' : 'h',
-        $self->colored                   ? 'g' : 's'
+        $self->stacked                   ? 's' : 'g'
     );
 }
 
