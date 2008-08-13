@@ -1,6 +1,9 @@
 Changes
 ======
 
+0.05003 - 13 Aug 2008
+  * Fix semantics for Bar chart (Nobuo Danjou)
+
 0.05002 - 06 Aug 2008
   * Fix stupid mistake in Makefile.PL to allow a simple "y" for
     prompted question
