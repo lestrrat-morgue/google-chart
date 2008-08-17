@@ -1,5 +1,5 @@
 use strict;
-use Test::More (tests => 8);
+use Test::More (tests => 11);
 use Test::Exception;
 
 BEGIN
@@ -33,6 +33,22 @@ BEGIN
     my $query = $data->as_query;
     diag($query);
     is( $query, "chd=e%3AAbAgAjVVqq%2CqqVVAjAgAb" );
+}
+{
+    my $data = Google::Chart::Data::Extended->new(
+        max_value => 150,
+        min_value => -50,
+        dataset => [
+            [ -10, -40, 10, 70, 100 ],
+            [ 100, 50, -0.5, 2, -35.7 ],
+        ],
+    );
+
+    ok($data);
+    isa_ok($data, "Google::Chart::Data::Extended");
+    my $query = $data->as_query;
+    diag($query);
+    is( $query, "chd=e%3AMzDMTMmZv.%2Cv.f.P1QoEk");
 }
 
 {

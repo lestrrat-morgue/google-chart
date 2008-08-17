@@ -4,6 +4,7 @@ package Google::Chart;
 use Moose;
 use Google::Chart::Axis;
 use Google::Chart::Legend;
+use Google::Chart::Grid;
 use Google::Chart::Color;
 use Google::Chart::Data;
 use Google::Chart::Size;
@@ -42,6 +43,11 @@ my %COMPONENTS = (
     legend => {
         is       => 'rw',
         does     => 'Google::Chart::Legend',
+        coerce   => 1,
+    },
+    grid => {
+        is       => 'rw',
+        isa     => 'Google::Chart::Grid',
         coerce   => 1,
     },
     size => {
