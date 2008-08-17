@@ -50,12 +50,7 @@ no Moose;
 
 sub parameter_value {
     my $self = shift;
-    return join(',', 
-        $self->x_step_size,
-        $self->y_step_size,
-        $self->line_length,
-        $self->blank_length,
-    );
+    return join(',', map { $self->$_ } qw(x_step_size y_step_size line_length blank_length));
 }
 
 1;

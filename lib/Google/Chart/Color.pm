@@ -27,7 +27,7 @@ coerce 'Google::Chart::Color'
 
 subtype 'Google::Chart::Color::Data'
     => as 'Str'
-    => where { /^[a-f0-9]{6}/i }
+    => where { /^[a-f0-9]{6}$/i }
 ;
 
 subtype 'Google::Chart::Color::DataList'
