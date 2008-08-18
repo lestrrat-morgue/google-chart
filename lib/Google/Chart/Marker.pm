@@ -104,7 +104,9 @@ has 'color' => (
     is => 'rw',
     isa => 'Google::Chart::Color::Data',
     required => 1,
-    default => '333333',
+    # XXX - Hack (for some reason moose didn't like a plain '000000')
+    # will investigate later
+    default => sub { return '000000' },
 );
 
 has 'dataset' => (

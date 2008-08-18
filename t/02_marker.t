@@ -11,7 +11,7 @@ BEGIN
     ok($marker);
     isa_ok($marker, "Google::Chart::Marker");
 
-    is( $marker->as_query, "chm=o%2C333333%2C0%2C-1%2C5%2C0" );
+    is( $marker->as_query, "chm=o%2C000000%2C0%2C-1%2C5%2C0" );
 }
 
 {
