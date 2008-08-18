@@ -28,7 +28,7 @@ coerce 'Google::Chart::Color'
 subtype 'Google::Chart::Color::Data'
     => as 'Str'
     => where { /^[a-f0-9]{6}$/i }
-    => message { "value is not a valie hexadecimal value" }
+    => message { "value '$_' is not a valid hexadecimal value" }
 ;
 
 subtype 'Google::Chart::Color::DataList'
