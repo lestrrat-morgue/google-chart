@@ -20,6 +20,7 @@ has 'markerset' => (
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
+no Moose::Util::TypeConstraints;
 
 sub BUILDARGS {
     my $self = shift;
@@ -43,7 +44,7 @@ sub BUILDARGS {
     @markerargs = ( {} ) unless @markerargs;
 
     foreach my $marker ( @markerargs ) {
-        if (! blessed $marker) {
+        if (! Scalar::Util::blessed $marker) {
             $marker = Google::Chart::Marker::Item->new($marker)
         }
         push @markerset, $marker;
@@ -140,6 +141,7 @@ has 'priority' => (
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
+no Moose::Util::TypeConstraints;
 
 sub as_string {
     my $self = shift;

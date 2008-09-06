@@ -22,6 +22,7 @@ has 'target' => (
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
+no Moose::Util::TypeConstraints;
 
 sub parameter_value {
     my $self = shift;

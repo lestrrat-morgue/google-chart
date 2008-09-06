@@ -47,7 +47,7 @@ sub BUILDARGS {
     }
 
     foreach my $dataset ( @dataargs ) {
-        if (! blessed $dataset) {
+        if (! Scalar::Util::blessed $dataset) {
             $dataset = Google::Chart::Data::Extended::DataSet->new(data => $dataset)
         }
         push @dataset, $dataset;
@@ -82,6 +82,7 @@ has 'data' => (
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
+no Moose::Util::TypeConstraints;
 
 my @map = ('A'..'Z', 'a'..'z', 0..9, '-', '.');
 

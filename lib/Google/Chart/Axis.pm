@@ -4,7 +4,6 @@ package Google::Chart::Axis;
 use Moose;
 use Moose::Util::TypeConstraints;
 use Google::Chart::Axis::Item;
-use URI::Escape;
 
 with 'Google::Chart::QueryComponent';
 
@@ -40,6 +39,7 @@ has 'axes' => (
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
+no Moose::Util::TypeConstraints;
 
 sub as_query {
     my $self = shift;

@@ -56,6 +56,7 @@ has 'position' => (
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
+no Moose::Util::TypeConstraints;
 
 sub as_query {
     my $self = shift;

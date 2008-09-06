@@ -1,7 +1,9 @@
 # $Id$
 
 package Google::Chart::Types;
-use Moose;
+use strict;
+use warnings;
+use Carp qw(confess);
 use Moose::Util::TypeConstraints;
 use Sub::Exporter -setup => {
     exports => [ qw(hash_coercion) ]
@@ -83,7 +85,7 @@ sub hash_coercion {
     ;
 }
 
-no Moose;
+no Moose::Util::TypeConstraints;
 
 1;
 

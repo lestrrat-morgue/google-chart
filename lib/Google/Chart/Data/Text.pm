@@ -33,7 +33,7 @@ sub BUILDARGS {
     }
 
     foreach my $dataset ( @dataargs ) {
-        if (! blessed $dataset) {
+        if (! Scalar::Util::blessed $dataset) {
             $dataset = Google::Chart::Data::Text::DataSet->new(data => $dataset)
         }
         push @dataset, $dataset;
@@ -70,6 +70,7 @@ has 'data' => (
 __PACKAGE__->meta->make_immutable;
     
 no Moose;
+no Moose::Util::TypeConstraints;
 
 sub as_string {
     my $self = shift;

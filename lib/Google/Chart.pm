@@ -16,7 +16,6 @@ use overload
     '""' => \&as_uri,
     fallback => 1,
 ;
-our $USER_AGENT;
 
 use constant BASE_URI => URI->new("http://chart.apis.google.com/chart");
 
@@ -87,7 +86,9 @@ has 'ua' => (
     isa      => 'LWP::UserAgent',
     required => 1,
     lazy     => 1,
-    default  => sub { $USER_AGENT ||= LWP::UserAgent->new() }
+    default  => sub {
+        LWP::UserAgent->new(agent => "perl/Google-Chart-$VERSION")
+    }
 );
 
 __PACKAGE__->meta->make_immutable;
