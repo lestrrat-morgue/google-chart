@@ -1,6 +1,10 @@
 Changes
 ======
 
+0.05004 - 
+  * Add Grid chart (Nobuo Danjou)
+  * Make it possible to work with negative values (Nobuo Danjou)
+
 0.05003 - 13 Aug 2008
   * Fix semantics for Bar chart (Nobuo Danjou)
 
