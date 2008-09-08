@@ -3,7 +3,7 @@
 package Google::Chart::Types;
 use strict;
 use warnings;
-use Carp qw(confess);
+use Carp ();
 use Moose::Util::TypeConstraints;
 use Sub::Exporter -setup => {
     exports => [ qw(hash_coercion) ]
@@ -18,7 +18,7 @@ sub hash_coercion {
     return sub {
         my $h = $_;
         my $module = $h->{module} || $default ||
-            confess "No module name provided for coercion";
+            Carp::confess("No module name provided for coercion");
         if ($module !~ s/^\+//) {
             $module = join('::', $prefix, $module);
         }

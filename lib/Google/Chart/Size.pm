@@ -4,6 +4,7 @@ package Google::Chart::Size;
 use Moose;
 use Moose::Util::TypeConstraints;
 use Google::Chart::Types qw(hash_coercion);
+use Carp();
 
 use constant parameter_name => 'chs';
 
@@ -13,7 +14,7 @@ coerce 'Google::Chart::Size'
     => from 'Str'
     => via {
         if (! /^(\d+)x(\d+)$/) {
-            confess "Could not parse $_ as size";
+            Carp::confess("Could not parse $_ as size");
         }
 
         return Google::Chart::Size->new(width => $1, height => $2);
