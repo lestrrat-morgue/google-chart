@@ -1,9 +1,12 @@
 Changes
 ======
 
-0.05004 - 
+0.05004 - 08 Sep 200
   * Add Grid chart (Nobuo Danjou)
   * Make it possible to work with negative values (Nobuo Danjou)
+  * Support multiple markers (Nobuo Danjou)
+  * Recent versions of Moose (properly) unimport blessed() and confess(), 
+    which breaks my code depending on it.
 
 0.05003 - 13 Aug 2008
   * Fix semantics for Bar chart (Nobuo Danjou)
