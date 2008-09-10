@@ -3,6 +3,7 @@
 package Google::Chart::Type::QRcode;
 use Moose;
 use Moose::Util::TypeConstraints;
+use Encode ();
 
 enum 'Google::Chart::Type::QRcode::Encoding' => qw(shift_jis utf-8 iso-8859-1);
 enum 'Google::Chart::Type::QRcode::ECLevel' => qw(L M Q H);
@@ -50,8 +51,9 @@ no Moose::Util::TypeConstraints;
 sub as_query {
     my $self = shift;
     my %data = (
-        cht => 'qr',
-        chl => $self->text,
+        cht  => 'qr',
+        chl  => Encode::is_utf8($self->text) ?
+            Encode::decode_utf8($self->text) : $self->text,
         choe => $self->encoding,
         chld => $self->eclevel || $self->margin ? 
             join( '|', $self->eclevel || '', $self->margin || '') : ''
