@@ -8,7 +8,6 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-inc/Test/More.pm
 inc/Test/UseAllModules.pm
 lib/Google/Chart.pm
 lib/Google/Chart/Axis.pm
@@ -23,6 +22,7 @@ lib/Google/Chart/Fill.pm
 lib/Google/Chart/Fill/LinearGradient.pm
 lib/Google/Chart/Fill/LinearStripes.pm
 lib/Google/Chart/Fill/Solid.pm
+lib/Google/Chart/Grid.pm
 lib/Google/Chart/Legend.pm
 lib/Google/Chart/Marker.pm
 lib/Google/Chart/QueryComponent.pm
@@ -50,6 +50,7 @@ t/10_text.t
 t/11_extended.t
 t/20_color.t
 t/21_legend.t
+t/22_grid.t
 t/50_line.t
 t/51_bar.t
 t/52_pie.t
@@ -58,3 +59,4 @@ t/60_axis.t
 t/61_fill.t
 t/99-pod-coverage.t
 t/99-pod.t
+t/foo.png
