@@ -1,7 +1,12 @@
 Changes
 ======
 
-0.05004 - 08 Sep 200
+0.05005 - 10 Sep 2008
+  * Switch to using auto_include_deps, which seems to fix rt #39103
+  * Attempt to fix garbled UTF-8 encoding when UTF-8 encoded strings are
+    passed to QRcode.pm (reported by gugod)
+
+0.05004 - 08 Sep 2008
   * Add Grid chart (Nobuo Danjou)
   * Make it possible to work with negative values (Nobuo Danjou)
   * Support multiple markers (Nobuo Danjou)

@@ -1,6 +1,7 @@
 # $Id$
 
 package Google::Chart;
+use 5.008;
 use Moose;
 use Google::Chart::Axis;
 use Google::Chart::Legend;
@@ -19,7 +20,7 @@ use overload
 
 use constant BASE_URI => URI->new("http://chart.apis.google.com/chart");
 
-our $VERSION   = '0.05004';
+our $VERSION   = '0.05005';
 our $AUTHORITY = 'cpan:DMAKI';
 
 my %COMPONENTS = (
