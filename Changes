@@ -1,6 +1,10 @@
 Changes
 ======
 
+0.05005 - 16 Sep 2008
+  * Fix rt #39317 by allowing parameter coercion to accept a plain
+    hashref (as the synopsis says it does).
+
 0.05005 - 10 Sep 2008
   * Switch to using auto_include_deps, which seems to fix rt #39103
   * Attempt to fix garbled UTF-8 encoding when UTF-8 encoded strings are
