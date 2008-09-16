@@ -23,7 +23,16 @@ coerce 'Google::Chart::Size'
 
 coerce 'Google::Chart::Size'
     => from 'HashRef'
-    => hash_coercion( prefix => 'Google::Chart::Size', default => '+Google::Chart::Size' )
+    => via { 
+        my $h = $_;
+
+        my ($width, $height) = ($h->{args}) ?
+            ($h->{args}->{width}, $h->{args}->{height}) :
+            ($h->{width}, $h->{height})
+        ;
+
+        return Google::Chart::Size->new( width => $width, height => $height );
+    }
 ;
 
 has 'width' => (
