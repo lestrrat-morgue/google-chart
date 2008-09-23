@@ -20,7 +20,7 @@ use overload
 
 use constant BASE_URI => URI->new("http://chart.apis.google.com/chart");
 
-our $VERSION   = '0.05006';
+our $VERSION   = '0.05007';
 our $AUTHORITY = 'cpan:DMAKI';
 
 my %COMPONENTS = (
