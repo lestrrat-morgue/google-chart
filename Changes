@@ -1,7 +1,7 @@
 Changes
 ======
 
-0.05005 - 16 Sep 2008
+0.05006 - 16 Sep 2008
   * Fix rt #39317 by allowing parameter coercion to accept a plain
     hashref (as the synopsis says it does).
 

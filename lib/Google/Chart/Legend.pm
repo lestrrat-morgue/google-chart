@@ -81,4 +81,8 @@ __END__
 
 Google::Chart::Legend - Google::Chart Legend
 
+=head1 METHODS
+
+=head2 as_query
+
 =cut
