@@ -1,6 +1,9 @@
 Changes
 ======
 
+0.05008 - 09 Oct 2008
+  * Fix doc/implementation mismatch rt #39889
+
 0.05007 - 23 Sep 2008
   * No code change
   * Fix doc problem
