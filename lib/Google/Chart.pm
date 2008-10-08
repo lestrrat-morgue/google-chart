@@ -136,7 +136,13 @@ sub render {
 }
 
 sub render_to_file {
-    my ($self, $filename) = @_;
+    # XXX - This is done like this because there was a document-implementation
+    # mismatch. In the future, single argument form should be deprecated
+    my $self = shift;
+    my $filename = (@_ > 1) ? do {
+        my %args = @_;
+        $args{filename};
+    }: $_[0];
 
     open my $fh, '>', $filename or die "can't open $filename for writing: $!\n";
     print $fh $self->render;

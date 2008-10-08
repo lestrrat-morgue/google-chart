@@ -1,5 +1,5 @@
 use strict;
-use Test::More (tests => 10);
+use Test::More (tests => 11);
 use Test::Exception;
 
 BEGIN
@@ -31,8 +31,9 @@ BEGIN
     my $filename = 't/foo.png';
 
     unlink $filename;
+    ok(! -f $filename );
 
-    lives_ok { $chart->render_to_file( $filename ) } "render_to_file($filename) should work";
+    lives_ok { $chart->render_to_file( filename => $filename ) } "render_to_file($filename) should work";
 
     ok(-f $filename );
 }
