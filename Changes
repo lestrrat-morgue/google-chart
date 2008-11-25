@@ -1,6 +1,9 @@
 Changes
 ======
 
+0.05009 - 25 Oct 2008
+  * Apply patch from Richard Faasen to read set env_proxy by default 
+
 0.05008 - 09 Oct 2008
   * Fix doc/implementation mismatch rt #39889
 
