@@ -87,14 +87,21 @@ has 'ua' => (
     isa      => 'LWP::UserAgent',
     required => 1,
     lazy     => 1,
-    default  => sub {
-        LWP::UserAgent->new(agent => "perl/Google-Chart-$VERSION")
-    }
+    builder  => 'build_ua',
 );
 
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
+
+sub build_ua {
+    my $self = shift;
+    my $ua = LWP::UserAgent->new(
+        agent => "perl/Google-Chart-$VERSION",
+        env_proxy => exists $ENV{GOOGLE_CHART_ENV_PROXY} ? $ENV{GOOGLE_CHART_ENV_PROXY} : 1,
+    );
+    return $ua;
+}
 
 # XXX 
 # We need a trigger function that gets called whenever a component
@@ -184,6 +191,8 @@ backwards compatibility.
 
 =head2 new(%args)
 
+Creates a new Google::Chart instance. 
+
 =over 4
 
 =item type
@@ -243,6 +252,8 @@ Specifies the axis labels and such that go on line and bar charts
 
 =item fill
 
+=item
+
 =back
 
 =head2 as_uri()
@@ -252,6 +263,14 @@ Returns the URI that represents the chart object.
 =head2 render()
 
 Generates the chart image, and returns the contents.
+This method internally uses LWP::UserAgent. If you want to customize LWP settings, create an instance of LWP::UserAgent and pass it in the constructor
+
+    Google::Chart->new(
+        ....,
+        ua => LWP::UserAgent->new( %your_args )
+    );
+
+Proxy settings are automatically read via LWP::UserAgent->env_proxy(), unless you specify GOOGLE_CHART_ENV_PROXY environment variable to 0
 
 =head2 render_to_file( %args )
 
