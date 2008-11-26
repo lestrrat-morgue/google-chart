@@ -1,6 +1,11 @@
 Changes
 ======
 
+0.05010 - 26 Oct 2008
+  * Fix tests to accomodate for stricter LWP::UserAgent
+  * Don't fail tests when you don't have network connectivity
+  * Make _build_ua() eplicitly private
+
 0.05009 - 25 Oct 2008
   * Apply patch from Richard Faasen to read set env_proxy by default 
 
