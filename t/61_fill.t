@@ -41,7 +41,7 @@ BEGIN
     is( $chart->size->height, 300 );
 
     my $uri = $chart->as_uri;
-    diag $uri;
+    note $uri;
     my %h = $uri->query_form;
     is( $h{cht}, "lc" );
     is( $h{chs}, "400x300" );

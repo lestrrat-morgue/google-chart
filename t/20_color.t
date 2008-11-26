@@ -16,7 +16,7 @@ BEGIN
     ok($color);
     isa_ok($color, "Google::Chart::Color");
     my $query = $color->as_query;
-    diag($query);
+    note($query);
     is( $query, "chco=000000%2Cff0000" );
 }
 {
@@ -27,7 +27,7 @@ BEGIN
     ok($color);
     isa_ok($color, "Google::Chart::Color");
     my $query = $color->as_query;
-    diag($query);
+    note($query);
     is( $query, "chco=000000" );
 }
 
@@ -47,7 +47,7 @@ BEGIN
     ok($graph);
     isa_ok($graph, 'Google::Chart');
     my $uri = $graph->as_uri;
-    diag ($uri);
+    note ($uri);
     my %h = $uri->query_form;
     is( $h{chco}, 'ff0000' );
 }
@@ -71,7 +71,7 @@ BEGIN
     ok($graph);
     isa_ok($graph, 'Google::Chart');
     my $uri = $graph->as_uri;
-    diag ($uri);
+    note ($uri);
     my %h = $uri->query_form;
     is( $h{chco}, 'ff0000,00ffff' );
 }

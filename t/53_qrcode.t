@@ -24,7 +24,7 @@ BEGIN
     isa_ok( $chart->type, "Google::Chart::Type::QRcode" );
 
     my $uri = $chart->as_uri;
-    diag $uri;
+    note $uri;
     my %h = $uri->query_form;
     is( $h{cht}, "qr" );
 }
@@ -45,7 +45,7 @@ BEGIN
     isa_ok( $chart->type, "Google::Chart::Type::QRcode" );
 
     my $uri = $chart->as_uri;
-    diag $uri;
+    note $uri;
     my %h = $uri->query_form;
     is( $h{cht}, "qr" );
 }

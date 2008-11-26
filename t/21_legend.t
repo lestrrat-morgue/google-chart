@@ -16,7 +16,7 @@ BEGIN
     ok($color);
     isa_ok($color, "Google::Chart::Legend");
     my $query = $color->as_query;
-    diag($query);
+    note($query);
     is( $query, "chdl=data1%7Cdata2" );
 }
 {
@@ -27,7 +27,7 @@ BEGIN
     ok($color);
     isa_ok($color, "Google::Chart::Legend");
     my $query = $color->as_query;
-    diag($query);
+    note($query);
     is( $query, "chdl=data1" );
 }
 
@@ -52,7 +52,7 @@ BEGIN
     ok($graph);
     isa_ok($graph, 'Google::Chart');
     my $uri = $graph->as_uri;
-    diag ($uri);
+    note ($uri);
     my %h = $uri->query_form;
     is( $h{chdl}, 'data1' );
 }
@@ -78,7 +78,7 @@ BEGIN
     ok($graph);
     isa_ok($graph, 'Google::Chart');
     my $uri = $graph->as_uri;
-    diag ($uri);
+    note ($uri);
     my %h = $uri->query_form;
     is( $h{chdl}, 'data1|data2' );
 }

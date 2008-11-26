@@ -13,7 +13,7 @@ BEGIN
     ok($data);
     isa_ok($data, "Google::Chart::Data::Text");
     my $query = $data->as_query;
-    diag($query);
+    note($query);
     is( $query, "chd=t%3A1.0%2C1.2%2C1.3%2C50.0%2C100.0" );
 }
 
@@ -28,7 +28,7 @@ BEGIN
     ok($data);
     isa_ok($data, "Google::Chart::Data::Text");
     my $query = $data->as_query;
-    diag($query);
+    note($query);
     is( $query, "chd=t%3A1.0%2C1.2%2C1.3%2C50.0%2C100.0%7C100.0%2C50.0%2C1.3%2C1.2%2C1.0" );
 }
 

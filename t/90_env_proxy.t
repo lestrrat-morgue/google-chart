@@ -6,8 +6,14 @@ BEGIN {
     use_ok("Google::Chart");
 }
 
+note "LWP::UserAgent: $LWP::UserAgent::VERSION\n";
+
 {
-    local $ENV{HTTP_PROXY} = '';
+    # self note: LWP::UserAgent 5.819 allowed $ENV{HTTP_PROXY} = '',
+    # but I got a failure report for LWP::UserAgent 5.821
+
+    local %ENV;
+    delete $ENV{HTTP_PROXY};
     my $g = Google::Chart->new(type => 'Line');
     ok(! $g->ua->proxy('http'), "http proxy should not be set");
 }

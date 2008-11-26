@@ -16,7 +16,7 @@ BEGIN
     ok($data);
     isa_ok($data, "Google::Chart::Data::Extended");
     my $query = $data->as_query;
-    diag($query);
+    note($query);
     is( $query, "chd=e%3AAbAgAjVVqq" );
 }
 {
@@ -31,7 +31,7 @@ BEGIN
     ok($data);
     isa_ok($data, "Google::Chart::Data::Extended");
     my $query = $data->as_query;
-    diag($query);
+    note($query);
     is( $query, "chd=e%3AAbAgAjVVqq%2CqqVVAjAgAb" );
 }
 {
@@ -47,7 +47,7 @@ BEGIN
     ok($data);
     isa_ok($data, "Google::Chart::Data::Extended");
     my $query = $data->as_query;
-    diag($query);
+    note($query);
     is( $query, "chd=e%3AMzDMTMmZv.%2Cv.f.P1QoEk");
 }
 

@@ -1,11 +1,8 @@
 use strict;
-use Test::More (tests => 11);
+use Test::More (tests => 10);
 use Test::Exception;
-
-BEGIN
-{
-    use_ok("Google::Chart");
-}
+use lib "t/lib";
+use Test::Google::Chart qw(have_connection);
 
 { # Line
     my $chart = Google::Chart->new(
@@ -23,18 +20,24 @@ BEGIN
     is( $chart->size->height, 300 );
 
     my $uri = $chart->as_uri;
-    diag $uri;
+    note $uri;
     my %h = $uri->query_form;
     is( $h{cht}, "lc" );
     is( $h{chs}, "400x300" );
 
-    my $filename = 't/foo.png';
+    SKIP: {
+        if (! have_connection()) {
+            skip( "No connection to google charts API", 3 );
+        }
 
-    unlink $filename;
-    ok(! -f $filename );
+        my $filename = 't/foo.png';
 
-    lives_ok { $chart->render_to_file( filename => $filename ) } "render_to_file($filename) should work";
+        unlink $filename;
+        ok(! -f $filename );
 
-    ok(-f $filename );
+        lives_ok { $chart->render_to_file( filename => $filename ) } "render_to_file($filename) should work";
+
+        ok(-f $filename );
+    }
 }
 

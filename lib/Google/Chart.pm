@@ -83,18 +83,17 @@ my @COMPONENTS = keys %COMPONENTS;
 }
 
 has 'ua' => (
-    is       => 'rw',
-    isa      => 'LWP::UserAgent',
-    required => 1,
-    lazy     => 1,
-    builder  => 'build_ua',
+    is         => 'rw',
+    isa        => 'LWP::UserAgent',
+    required   => 1,
+    lazy_build => 1,
 );
 
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
 
-sub build_ua {
+sub _build_ua {
     my $self = shift;
     my $ua = LWP::UserAgent->new(
         agent => "perl/Google-Chart-$VERSION",

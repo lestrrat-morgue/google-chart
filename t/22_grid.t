@@ -17,7 +17,7 @@ BEGIN
     ok($grid);
     isa_ok($grid, "Google::Chart::Grid");
     my $query = $grid->as_query;
-    diag($query);
+    note($query);
     is( $query, "chg=20%2C40%2C1%2C1" );
 }
 {
@@ -52,7 +52,7 @@ BEGIN
     ok($graph);
     isa_ok($graph, 'Google::Chart');
     my $uri = $graph->as_uri;
-    diag ($uri);
+    note ($uri);
     my %h = $uri->query_form;
     is( $h{chg}, '50,33.3,1,1' );
 }
