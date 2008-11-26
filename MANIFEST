@@ -57,6 +57,8 @@ t/52_pie.t
 t/53_qrcode.t
 t/60_axis.t
 t/61_fill.t
+t/90_env_proxy.t
 t/99-pod-coverage.t
 t/99-pod.t
 t/foo.png
+t/lib/Test/Google/Chart.pm
