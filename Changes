@@ -1,6 +1,10 @@
 Changes
 ======
 
+0.05011 - 08 Dec 2008
+  * Make sure to set binmode() for render_to_file(), which caused Win32
+    people to not be able to read the rendered files. Reported by Ron Pero.
+
 0.05010 - 26 Oct 2008
   * Fix tests to accomodate for stricter LWP::UserAgent
   * Don't fail tests when you don't have network connectivity
