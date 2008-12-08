@@ -151,6 +151,7 @@ sub render_to_file {
     }: $_[0];
 
     open my $fh, '>', $filename or die "can't open $filename for writing: $!\n";
+    binmode($fh); # be nice to windows
     print $fh $self->render;
     close $fh or die "can't close $filename: $!\n";
 }
