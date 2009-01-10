@@ -4,6 +4,10 @@ package Google::Chart::Data::Simple;
 use Moose;
 use Scalar::Util qw(looks_like_number);
 
+with 'Google::Chart::Data';
+
+__PACKAGE__->meta->make_immutable;
+
 no Moose;
 
 my @map = ('A'..'Z', 'a'..'z', 0..9);
