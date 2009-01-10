@@ -1,6 +1,9 @@
 Changes
 ======
 
+0.05012 - 10 Jan 2009
+  * Google::Chart::Data::Simple was missing a 'with()' call. 
+
 0.05011 - 08 Dec 2008
   * Make sure to set binmode() for render_to_file(), which caused Win32
     people to not be able to read the rendered files. Reported by Ron Pero.
