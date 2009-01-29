@@ -1,6 +1,9 @@
 Changes
 ======
 
+0.05013 - 30 Jan 2009
+  * Explicitly require Test::More 0.82 (rt #42907)
+
 0.05012 - 10 Jan 2009
   * Google::Chart::Data::Simple was missing a 'with()' call. 
 
