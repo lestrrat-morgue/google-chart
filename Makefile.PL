@@ -31,7 +31,7 @@ requires 'URI';
 requires 'URI::Escape';
 requires 'Scalar::Util';
 
-test_requires 'Test::More';
+test_requires 'Test::More' => '0.82';
 test_requires 'Test::UseAllModules';
 
 auto_include_deps;

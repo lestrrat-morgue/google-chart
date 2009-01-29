@@ -62,3 +62,4 @@ t/99-pod-coverage.t
 t/99-pod.t
 t/foo.png
 t/lib/Test/Google/Chart.pm
+t/rt42260.t
