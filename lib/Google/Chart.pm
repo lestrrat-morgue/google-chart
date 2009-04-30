@@ -11,6 +11,7 @@ use Google::Chart::Data;
 use Google::Chart::Size;
 use Google::Chart::Type;
 use Google::Chart::Types;
+use Google::Chart::Title;
 use LWP::UserAgent;
 use URI;
 use overload
@@ -72,7 +73,12 @@ my %COMPONENTS = (
         is       => 'rw',
         does     => 'Google::Chart::Fill',
         coerce   => 1
-    }
+    },
+    title => {
+        is       => 'rw',
+        does     => 'Google::Chart::Title',
+        coerce   => 1
+    },
 );
 my @COMPONENTS = keys %COMPONENTS;
 

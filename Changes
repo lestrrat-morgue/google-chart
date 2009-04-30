@@ -3,6 +3,7 @@ Changes
 
 0.05014 - (not yet released)
   (ms) Added support for XY type graphs
+  (ms) Added Google::Chart::Title support in Google::Chart
 
 0.05013 - 30 Jan 2009
   * Explicitly require Test::More 0.82 (rt #42907)
