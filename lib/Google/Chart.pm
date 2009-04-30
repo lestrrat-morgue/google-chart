@@ -12,6 +12,7 @@ use Google::Chart::Size;
 use Google::Chart::Type;
 use Google::Chart::Types;
 use Google::Chart::Title;
+use Google::Chart::Margin;
 use LWP::UserAgent;
 use URI;
 use overload
@@ -77,6 +78,11 @@ my %COMPONENTS = (
     title => {
         is       => 'rw',
         does     => 'Google::Chart::Title',
+        coerce   => 1
+    },
+    margin => {
+        is       => 'rw',
+        does     => 'Google::Chart::Margin',
         coerce   => 1
     },
 );
