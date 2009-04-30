@@ -92,6 +92,7 @@ enum 'Google::Chart::Marker::Item::Type' => (
     'V', # vertical line to the top of the chart
     'h', # horizontal line across
     'x', # x shape
+    'D', # Line and bar chart line styles
 );
 
 has 'marker_type' => (

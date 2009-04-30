@@ -7,6 +7,8 @@ Changes
   (ms) Added Google::Chart::Margin support
   (ms) Google::Chart::Fill::LinearGradient now supports transitions from
        color1/offset1 to color2/offset2 
+  (ms) Added 'D' option in Google::Chart::Marker for line and bar chart 
+       line styles
 
 0.05013 - 30 Jan 2009
   * Explicitly require Test::More 0.82 (rt #42907)
