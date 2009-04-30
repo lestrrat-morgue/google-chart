@@ -27,7 +27,8 @@ BEGIN
             args   => {
                 target => "bc",
                 angle  => 0,
-                color  => "ffccff",
+                color1  => "ffccff",
+                color2  => "ffffff",
             }
         },
     );
