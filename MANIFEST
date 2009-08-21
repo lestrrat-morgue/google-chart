@@ -24,6 +24,7 @@ lib/Google/Chart/Fill/LinearStripes.pm
 lib/Google/Chart/Fill/Solid.pm
 lib/Google/Chart/Grid.pm
 lib/Google/Chart/Legend.pm
+lib/Google/Chart/Margin.pm
 lib/Google/Chart/Marker.pm
 lib/Google/Chart/QueryComponent.pm
 lib/Google/Chart/QueryComponent/Simple.pm
@@ -39,6 +40,7 @@ lib/Google/Chart/Type/ScatterPlot.pm
 lib/Google/Chart/Type/Simple.pm
 lib/Google/Chart/Type/SparkLine.pm
 lib/Google/Chart/Type/Venn.pm
+lib/Google/Chart/Type/XY.pm
 lib/Google/Chart/Types.pm
 Makefile.PL
 MANIFEST			This list of files
