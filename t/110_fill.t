@@ -1,5 +1,5 @@
 use strict;
-use Test::More (tests => 10);
+use Test::More (skip_all => "Unimplemented");
 use Test::Exception;
 
 BEGIN
