@@ -3,6 +3,10 @@ package Google::Chart;
 use Moose;
 use Google::Chart::Axis;
 use Google::Chart::Data;
+use Google::Chart::Encoding::Extended;
+use Google::Chart::Encoding::Simple;
+use Google::Chart::Encoding::Text;
+use Google::Chart::Grid;
 use Google::Chart::Size;
 use Google::Chart::Title;
 use Google::Chart::Types;
@@ -34,6 +38,12 @@ has data => (
     isa      => 'Google::Chart::Data',
     coerce   => 1,
     required => 1
+);
+
+has grid => (
+    is       => 'ro',
+    isa     => 'Google::Chart::Grid',
+    coerce   => 1,
 );
 
 has size => (
@@ -94,7 +104,7 @@ sub as_uri {
 
     my %query;
 
-    foreach my $element (map { $self->$_() } qw(size type data title color axis axis_labels)) {
+    foreach my $element (map { $self->$_() } qw(size type data title color axis axis_labels grid)) {
         next unless defined $element;
         my @params = $element->as_query( $self );
         while (@params) {

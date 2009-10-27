@@ -1,12 +1,10 @@
-# $Id$
 
 package Google::Chart::Grid;
 use Moose;
 use Moose::Util::TypeConstraints;
+use namespace::clean -except => qw(meta);
 
-use constant parameter_name => 'chg';
-
-with 'Google::Chart::QueryComponent::Simple';
+with 'Google::Chart::QueryComponent';
 
 coerce 'Google::Chart::Grid'
     => from 'HashRef'
@@ -16,43 +14,41 @@ coerce 'Google::Chart::Grid'
 ;
 
 
-has 'x_step_size' => (
-    is => 'rw',
+has x_step_size => (
+    is => 'ro',
     isa => 'Num',
     required => 1,
     default => 20,
 );
 
-has 'y_step_size' => (
-    is => 'rw',
+has y_step_size => (
+    is => 'ro',
     isa => 'Num',
     required => 1,
     default => 20,
 );
 
-has 'line_length' => (
-    is => 'rw',
+has line_length => (
+    is => 'ro',
     isa => 'Num',
     required => 1,
     default => 1,
 );
 
-has 'blank_length' => (
-    is => 'rw',
+has blank_length => (
+    is => 'ro',
     isa => 'Num',
     required => 1,
     default => 1,
 );
+
+sub as_query {
+    my $self = shift;
+
+    return (chg => join(',', map { $self->$_ } qw(x_step_size y_step_size line_length blank_length)));
+}
 
 __PACKAGE__->meta->make_immutable;
-
-no Moose;
-no Moose::Util::TypeConstraints;
-
-sub parameter_value {
-    my $self = shift;
-    return join(',', map { $self->$_ } qw(x_step_size y_step_size line_length blank_length));
-}
 
 1;
 
