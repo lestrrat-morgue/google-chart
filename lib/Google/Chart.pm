@@ -16,9 +16,9 @@ use namespace::clean -except => qw(meta);
 our $VERSION = '0.10000';
 
 has axis => (
-    is       => 'ro',
-    isa      => 'Google::Chart::Axis',
-    coerce   => 1
+    is         => 'ro',
+    isa        => 'Google::Chart::Axis',
+    lazy_build => 1,
 );
 
 has axis_labels => (
@@ -72,6 +72,15 @@ has ua => (
     isa        => 'LWP::UserAgent',
     lazy_build => 1,
 );
+
+sub _build_axis {
+    return Google::Chart::Axis->new();
+}
+
+sub add_axis {
+    my $self = shift;
+    $self->axis->add_axes( Google::Chart::Axis::Item->new(@_) );
+}
 
 sub _build_google_chart_uri {
     require URI;
@@ -182,12 +191,16 @@ Google::Chart - Interface to Google Charts API
     Bar => (
       bar_space   => 20,
       bar_width   => 10,
-      data        => [ 1, 2, 3, 4, 5 ],
       group_space => 5,
       orientation => 'horizontal'
       size        => "400x300",
       stacked     => 1, 
     )
+  );
+
+  $chart->add_dataset(
+    color => 'FF0000',
+    data => [ 1, 2, 3, 4, 5 ],
   );
 
   print $chart->as_uri, "\n"; # or simply print $chart, "\n"

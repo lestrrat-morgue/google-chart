@@ -7,20 +7,28 @@ use namespace::clean -except => qw(meta);
 
 with 'Google::Chart::QueryComponent';
 
+has dataset => (
+    is         => 'ro',
+    isa        => 'ArrayRef[Google::Chart::DataSet]',
+    lazy_build => 1,
+);
+
+has dataset_class => (
+    is => 'ro',
+    isa => 'Str',
+    required => 1,
+    lazy_build => 1,
+);
+
 has encoding => (
     is => 'ro',
     does => 'Google::Chart::Encoding',
-    coerce => 1,
-    lazy_build => 1
+    lazy_build => 1,
+    writer => 'set_encoding'
 );
 
-has data => (
-    is       => 'ro',
-    isa      => 'ArrayRef[Google::Chart::DataSet]',
-    coerce   => 1,
-    required => 1,
-);
-
+sub _build_dataset { [] }
+sub _build_dataset_class { 'Google::Chart::DataSet' }
 sub _build_encoding {
     my $self = shift;
     if (! Class::MOP::is_class_loaded('Google::Chart::Encoding::Text')) {
@@ -62,22 +70,40 @@ sub as_query {
     my $self = shift;
 
     my %args = (
-        chd => $self->encoding->encode( $self->data ),
+        chd => $self->encoding->encode( $self->dataset ),
     );
 
+    my @colors;
     my @legends;
-    my $do_legend = 0;
-    foreach my $set (@{$self->data}) {
+    my $dataset = $self->dataset;
+    for my $i (0..$#{$dataset}) {
+        my $set = $dataset->[$i];
         if ($set->has_legend) {
-            $do_legend++;
+            $legends[$i] = $set->legend;
         }
-        push @legends, $set->legend;
+        if ($set->has_color) {
+            $colors[$i] = $set->color;
+        }
     }
 
-    if ($do_legend) {
+    if (@legends) {
         $args{chdl} = join('|', map { defined $_ ? $_ : '' } @legends);
     }
+    if (@colors) {
+        $args{chco} = join(',', map { defined $_ ? $_ : '' } @colors);
+    }
     return %args;
+}
+
+sub add_dataset {
+    my $self = shift;
+
+    my $class = $self->dataset_class;
+    if (! Class::MOP::is_class_loaded($class) ) {
+        Class::MOP::load_class($class);
+    }
+
+    push @{ $self->dataset }, $class->new(@_);
 }
 
 __PACKAGE__->meta->make_immutable();

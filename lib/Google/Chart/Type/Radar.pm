@@ -1,14 +1,28 @@
-# $Id$
 
 package Google::Chart::Type::Radar;
 use Moose;
-use constant parameter_value => 'r';
+use Google::Chart::Data::LineType;
+use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Type::Simple';
+extends 'Google::Chart';
+with 'Google::Chart::WithData';
+
+has use_smooth_line => (
+    is => 'ro',
+    isa => 'Bool',
+    default => 0,
+);
+
+sub _build_data {
+    return Google::Chart::Data::LineType->new();
+}
+
+sub _build_type {
+    my $self = shift;
+    return $self->use_smooth_line ? 'rs' : 'r';
+}
 
 __PACKAGE__->meta->make_immutable;
-
-no Moose;
 
 1;
 

@@ -8,11 +8,17 @@ use namespace::clean -except => qw(meta);
 with 'Google::Chart::QueryComponent';
 
 has axes => (
+    traits => ['Array'],
     is => 'ro',
     isa => 'ArrayRef[Google::Chart::Axis::Item]',
     required => 1,
+    lazy_build => 1,
+    handles => {
+        add_axes => 'push',
+    }
 );
 
+sub _build_axes { [] }
 
 sub as_query {
     my $self = shift;
@@ -34,7 +40,7 @@ sub as_query {
             push @{$query{chxp}}, join(',', "$count:", @label_positions);
         }
         if (my @range = $axis->range) {
-            push @{$query{chxr}}, join(',', "$count:", @range);
+            push @{$query{chxr}}, join(',', $count, @range);
         }
         if (my $style = $axis->style) {
             push @{$query{chxs}}, join(',', $style->color, $style->font_size, $style->alignment);

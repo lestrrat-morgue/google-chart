@@ -1,10 +1,15 @@
 
 package Google::Chart::Type::Line;
 use Moose;
+use Google::Chart::Data::LineType;
 use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart';
 with 'Google::Chart::WithData';
+
+sub _build_data {
+    return Google::Chart::Data::LineType->new();
+}
 
 sub _build_type {
     return 'lc';

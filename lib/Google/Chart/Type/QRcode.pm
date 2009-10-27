@@ -1,9 +1,9 @@
-# $Id$
 
 package Google::Chart::Type::QRcode;
 use Moose;
 use Moose::Util::TypeConstraints;
 use Encode ();
+use namespace::clean -except => qw(meta);
 
 enum 'Google::Chart::Type::QRcode::Encoding' => qw(shift_jis utf-8 iso-8859-1);
 enum 'Google::Chart::Type::QRcode::ECLevel' => qw(L M Q H);
@@ -43,11 +43,6 @@ has 'margin' => (
     isa => 'Num'
 );
 
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
-no Moose::Util::TypeConstraints;
-
 sub as_query {
     my $self = shift;
     my %data = (
@@ -61,6 +56,8 @@ sub as_query {
 
     return %data;
 }
+
+__PACKAGE__->meta->make_immutable();
 
 1;
 
