@@ -1,28 +1,24 @@
-# $Id$
 
 package Google::Chart::Type::Pie;
 use Moose;
 use Moose::Util::TypeConstraints;
+use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Type::Simple';
+extends 'Google::Chart';
 
-has 'pie_type' => (
-    is => 'rw',
+has pie_type => (
+    is => 'ro',
     isa => enum([ qw(2d 3d) ]),
     required => 1,
     default => '2d'
 );
 
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
-no Moose::Util::TypeConstraints;
-
-sub parameter_value {
+sub _build_type {
     my $self = shift;
-
     return $self->pie_type eq '3d' ? 'p3' : 'p';
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 
