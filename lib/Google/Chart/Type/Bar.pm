@@ -74,9 +74,15 @@ Google::Chart::Type::Bar - Google::Chart Bar Type
 
 =head1 SYNOPSIS
 
-  Google::Chart::Bar->new(
-     stacked     => 1,
-     orientation => "horizontal",
+  Google::Chart->create(
+    Bar => (
+      bar_space   => 20,
+      bar_width   => 10,
+      group_space => 5,
+      orientation => 'horizontal'
+      size        => "400x300",
+      stacked     => 1, 
+    )
   );
 
 =cut
