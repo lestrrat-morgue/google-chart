@@ -17,10 +17,10 @@ use URI;
     );
 
     note($g->as_uri);
-    is_deeply( { $uri->query_form }, { $g->as_uri->query_form });
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
 }
 
-{ # bar chart
+{ # bar chart example (1)
 
     my $uri = URI->new("http://chart.apis.google.com/chart?cht=bhs&chs=200x125&chd=s:ello&chco=4d89f9");
 
@@ -28,6 +28,7 @@ use URI;
         Bar => (
             orientation => 'horizontal',
             size => '200x125',
+            stacked => 1,
         )
     );
     $g->data_encoding('Simple');
@@ -36,7 +37,111 @@ use URI;
         data => [ 30, 37, 37, 40 ],
     );
     note($g->as_uri);
-    is_deeply( { $uri->query_form }, { $g->as_uri->query_form });
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
+}
+
+{ # bar chart example (2)
+    my $uri = URI->new("http://chart.apis.google.com/chart?cht=bvs&chs=200x125&chd=t:10.0,50.0,60.0,80.0,40.0|50.0,60.0,100.0,40.0,20.0&chco=4d89f9,c6d9fd&chbh=20");
+
+    my $g = Google::Chart->create(
+        Bar => (
+            bar_width => 20,
+            size => "200x125",
+            stacked => 1,
+        )
+    );
+    $g->add_dataset(
+        color => '4d89f9',
+        data => [ 10, 50, 60, 80, 40 ],
+    );
+    $g->add_dataset(
+        color => 'c6d9fd',
+        data => [ 50, 60, 100, 40, 20 ],
+    );
+
+    note($g->as_uri);
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
+}
+
+TODO: { # bar chart example (3)
+    todo_skip "Text with scaling is not implemented yet", 1;
+    # requires that we have scaling factors for each dataset, but
+    # we don't currently do that.
+
+    my $uri = URI->new("http://chart.apis.google.com/chart?cht=bvs&chs=200x125&chd=t:10,50,60,80,40|50,60,100,40,20&chco=4d89f9,c6d9fd&chbh=20&chds=0,160");
+
+    my $g = Google::Chart->create(
+        Bar => (
+            bar_width => 20,
+            size => '200x125',
+        ),
+    );
+    $g->data_encoding( 'Extended' => ( max_value => 160 ) );
+    $g->add_dataset(
+        color => '4d89f9',
+        data  => [10, 50, 60, 80, 40], 
+    );
+    $g->add_dataset(
+        color => 'c6d9fd',
+        data  => [ 50, 60, 100, 40, 20 ]
+    );
+    note($g->as_uri);
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
+}
+
+{ # bar chart example (4)
+    my $uri = URI->new("http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=s:el,or&chco=4d89f9,c6d9fd");
+
+    my $g = Google::Chart->create(
+        Bar => (
+            orientation => 'horizontal',
+            size => '200x125',
+        )
+    );
+    $g->data_encoding( 'Simple' );
+    $g->add_dataset(
+        color => '4d89f9',
+        data => [ 30, 37 ],
+    );
+    $g->add_dataset(
+        color => 'c6d9fd',
+        data => [ 40, 43 ]
+    );
+    
+    note($g->as_uri);
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
+}
+
+{ # bar chart example (5)
+    my $uri = URI->new("http://chart.apis.google.com/chart?cht=bvg&chs=200x125&chd=s:hello,world&chco=4d89f9,c6d9fd");
+
+    my $g = Google::Chart->create(
+        Bar => (
+            size => '200x125',
+        )
+    );
+    $g->data_encoding( 'Simple' );
+    $g->add_dataset(
+        color => '4d89f9',
+        data => [ 33, 30, 37, 37, 40 ],
+    );
+    $g->add_dataset(
+        color => 'c6d9fd',
+        data => [ 48, 40, 43, 37, 29 ]
+    );
+    
+    note($g->as_uri);
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
+}
+
+TODO: {
+    todo_skip "bar chart (6) unimplemented", 1;
+    my $uri = URI->new("http://chart.apis.google.com/chart?cht=bhs&chs=200x125&chd=s:hello&chco=4d89f9");
+}
+
+TODO: {
+    todo_skip "bar chart (7) unimplemented", 1;
+    my $uri = URI->new("http://chart.apis.google.com/chart?cht=bhs&chs=200x125&chd=s:hello&chbh=10&chco=4d89f9");
 }
 
 { # color example (1)
@@ -70,7 +175,7 @@ use URI;
     );
 
     note($g->as_uri);
-    is_deeply( { $uri->query_form }, { $g->as_uri->query_form });
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
 }
 
 { # color example (2)
@@ -95,7 +200,7 @@ use URI;
     );
 
     note($g->as_uri);
-    is_deeply( { $uri->query_form }, { $g->as_uri->query_form });
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
 }
 
 { # radar example (1)
@@ -111,7 +216,7 @@ use URI;
     );
 
     note($g->as_uri);
-    is_deeply( { $uri->query_form }, { $g->as_uri->query_form }, "radar example (1)");
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form }, "radar example (1)");
 
 }
 
@@ -144,7 +249,7 @@ use URI;
         color => 'FF9900',
     );
     note($g->as_uri);
-    is_deeply( { $uri->query_form }, { $g->as_uri->query_form });
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
 
 }
 
