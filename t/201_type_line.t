@@ -1,8 +1,7 @@
 use strict;
-use Test::More (tests => 10);
-use Test::Exception;
 use lib "t/lib";
-use Test::Google::Chart qw(have_connection);
+use Test::More (tests => 10);
+use Test::Google::Chart qw(test_render);
 
 { # Line
     my $chart = Google::Chart->new(
@@ -25,19 +24,6 @@ use Test::Google::Chart qw(have_connection);
     is( $h{cht}, "lc" );
     is( $h{chs}, "400x300" );
 
-    SKIP: {
-        if (! have_connection()) {
-            skip( "No connection to google charts API", 3 );
-        }
-
-        my $filename = 't/foo.png';
-
-        unlink $filename;
-        ok(! -f $filename );
-
-        lives_ok { $chart->render_to_file( filename => $filename ) } "render_to_file($filename) should work";
-
-        ok(-f $filename );
-    }
+    test_render($chart);
 }
 
