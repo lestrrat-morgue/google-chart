@@ -33,13 +33,6 @@ has color => (
     coerce   => 1,
 );
 
-has data => (
-    is       => 'ro',
-    isa      => 'Google::Chart::Data',
-    coerce   => 1,
-    required => 1
-);
-
 has grid => (
     is       => 'ro',
     isa     => 'Google::Chart::Grid',
@@ -61,10 +54,11 @@ has title => (
 );
 
 has type => (
-    is       => 'ro',
-    does     => 'Google::Chart::Type',
-    coerce   => 1,
-    required => 1
+    init_arg => undef, # should NOT be initialized by callers
+    is => 'ro',
+    isa => 'Str',
+    required => 1,
+    lazy_build => 1,
 );
 
 has google_chart_uri => (
@@ -90,6 +84,8 @@ sub _build_size {
     return Google::Chart::Size->new( width => 400, height => 200 );
 }
 
+sub _build_type { }
+
 sub _build_ua {
     my $self = shift;
     my $ua = LWP::UserAgent->new(
@@ -99,12 +95,28 @@ sub _build_ua {
     return $ua;
 }
 
-sub as_uri {
+sub create {
+    my ($class, $chart_class, @args) = @_;
+
+    if ($chart_class !~ s/^\+//) {
+        $chart_class = "Google::Chart::Type::$chart_class";
+    }
+
+    if (! Class::MOP::is_class_loaded($chart_class) ) {
+        Class::MOP::load_class($chart_class);
+    }
+
+    return $chart_class->new(@args);
+}
+
+sub prepare_query {
     my $self = shift;
 
-    my %query;
+    my %query = (
+        cht => $self->type
+    );
 
-    foreach my $element (map { $self->$_() } qw(size type data title color axis axis_labels grid)) {
+    foreach my $element (map { $self->$_() } qw(size title color axis axis_labels grid)) {
         next unless defined $element;
         my @params = $element->as_query( $self );
         while (@params) {
@@ -114,184 +126,15 @@ sub as_uri {
         }
     }
 
-    # If in case you want to change this for debugging or whatever...
-    my $uri = $self->google_chart_uri()->clone;
-    $uri->query_form( %query );
-    return $uri;
+    return \%query;
 }
-
-sub render {
-    my $self = shift;
-    my $response = $self->ua->get($self->as_uri);
-
-    if ($response->is_success) {
-        return $response->content;
-    } else {
-        die $response->status_line;
-    }
-}
-
-sub render_to_file {
-    # XXX - This is done like this because there was a document-implementation
-    # mismatch. In the future, single argument form should be deprecated
-    my $self = shift;
-    my $filename = (@_ > 1) ? do {
-        my %args = @_;
-        $args{filename};
-    }: $_[0];
-
-    open my $fh, '>', $filename or die "can't open $filename for writing: $!\n";
-    binmode($fh); # be nice to windows
-    print $fh $self->render;
-    close $fh or die "can't close $filename: $!\n";
-}
-
-__PACKAGE__->meta->make_immutable;
-
-1;
-
-__END__
-
-
-
-
-
-use Google::Chart::Axis;
-use Google::Chart::Legend;
-use Google::Chart::Grid;
-use Google::Chart::Color;
-use Google::Chart::Data;
-use Google::Chart::Size;
-use Google::Chart::Type;
-use Google::Chart::Types;
-use Google::Chart::Title;
-use Google::Chart::Margin;
-use LWP::UserAgent;
-use URI;
-use overload
-    '""' => \&as_uri,
-    fallback => 1,
-;
-
-use constant BASE_URI => URI->new("http://chart.apis.google.com/chart");
-
-our $VERSION   = '0.05014';
-our $AUTHORITY = 'cpan:DMAKI';
-
-my %COMPONENTS = (
-    type => {
-        is => 'rw',
-        does => 'Google::Chart::Type',
-        coerce => 1,
-        required => 1,
-    },
-    data => {
-        is       => 'rw',
-        does     => 'Google::Chart::Data',
-        coerce   => 1,
-    },
-    color => {
-        is       => 'rw',
-        isa      => 'Google::Chart::Color',
-        coerce   => 1,
-    },
-    legend => {
-        is       => 'rw',
-        does     => 'Google::Chart::Legend',
-        coerce   => 1,
-    },
-    grid => {
-        is       => 'rw',
-        isa     => 'Google::Chart::Grid',
-        coerce   => 1,
-    },
-    size => {
-        is       => 'rw',
-        isa      => 'Google::Chart::Size',
-        coerce   => 1,
-        required => 1,
-        lazy     => 1,
-        default  => sub { Google::Chart::Size->new( width => 400, height => 300 ) },
-    },
-    marker => {
-        is       => 'rw',
-        isa      => 'Google::Chart::Marker',
-        coerce   => 1,
-    },
-    axis => {
-        is       => 'rw',
-        isa      => 'Google::Chart::Axis',
-        coerce   => 1,
-    },
-    fill => {
-        is       => 'rw',
-        does     => 'Google::Chart::Fill',
-        coerce   => 1
-    },
-    title => {
-        is       => 'rw',
-        does     => 'Google::Chart::Title',
-        coerce   => 1
-    },
-    margin => {
-        is       => 'rw',
-        does     => 'Google::Chart::Margin',
-        coerce   => 1
-    },
-);
-my @COMPONENTS = keys %COMPONENTS;
-
-{
-    while (my ($name, $spec) = each %COMPONENTS ) {
-        has $name => %$spec;
-    }
-}
-
-has 'ua' => (
-    is         => 'rw',
-    isa        => 'LWP::UserAgent',
-    required   => 1,
-    lazy_build => 1,
-);
-
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
-
-sub _build_ua {
-    my $self = shift;
-    my $ua = LWP::UserAgent->new(
-        agent => "perl/Google-Chart-$VERSION",
-        env_proxy => exists $ENV{GOOGLE_CHART_ENV_PROXY} ? $ENV{GOOGLE_CHART_ENV_PROXY} : 1,
-    );
-    return $ua;
-}
-
-# XXX 
-# We need a trigger function that gets called whenever a component
-# is set, so we can validate if the combination of components are
-# actually feasible.
 
 sub as_uri {
     my $self = shift;
 
-    my %query;
-    foreach my $c (@COMPONENTS) {
-        my $component = $self->$c;
-        next unless $component;
-        my @params = $component->as_query;
-        while (@params) {
-            my ($name, $value) = splice(@params, 0, 2);
-            next unless length $value;
-            $query{$name} = $value;
-        }
-    }
-
     # If in case you want to change this for debugging or whatever...
-    my $uri = $ENV{GOOGLE_CHART_URI} ? 
-        URI->new($ENV{GOOGLE_CHART_URI}) :
-        BASE_URI->clone;
-    $uri->query_form( %query );
+    my $uri = $self->google_chart_uri()->clone;
+    $uri->query_form( $self->prepare_query() );
     return $uri;
 }
 
@@ -321,11 +164,11 @@ sub render_to_file {
     close $fh or die "can't close $filename: $!\n";
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 __END__
-
-=encoding UTF-8
 
 =head1 NAME
 
@@ -333,16 +176,18 @@ Google::Chart - Interface to Google Charts API
 
 =head1 SYNOPSIS
 
-  use Google::Chart::Declare;
-
   use Google::Chart;
-  my $chart = Google::Chart->new();
-  $chart->add( Google::Chart::Bar->new( stacked => 1, orientation => 'horizontal' ) );
-  $chard->render();
 
-  my $chart = Google::Chart->new(
-    type => "Bar",
-    data => [ 1, 2, 3, 4, 5 ]
+  my $chart = Google::Chart->create(
+    Bar => (
+      bar_space   => 20,
+      bar_width   => 10,
+      data        => [ 1, 2, 3, 4, 5 ],
+      group_space => 5,
+      orientation => 'horizontal'
+      size        => "400x300",
+      stacked     => 1, 
+    )
   );
 
   print $chart->as_uri, "\n"; # or simply print $chart, "\n"
@@ -354,14 +199,18 @@ Google::Chart - Interface to Google Charts API
 Google::Chart provides a Perl Interface to Google Charts API 
 (http://code.google.com/apis/chart/).
 
-Please note that version 0.05000 is a major rewrite, and has little to no
+Please note that version 0.10000 is a major rewrite, and has little to no
 backwards compatibility.
 
 =head1 METHODS
 
+=head2 create( $chart_type => %args )
+
+Creates a new chart of type $chart_type
+
 =head2 new(%args)
 
-Creates a new Google::Chart instance. 
+Creates a new Google::Chart instance. You should be using C<create> unless you're hacking on a new chart type.
 
 =over 4
 
