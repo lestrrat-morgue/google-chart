@@ -1,5 +1,6 @@
 package Google::Chart::Encoding::Simple;
 use Moose;
+use Scalar::Util qw(looks_like_number);
 use namespace::clean -except => qw(meta);
 
 with 'Google::Chart::Encoding';
@@ -10,11 +11,17 @@ sub encode {
 
     return 's:' . join( ',', # join data sets
         map {
-            join('', map { defined $_ ? $ENCODE_VALUES[$_] : '_' } @$_) # join data values
+            join('', map {
+                defined $_ ? 
+                    (looks_like_number($_) ? $ENCODE_VALUES[$_] : '_') :
+                    '_'
+            } @$_) # join data values
         } @$sets
     );
     
 }
+
+__PACKAGE__->meta->make_immutable();
 
 1;
 
