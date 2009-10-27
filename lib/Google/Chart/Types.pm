@@ -2,6 +2,7 @@
 package Google::Chart::Types;
 use Moose ();
 use Moose::Util::TypeConstraints;
+use Carp qw(carp confess);
 use namespace::clean -except => qw(meta);
 
 {
@@ -115,6 +116,21 @@ use namespace::clean -except => qw(meta);
                 Class::MOP::load_class($class);
             }
             return $class->new();
+        }
+    ;
+    coerce 'Google::Chart::Type'
+        => from 'HashRef'
+        => via {
+            my $h = $_;
+
+            carp("This form of coercion (from Hash to Object) is now deprecated.");
+            my $module = $h->{module} ||
+                confess("No module name provided for coercion");
+            if ($module !~ s/^\+//) {
+                $module = "Google::Chart::Type::$module";
+            }
+            Class::MOP::load_class( $module );
+            return $module->new(%{ $h->{args} });
         }
     ;
 

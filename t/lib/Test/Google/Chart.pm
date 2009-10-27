@@ -11,7 +11,10 @@ use Exporter 'import';
 our @EXPORT_OK = qw(have_connection);
 
 sub have_connection {
-    my $url = Google::Chart::BASE_URI;
+    
+    my $url = $ENV{GOOGLE_CHART_URI} ? 
+        URI->new($ENV{GOOGLE_CHART_URI}) :
+        URI->new("http://chart.apis.google.com/chart");
     my $socket = IO::Socket::INET->new(
         PeerAddr => $url->host,
         PeerPort => $url->port

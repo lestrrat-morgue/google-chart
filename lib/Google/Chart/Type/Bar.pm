@@ -9,25 +9,53 @@ with 'Google::Chart::Type';
 enum 'Google::Chart::Type::Bar::Orientation' => qw(horizontal vertical);
 
 has stacked => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'Bool',
     default  => 1,
 );
 
 has orientation => (
-    is      => 'rw',
+    is      => 'ro',
     isa     => 'Google::Chart::Type::Bar::Orientation',
     default => 'vertical',
 );
 
+has width => (
+    is => 'ro',
+    isa => 'Int',
+    predicate => 'has_width',
+);
+
+has bar_space => (
+    is => 'ro',
+    isa => 'Int',
+    predicate => 'has_bar_space',
+);
+
+has group_space => (
+    is => 'ro',
+    isa => 'Int',
+    predicate => 'has_group_space',
+);
+    
+
 sub as_query {
     my $self = shift;
-    return (
+
+    my %query = (
         cht => sprintf( 'b%s%s', 
             $self->orientation eq 'vertical' ? 'v' : 'h',
             $self->stacked                   ? 's' : 'g'
         )
     );
+    if ($self->has_width || $self->has_bar_space || $self->has_group_space) {
+        $query{ chbh } = join(',', 
+            $self->width || '',
+            $self->bar_space || '',
+            $self->group_space || '',
+        );
+    }
+    return %query;
 }
 
 __PACKAGE__->meta->make_immutable;

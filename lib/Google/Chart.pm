@@ -5,6 +5,7 @@ use Google::Chart::Data;
 use Google::Chart::Size;
 use Google::Chart::Title;
 use Google::Chart::Types;
+use LWP::UserAgent;
 use namespace::clean -except => qw(meta);
 
 our $VERSION = '0.10000';
@@ -112,7 +113,35 @@ sub as_uri {
     return $uri;
 }
 
+sub render {
+    my $self = shift;
+    my $response = $self->ua->get($self->as_uri);
+
+    if ($response->is_success) {
+        return $response->content;
+    } else {
+        die $response->status_line;
+    }
+}
+
+sub render_to_file {
+    # XXX - This is done like this because there was a document-implementation
+    # mismatch. In the future, single argument form should be deprecated
+    my $self = shift;
+    my $filename = (@_ > 1) ? do {
+        my %args = @_;
+        $args{filename};
+    }: $_[0];
+
+    open my $fh, '>', $filename or die "can't open $filename for writing: $!\n";
+    binmode($fh); # be nice to windows
+    print $fh $self->render;
+    close $fh or die "can't close $filename: $!\n";
+}
+
 __PACKAGE__->meta->make_immutable;
+
+1;
 
 __END__
 
