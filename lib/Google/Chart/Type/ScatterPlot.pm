@@ -1,14 +1,13 @@
-# $Id$
 
 package Google::Chart::Type::ScatterPlot;
 use Moose;
-use constant parameter_value => 's';
+use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Type::Simple';
+extends 'Google::Chart';
+
+sub _build_type { 's' }
 
 __PACKAGE__->meta->make_immutable;
-
-no Moose;
 
 1;
 
