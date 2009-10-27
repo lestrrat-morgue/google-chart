@@ -21,26 +21,6 @@ has axis => (
     lazy_build => 1,
 );
 
-has axis_labels => (
-    is       => 'ro',
-    isa      => 'Google::Chart::Axis::Label',
-    coerce   => 1
-);
-
-has color => (
-    is       => 'ro',
-    isa      => 'Google::Chart::Color',
-    coerce   => 1,
-);
-
-=head1
-has grid => (
-    is       => 'ro',
-    isa     => 'Google::Chart::Grid',
-    coerce   => 1,
-);
-=cut
-
 has size => (
     is       => 'ro',
     isa      => 'Google::Chart::Size',
@@ -127,7 +107,7 @@ sub prepare_query {
         cht => $self->type
     );
 
-    foreach my $element (map { $self->$_() } qw(size title color axis axis_labels)) {
+    foreach my $element (map { $self->$_() } qw(size title axis)) {
         next unless defined $element;
         my @params = $element->as_query( $self );
         while (@params) {
