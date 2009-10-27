@@ -5,7 +5,10 @@ use Google::Chart::Data::LineType;
 use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart';
-with 'Google::Chart::WithData';
+with qw(
+    Google::Chart::WithData 
+    Google::Chart::WithGrid
+);
 
 sub _build_data {
     return Google::Chart::Data::LineType->new();

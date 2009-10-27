@@ -6,7 +6,7 @@ use Google::Chart::Data;
 use Google::Chart::Encoding::Extended;
 use Google::Chart::Encoding::Simple;
 use Google::Chart::Encoding::Text;
-use Google::Chart::Grid;
+# use Google::Chart::Grid;
 use Google::Chart::Size;
 use Google::Chart::Title;
 use Google::Chart::Types;
@@ -33,11 +33,13 @@ has color => (
     coerce   => 1,
 );
 
+=head1
 has grid => (
     is       => 'ro',
     isa     => 'Google::Chart::Grid',
     coerce   => 1,
 );
+=cut
 
 has size => (
     is       => 'ro',
@@ -125,7 +127,7 @@ sub prepare_query {
         cht => $self->type
     );
 
-    foreach my $element (map { $self->$_() } qw(size title color axis axis_labels grid)) {
+    foreach my $element (map { $self->$_() } qw(size title color axis axis_labels)) {
         next unless defined $element;
         my @params = $element->as_query( $self );
         while (@params) {

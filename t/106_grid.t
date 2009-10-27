@@ -1,33 +1,18 @@
 use strict;
-use Test::More (tests => 8);
+use Test::More (tests => 4);
 use Test::Exception;
 
 BEGIN
 {
-    use_ok("Google::Chart::Grid");
     use_ok("Google::Chart");
 }
 
 {
-    my $grid = Google::Chart::Grid->new(
-        x_step_size => 20,
-        y_step_size => 40,
-    );
-
-    ok($grid);
-    isa_ok($grid, "Google::Chart::Grid");
-    my @query = $grid->as_query;
-    note(@query);
-    is_deeply( \@query, [ chg => "20,40,1,1" ] );
-}
-{
     my $graph = Google::Chart->create(
         Line => (
             size => '300x300',
-            grid => {
-                x_step_size => 50,
-                y_step_size => 33.3,
-            },
+            grid_x_step_size => 50,
+            grid_y_step_size => 33.3,
         )
     );
     $graph->data_encoding( Extended => (
