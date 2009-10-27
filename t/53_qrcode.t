@@ -1,6 +1,6 @@
 use strict;
 use utf8;
-use Test::More (tests => 9);
+use Test::More (tests => 7);
 use Test::Exception;
 
 BEGIN
@@ -9,19 +9,14 @@ BEGIN
 }
 
 {
-    my $chart = Google::Chart->new(
-        type => {
-            module => "QRcode",
-            args   => {
-                text => "Hello World",
-            }
-        }
+    my $chart = Google::Chart->create(
+        QRcode => (
+            text => "Hello World",
+        )
     );
 
     ok( $chart );
     isa_ok( $chart, "Google::Chart" );
-
-    isa_ok( $chart->type, "Google::Chart::Type::QRcode" );
 
     my $uri = $chart->as_uri;
     note $uri;
@@ -30,19 +25,14 @@ BEGIN
 }
 
 {
-    my $chart = Google::Chart->new(
-        type => {
-            module => "QRcode",
-            args   => {
-                text => Encode::encode_utf8("諸行無常")
-            }
-        }
+    my $chart = Google::Chart->create(
+        QRcode => (
+            text => Encode::encode_utf8("諸行無常")
+        )
     );
 
     ok( $chart );
     isa_ok( $chart, "Google::Chart" );
-
-    isa_ok( $chart->type, "Google::Chart::Type::QRcode" );
 
     my $uri = $chart->as_uri;
     note $uri;
