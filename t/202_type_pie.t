@@ -8,8 +8,10 @@ use Test::Google::Chart qw(test_render);
     my $chart = Google::Chart->create(
         Pie => (
             size => "400x300",
-            data => [ 1, 2, 3, 4, 5 ],
         )
+    );
+    $chart->add_dataset(
+        data => [ 1, 2, 3, 4, 5 ],
     );
 
     ok( $chart );

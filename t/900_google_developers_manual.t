@@ -253,6 +253,21 @@ TODO: {
 
 }
 
+{ # qrcode example (1)
+    my $uri = URI->new("http://chart.apis.google.com/chart?chs=150x150&cht=qr&chl=Hello%20world&choe=utf-8");
+
+    my $g = Google::Chart->create(
+        QRcode => (
+            size => '150x150',
+            qrcode_encoding => 'UTF-8',
+            text => 'Hello world',
+        )
+    );
+
+    note($g->as_uri);
+    is_deeply( { $g->as_uri->query_form }, { $uri->query_form });
+}
+
 done_testing;
 
 

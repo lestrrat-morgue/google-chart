@@ -13,6 +13,8 @@ BEGIN
         encoding => Google::Chart::Encoding::Extended->new(
             max_value => 150,
         ),
+    );
+    $data->add_dataset(
         data => [ 1.0, 1.2, 1.3, 50, 100 ],
     );
 
@@ -27,10 +29,12 @@ BEGIN
         encoding => Google::Chart::Encoding::Extended->new(
             max_value => 150,
         ),
-        data => [
-            [ 1.0, 1.2, 1.3, 50, 100 ],
-            [ 100, 50, 1.3, 1.2, 1.0 ],
-        ],
+    );
+    $data->add_dataset(
+        data => [ 1.0, 1.2, 1.3, 50, 100 ],
+    );
+    $data->add_dataset(
+        data => [ 100, 50, 1.3, 1.2, 1.0 ],
     );
 
     ok($data);
@@ -46,10 +50,12 @@ BEGIN
             max_value => 150,
             min_value => -50,
         ),
-        data => [
-            [ -10, -40, 10, 70, 100 ],
-            [ 100, 50, -0.5, 2, -35.7 ],
-        ],
+    );
+    $data->add_dataset(
+        data => [ -10, -40, 10, 70, 100 ],
+    );
+    $data->add_dataset(
+        data => [ 100, 50, -0.5, 2, -35.7 ],
     );
 
     ok($data);

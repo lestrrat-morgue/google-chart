@@ -1,5 +1,5 @@
 use strict;
-use Test::More (tests => 8);
+use Test::More (tests => 7);
 use Test::Exception;
 
 BEGIN
@@ -8,32 +8,29 @@ BEGIN
 }
 
 {
-    my $chart = Google::Chart->new(
-        type => "Line",
-        size => "400x300",
-        data => [ 1, 2, 3, 4, 5 ],
-        axis => Google::Chart::Axis->new(
-            axes => [
-                Google::Chart::Axis::Item->new(
-                    location => 'x',
-                    labels   => [ '1', '50', '100' ],
-                ),
-                Google::Chart::Axis::Item->new(
-                    location => 'y',
-                    labels   => [ 'x', 'y', 'z' ],
-                ),
-                Google::Chart::Axis::Item->new(
-                    location => 't',
-                    labels   => [ 'A', 'B', 'C' ],
-                )
-            ]
+    my $chart = Google::Chart->create( 
+        Line => (
+            size => "400x300",
         )
+    );
+    $chart->add_dataset(
+        data => [ 1, 2, 3, 4, 5 ],
+    );
+    $chart->add_axis(
+        location => 'x',
+        labels   => [ '1', '50', '100' ],
+    );
+    $chart->add_axis(
+        location => 'y',
+        labels   => [ 'x', 'y', 'z' ],
+    );
+    $chart->add_axis(
+        location => 't',
+        labels   => [ 'A', 'B', 'C' ],
     );
 
     ok( $chart );
     isa_ok( $chart, "Google::Chart" );
-
-    isa_ok( $chart->type, "Google::Chart::Type::Line" );
 
     is( $chart->size->width, 400 );
     is( $chart->size->height, 300 );

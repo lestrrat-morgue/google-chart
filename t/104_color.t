@@ -32,19 +32,18 @@ BEGIN
 }
 
 {
-    my $graph = Google::Chart->new(
-        type => 'Line',
-        size => '300x300',
+    my $graph = Google::Chart->create(
+        Line => (
+            size => '300x300',
+        )
+    );
+    $graph->add_axis(
+        location => 'x',
+        labels => [1, 2, 3],
+    );
+    $graph->add_dataset(
+        color => 'ff0000',
         data => [20, 40, 90],
-        axis => Google::Chart::Axis->new(
-            axes => [
-                Google::Chart::Axis::Item->new(
-                    location => 'x',
-                    labels => [1, 2, 3],
-                )
-            ],
-        ),
-        color => 'ff0000'
     );
     ok($graph);
     isa_ok($graph, 'Google::Chart');
@@ -54,23 +53,26 @@ BEGIN
     is( $h{chco}, 'ff0000' );
 }
 {
-    my $graph = Google::Chart->new(
-        type => 'Line',
-        size => '300x300',
-        data => [[20, 40, 90], [100, 70, 20]],
-        axis => Google::Chart::Axis->new(
-            axes => [
-                Google::Chart::Axis::Item->new(
-                    location => 'x',
-                    labels => [1, 2, 3],
-                ),
-                Google::Chart::Axis::Item->new(
-                    location => 'y',
-                    labels => [0,25,50,75,100],
-                )
-            ],
-        ),
-        color => ['ff0000', '00ffff'],
+    my $graph = Google::Chart->create(
+        Line => (
+            size => '300x300',
+        )
+    );
+    $graph->add_axis(
+        location => 'x',
+        labels => [1, 2, 3],
+    );
+    $graph->add_axis(
+        location => 'y',
+        labels => [0,25,50,75,100],
+    );
+    $graph->add_dataset(
+        color => 'ff0000',
+        data => [20, 40, 90], 
+    );
+    $graph->add_dataset(
+        color => '00ffff',
+        data => [100, 70, 20],
     );
     ok($graph);
     isa_ok($graph, 'Google::Chart');

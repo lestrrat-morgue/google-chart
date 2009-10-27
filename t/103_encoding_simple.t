@@ -10,8 +10,11 @@ BEGIN
 {
     my $data = Google::Chart::Data->new(
         encoding => Google::Chart::Encoding::Simple->new(),
+    );
+    $data->add_dataset(
         data => [ 0, 1, 25, 26, 27, 51, 52, 61, undef, '_' ],
     );
+
 
     ok($data);
     isa_ok($data, "Google::Chart::Data");
@@ -23,10 +26,12 @@ BEGIN
 {
     my $data = Google::Chart::Data->new(
         encoding => Google::Chart::Encoding::Simple->new(),
-        data => [
-            [ 0, 1, 25, 26, 27, 51, 52, 61, undef, '_' ],
-            [ '_', undef, 61, 52, 51, 27, 26, 25, 1, 0 ],
-        ]
+    );
+    $data->add_dataset(
+        data => [ 0, 1, 25, 26, 27, 51, 52, 61, undef, '_' ],
+    );
+    $data->add_dataset(
+        data => [ '_', undef, 61, 52, 51, 27, 26, 25, 1, 0 ],
     );
 
     ok($data);
