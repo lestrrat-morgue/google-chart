@@ -79,10 +79,6 @@ sub _build_size {
     return Google::Chart::Size->new( width => 400, height => 200 );
 }
 
-sub _build_elements {
-    return [];
-}
-
 sub _build_ua {
     my $self = shift;
     my $ua = LWP::UserAgent->new(
@@ -99,7 +95,7 @@ sub as_uri {
 
     foreach my $element (map { $self->$_() } qw(size type data title color axis axis_labels)) {
         next unless defined $element;
-        my @params = $element->as_query;
+        my @params = $element->as_query( $self );
         while (@params) {
             my ($name, $value) = splice(@params, 0, 2);
             next unless length $value;
