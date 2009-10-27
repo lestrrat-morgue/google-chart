@@ -1,12 +1,16 @@
-# $Id$
 
 package Google::Chart::Type::Line;
 use Moose;
-use constant parameter_value => 'lc';
+use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Type::Simple';
+with 'Google::Chart::Type';
 
-no Moose;
+sub as_query {
+    my $self = shift;
+    return (cht => 'lc');
+}
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 

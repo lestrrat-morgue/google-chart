@@ -1,4 +1,3 @@
-# $Id$
 
 package Google::Chart::Type::Simple;
 use Moose::Role;

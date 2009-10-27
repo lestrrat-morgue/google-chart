@@ -34,5 +34,5 @@ requires 'Scalar::Util';
 test_requires 'Test::More' => '0.82';
 test_requires 'Test::UseAllModules';
 
-auto_include_deps;
+# auto_include_deps;
 WriteAll;

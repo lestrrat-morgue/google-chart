@@ -1,17 +1,13 @@
-# $Id$
 
 package Google::Chart::Data::Text;
 use Moose;
+use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Data';
+extends 'Google::Chart::Data';
 
-has '+dataset' => (
+has '+data' => (
     isa => 'ArrayRef[Google::Chart::Data::Text::DataSet]',
 );
-
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
 
 sub BUILDARGS {
     my $self = shift;
@@ -25,7 +21,7 @@ sub BUILDARGS {
         @dataargs = @{$_[0]};
     } else {
         %args = @_;
-        @dataargs = @{ delete $args{dataset} || [] };
+        @dataargs = @{ delete $args{data} || [] };
     }
 
     if (! ref $dataargs[0] ) {
@@ -39,7 +35,7 @@ sub BUILDARGS {
         push @dataset, $dataset;
     }
 
-    return { %args, dataset => \@dataset }
+    return { %args, data => \@dataset }
 }
 
 sub parameter_value {
@@ -48,10 +44,13 @@ sub parameter_value {
         join( '|', map { $_->as_string } @{ $self->dataset } ) )
 }
 
+__PACKAGE__->meta->make_immutable;
+
 package  # hide from PAUSE
     Google::Chart::Data::Text::DataSet;
 use Moose;
 use Moose::Util::TypeConstraints;
+use namespace::clean -except => qw(meta);
 
 subtype 'Google::Chart::Data::Text::DataSet::Value'
     => as 'Num'
@@ -67,16 +66,13 @@ has 'data' => (
     default => sub { +[] }
 );
 
-__PACKAGE__->meta->make_immutable;
-    
-no Moose;
-no Moose::Util::TypeConstraints;
-
 sub as_string {
     my $self = shift;
     return join(',', map { sprintf('%0.1f', $_) } @{$self->data});
 }
 
+__PACKAGE__->meta->make_immutable;
+    
 1;
 
 __END__

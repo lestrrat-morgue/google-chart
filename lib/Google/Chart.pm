@@ -1,8 +1,125 @@
-# $Id$
 
 package Google::Chart;
-use 5.008;
 use Moose;
+use Google::Chart::Data;
+use Google::Chart::Size;
+use Google::Chart::Title;
+use Google::Chart::Types;
+use namespace::clean -except => qw(meta);
+
+our $VERSION = '0.10000';
+
+has axis => (
+    is       => 'ro',
+    isa      => 'Google::Chart::Axis',
+    coerce   => 1
+);
+
+has axis_labels => (
+    is       => 'ro',
+    isa      => 'Google::Chart::Axis::Label',
+    coerce   => 1
+);
+
+has color => (
+    is       => 'ro',
+    isa      => 'Google::Chart::Color',
+    coerce   => 1,
+);
+
+has data => (
+    is       => 'ro',
+    isa      => 'Google::Chart::Data',
+    coerce   => 1,
+    required => 1
+);
+
+has size => (
+    is       => 'ro',
+    isa      => 'Google::Chart::Size',
+    coerce   => 1,
+    lazy_build => 1,
+);
+
+has title => (
+    is        => 'ro',
+    isa       => 'Google::Chart::Title',
+    coerce    => 1,
+    predicate => 'has_title',
+);
+
+has type => (
+    is       => 'ro',
+    does     => 'Google::Chart::Type',
+    coerce   => 1,
+    required => 1
+);
+
+has google_chart_uri => (
+    is => 'ro',
+    isa => 'URI',
+    lazy_build => 1
+);
+
+has ua => (
+    is         => 'rw',
+    isa        => 'LWP::UserAgent',
+    lazy_build => 1,
+);
+
+sub _build_google_chart_uri {
+    require URI;
+    return $ENV{GOOGLE_CHART_URI} ? 
+        URI->new($ENV{GOOGLE_CHART_URI}) :
+        URI->new("http://chart.apis.google.com/chart");
+}
+
+sub _build_size {
+    return Google::Chart::Size->new( width => 400, height => 200 );
+}
+
+sub _build_elements {
+    return [];
+}
+
+sub _build_ua {
+    my $self = shift;
+    my $ua = LWP::UserAgent->new(
+        agent => "perl/Google-Chart-$VERSION",
+        env_proxy => exists $ENV{GOOGLE_CHART_ENV_PROXY} ? $ENV{GOOGLE_CHART_ENV_PROXY} : 1,
+    );
+    return $ua;
+}
+
+sub as_uri {
+    my $self = shift;
+
+    my %query;
+
+    foreach my $element (map { $self->$_() } qw(size type data title color axis axis_labels)) {
+        next unless defined $element;
+        my @params = $element->as_query;
+        while (@params) {
+            my ($name, $value) = splice(@params, 0, 2);
+            next unless length $value;
+            $query{$name} = $value;
+        }
+    }
+
+    # If in case you want to change this for debugging or whatever...
+    my $uri = $self->google_chart_uri()->clone;
+    $uri->query_form( %query );
+    return $uri;
+}
+
+__PACKAGE__->meta->make_immutable;
+
+__END__
+
+
+
+
+
 use Google::Chart::Axis;
 use Google::Chart::Legend;
 use Google::Chart::Grid;
@@ -180,7 +297,12 @@ Google::Chart - Interface to Google Charts API
 
 =head1 SYNOPSIS
 
+  use Google::Chart::Declare;
+
   use Google::Chart;
+  my $chart = Google::Chart->new();
+  $chart->add( Google::Chart::Bar->new( stacked => 1, orientation => 'horizontal' ) );
+  $chard->render();
 
   my $chart = Google::Chart->new(
     type => "Bar",

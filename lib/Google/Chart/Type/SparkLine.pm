@@ -1,15 +1,16 @@
-# $Id$
 
 package Google::Chart::Type::SparkLine;
 use Moose;
+use namespace::clean -except => qw(meta);
 
-use constant parameter_value => 'ls';
+with 'Google::Chart::Type';
 
-with 'Google::Chart::Type::Simple';
+sub as_query {
+    my $self = shift;
+    return (cht => 'ls');
+}
 
 __PACKAGE__->meta->make_immutable;
-
-no Moose;
 
 1;
 

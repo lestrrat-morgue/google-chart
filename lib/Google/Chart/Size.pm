@@ -1,61 +1,44 @@
-# $Id$
 
 package Google::Chart::Size;
 use Moose;
-use Moose::Util::TypeConstraints;
-use Google::Chart::Types qw(hash_coercion);
-use Carp();
+use Scalar::Util qw(looks_like_number);
+use namespace::clean -except => qw(meta);
 
-use constant parameter_name => 'chs';
+with 'Google::Chart::QueryComponent';
 
-with 'Google::Chart::QueryComponent::Simple';
-
-coerce 'Google::Chart::Size'
-    => from 'Str'
-    => via {
-        if (! /^(\d+)x(\d+)$/) {
-            Carp::confess("Could not parse $_ as size");
-        }
-
-        return Google::Chart::Size->new(width => $1, height => $2);
-    }
-;
-
-coerce 'Google::Chart::Size'
-    => from 'HashRef'
-    => via { 
-        my $h = $_;
-
-        my ($width, $height) = ($h->{args}) ?
-            ($h->{args}->{width}, $h->{args}->{height}) :
-            ($h->{width}, $h->{height})
-        ;
-
-        return Google::Chart::Size->new( width => $width, height => $height );
-    }
-;
-
-has 'width' => (
-    is => 'rw',
-    isa => 'Int',
+has width => (
+    is       => 'rw',
+    isa      => 'Int',
     required => 1
 );
 
-has 'height' => (
-    is => 'rw',
-    isa => 'Int',
+has height => (
+    is       => 'rw',
+    isa      => 'Int',
     required => 1
 );
+
+sub BUILDARGS {
+    my ($class, @args) = @_;
+
+    my %args;
+
+    if (@args == 2 && looks_like_number($args[0]) && looks_like_number($args[0]) ) {
+        $args{width} = $args[0];
+        $args{height} = $args[1];
+    } else {
+        %args = @args;
+    }
+
+    return \%args;
+}
+
+sub as_query {
+    my $self = shift;
+    return ( chs => join('x', $self->width, $self->height) );
+}
 
 __PACKAGE__->meta->make_immutable;
-
-no Moose;
-no Moose::Util::TypeConstraints;
-
-sub parameter_value {
-    my $self = shift;
-    return join('x', $self->width, $self->height);
-}
 
 1;
 
@@ -71,6 +54,8 @@ Google::Chart::Size - Google::Chart Size Specification
     size => "400x300"
   )
 
+  Google::Chart->new( 400, 300 )
+
   Google::Chart->new(
     size => {
       width => 400,
@@ -79,7 +64,5 @@ Google::Chart::Size - Google::Chart Size Specification
   )
 
 =head1 METHODS
-
-=head2 parameter_value
 
 =cut

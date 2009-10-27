@@ -3,8 +3,9 @@
 package Google::Chart::Data::Extended;
 use Moose;
 use Scalar::Util qw(looks_like_number);
+use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Data';
+extends 'Google::Chart::Data';
 
 has 'max_value' => (
     is => 'rw', 
@@ -19,13 +20,9 @@ has 'min_value' => (
     default => 0,
 );
 
-has '+dataset' => (
+has '+data' => (
     isa => 'ArrayRef[Google::Chart::Data::Extended::DataSet]',
 );
-
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
 
 sub BUILDARGS {
     my $self = shift;
@@ -39,7 +36,7 @@ sub BUILDARGS {
         @dataargs = @{$_[0]};
     } else {
         %args = @_;
-        @dataargs = @{ delete $args{dataset} || [] };
+        @dataargs = @{ delete $args{data} || [] };
     }
 
     if (! ref $dataargs[0] ) {
@@ -53,7 +50,7 @@ sub BUILDARGS {
         push @dataset, $dataset;
     }
 
-    return { %args, dataset => \@dataset }
+    return { %args, data => \@dataset }
 }
 
 sub parameter_value {
@@ -64,10 +61,13 @@ sub parameter_value {
         join( ',', map { $_->as_string({max => $max, min => $min}) } @{ $self->dataset } ) );
 }
 
+__PACKAGE__->meta->make_immutable;
+
 package # hide from PAUSE
     Google::Chart::Data::Extended::DataSet;
 use Moose;
 use Moose::Util::TypeConstraints;
+use namespace::clean -except => qw(meta);
 
 subtype 'Google::Chart::Data::Extended::DataSet::Value'
     => as 'Num';
@@ -78,11 +78,6 @@ has 'data' => (
     required => 1,
     default => sub { +[] },
 );
-
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
-no Moose::Util::TypeConstraints;
 
 my @map = ('A'..'Z', 'a'..'z', 0..9, '-', '.');
 
@@ -110,6 +105,8 @@ sub as_string {
     }
     return $result;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 

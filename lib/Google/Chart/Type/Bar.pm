@@ -1,40 +1,36 @@
-# $Id$
 
 package Google::Chart::Type::Bar;
 use Moose;
 use Moose::Util::TypeConstraints;
+use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Type::Simple';
+with 'Google::Chart::Type';
 
 enum 'Google::Chart::Type::Bar::Orientation' => qw(horizontal vertical);
 
-has 'stacked' => (
-    is => 'rw',
-    isa => 'Bool',
-    required => 1,
-    default => 1,
+has stacked => (
+    is       => 'rw',
+    isa      => 'Bool',
+    default  => 1,
 );
 
-has 'orientation' => (
-    is => 'rw',
-    isa => 'Google::Chart::Type::Bar::Orientation',
-    required => 1,
+has orientation => (
+    is      => 'rw',
+    isa     => 'Google::Chart::Type::Bar::Orientation',
     default => 'vertical',
 );
 
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
-no Moose::Util::TypeConstraints;
-
-sub parameter_value {
+sub as_query {
     my $self = shift;
-
-    return sprintf( 'b%s%s', 
-        $self->orientation eq 'vertical' ? 'v' : 'h',
-        $self->stacked                   ? 's' : 'g'
+    return (
+        cht => sprintf( 'b%s%s', 
+            $self->orientation eq 'vertical' ? 'v' : 'h',
+            $self->stacked                   ? 's' : 'g'
+        )
     );
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 
@@ -46,15 +42,9 @@ Google::Chart::Type::Bar - Google::Chart Bar Type
 
 =head1 SYNOPSIS
 
-  Google::Chart->new(
-    type => {
-      module => "Bar",
-      orientation => "horizontal",
-    }
+  Google::Chart::Bar->new(
+     stacked     => 1,
+     orientation => "horizontal",
   );
-
-=head1 METHODS
-
-=head2 parameter_value
 
 =cut

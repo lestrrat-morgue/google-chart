@@ -1,16 +1,7 @@
-# $Id$
 
 package Google::Chart::Title;
 use Moose;
-use Google::Chart::Types;
-use Moose::Util::TypeConstraints;
-
-coerce 'Google::Chart::Title'
-    => from 'HashRef'
-    => via {
-        Google::Chart::Title->new(%$_);
-    }
-;
+use namespace::clean -except => qw(meta);
 
 with 'Google::Chart::QueryComponent';
 
@@ -30,10 +21,6 @@ has 'fontsize' => (
     isa => 'Num'
 );
 
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
-
 sub as_query {
     my $self = shift;
 
@@ -52,9 +39,10 @@ sub as_query {
         );
     }
 
-    return wantarray ? %data : 
-        join('&', map { "$_=$data{$_}" } keys %data );
+    return %data;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 

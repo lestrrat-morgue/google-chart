@@ -1,6 +1,20 @@
 Changes
 ======
 
+0.10000_01 05 Oc 2009
+  * So I'm being a bad boy and doing it again. Time for another take.
+    This time I'd like everybody's input.
+
+    RATIONALE: I wrote the code for Google::Chart (after having received
+    maintainership from Marcel) when I was crazy about Roles. Roles rocked
+    my world, but after having used Moose for more than a year now, I'm
+    much better at finding out when to use Roles and when to use Inheritance.
+
+    In that light, all the crazy Role things look stupid.
+
+    In this release, I've conjured up what I believe to be a saner API.
+
+
 0.05014 - 21 Aug 2009
   * Having completely forgotten about releasing a prod release for
     4 months, I now version++ at the prodding of Adam Kennedy ;) 

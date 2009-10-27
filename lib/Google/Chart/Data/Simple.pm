@@ -1,14 +1,10 @@
-# $Id$
 
 package Google::Chart::Data::Simple;
 use Moose;
 use Scalar::Util qw(looks_like_number);
+use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Data';
-
-__PACKAGE__->meta->make_immutable;
-
-no Moose;
+extends 'Google::Chart::Data';
 
 my @map = ('A'..'Z', 'a'..'z', 0..9);
 
@@ -18,7 +14,7 @@ sub parameter_value {
     my $size = @map - 1;
 
     my $result = '';
-    foreach my $data ($self->dataset) {
+    foreach my $data ($self->data) {
         my $v = '_';
         if (defined $data && looks_like_number($data)) {
             my $index = int($data / $max * $size);
@@ -36,10 +32,13 @@ sub parameter_value {
     return $result;
 }
 
+__PACKAGE__->meta->make_immutable;
+
 package  # hide from PAUSE
     Google::Chart::Data::Simple::DataSet;
 use Moose;
 use Moose::Util::TypeConstraints;
+use namespace::clean -except => qw(meta);
 
 subtype 'Google::Chart::Data::Simple::DataSet::Value'
     => as 'Num'
@@ -55,16 +54,13 @@ has 'data' => (
     default => sub { +[] }
 );
 
-__PACKAGE__->meta->make_immutable;
-    
-no Moose;
-no Moose::Util::TypeConstraints;
-
 sub as_string {
     my $self = shift;
     return join(',', @{$self->data});
 }
 
+__PACKAGE__->meta->make_immutable;
+    
 1;
 
 __END__

@@ -1,10 +1,11 @@
 use strict;
-use Test::More (tests => 22);
+use Test::More (tests => 23);
 use Test::Exception;
 
 BEGIN
 {
     use_ok("Google::Chart::Size");
+    use_ok("Google::Chart::Types");
 }
 
 {
@@ -13,7 +14,7 @@ BEGIN
     isa_ok($size, "Google::Chart::Size");
     is( $size->width, 100 );
     is( $size->height, 100 );
-    is( $size->as_query, "chs=100x100" );
+    is( [ $size->as_query ], [ 'chs', '100x100' ] );
 }
 
 {
@@ -35,7 +36,7 @@ BEGIN
     isa_ok( $size, "Google::Chart::Size" );
     is( $size->width, 100 );
     is( $size->height, 200 );
-    is( $size->as_query, "chs=100x200" );
+    is( [ $size->as_query ], [ 'chs', '100x200' ] );
 
     dies_ok {
         Test::Google::Chart::Size->new( size => "10.1x20.3" )
@@ -56,7 +57,7 @@ BEGIN
     isa_ok( $size, "Google::Chart::Size" );
     is( $size->width, 100 );
     is( $size->height, 200 );
-    is( $size->as_query, "chs=100x200" );
+    is( [ $size->as_query ], [ 'chs', '100x200' ] );
 }
 
 {
@@ -72,6 +73,6 @@ BEGIN
     isa_ok( $size, "Google::Chart::Size" );
     is( $size->width, 100 );
     is( $size->height, 200 );
-    is( $size->as_query, "chs=100x200" );
+    is( [ $size->as_query ], [ 'chs', '100x200' ] );
 }
 

@@ -1,11 +1,9 @@
-# $Id$
 
 package Google::Chart::Type;
 use Moose::Role;
+use namespace::clean -except => qw(meta);
 
 with 'Google::Chart::QueryComponent';
-
-no Moose;
 
 1;
 
