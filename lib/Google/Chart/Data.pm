@@ -15,7 +15,7 @@ has encoding => (
 
 has data => (
     is       => 'ro',
-    isa      => 'Google::Chart::Data::Set',
+    isa      => 'ArrayRef[ArrayRef]',
     coerce   => 1,
     required => 1,
 );
@@ -27,6 +27,29 @@ sub _build_encoding {
     }
     Google::Chart::Encoding::Text->new();
 }
+
+around BUILDARGS => sub {
+    my $next = shift;
+    my $class = shift;
+
+    # A dataset must be an array of arrays or array of values
+    my @dataset;
+    my %args;
+
+    if (@_ == 1 && ref $_[0] eq 'ARRAY') {
+        @dataset = @{$_[0]};
+    } else {
+        %args = @_;
+        @dataset = @{ delete $args{data} || [] };
+    }
+
+    if (! ref $dataset[0] ) {
+        @dataset = ([ @dataset]);
+    }
+
+    my $args =  $class->$next( %args, data => \@dataset );
+    return $args;
+};
 
 sub as_query {
     my $self = shift;
@@ -45,5 +68,14 @@ __END__
 =head1 NAME
 
 Google::Chart::Data - Google::Chart
+
+=head1 SYNOPSIS
+
+    use Google::Chart::Data;
+
+    Google::Chart::Data->new(
+        encoding => Google::Chart::Encoding::Text->new(),
+        data => [ 1.0, 2.0, undef, 50.0, -1, 100.0 ]
+    );
 
 =cut

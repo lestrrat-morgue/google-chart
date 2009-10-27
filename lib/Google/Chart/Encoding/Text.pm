@@ -30,7 +30,7 @@ sub encode {
                     defined $_ ? 
                         $_ == -1 ? -1 :
                         sprintf("%0.1f", $_) : -1
-                } @{$_->data}
+                } @{$_}
             ) # join data values
         } @$sets
     );
