@@ -1,8 +1,11 @@
 
 package Google::Chart::Data;
 use Moose;
-use Google::Chart::Types;
 use Google::Chart::DataSet;
+use Google::Chart::Encoding::Extended;
+use Google::Chart::Encoding::Simple;
+use Google::Chart::Encoding::Text;
+use Google::Chart::Types;
 use namespace::clean -except => qw(meta);
 
 with 'Google::Chart::QueryComponent';
