@@ -4,6 +4,7 @@ use Moose;
 use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart';
+with 'Google::Chart::WithData';
 
 sub _build_type {
     return 'lc';

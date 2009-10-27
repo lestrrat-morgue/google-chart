@@ -5,6 +5,7 @@ use Moose::Util::TypeConstraints;
 use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart';
+with 'Google::Chart::WithData';
 
 has pie_type => (
     is => 'ro',
