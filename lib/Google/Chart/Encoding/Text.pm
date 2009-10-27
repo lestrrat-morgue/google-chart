@@ -1,5 +1,6 @@
 package Google::Chart::Encoding::Text;
 use Moose;
+use Scalar::Util qw(looks_like_number);
 use namespace::clean -except => qw(meta);
 
 with 'Google::Chart::Encoding';
@@ -27,7 +28,7 @@ sub encode {
         map {
             join(',', 
                 map { 
-                    defined $_ ? 
+                    defined $_ && looks_like_number($_) ? 
                         $_ == -1 ? -1 :
                         sprintf("%0.1f", $_) : -1
                 } @{$_}
