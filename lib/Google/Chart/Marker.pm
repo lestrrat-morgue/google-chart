@@ -1,4 +1,3 @@
-# $Id$
 
 package Google::Chart::Marker;
 use Moose;
@@ -65,7 +64,6 @@ package # hide from PAUSE
 use Moose;
 use Moose::Util::TypeConstraints;
 use Google::Chart::Types;
-use Google::Chart::Color;
 
 coerce 'Google::Chart::Marker::Item'
     => from 'HashRef'
