@@ -4,32 +4,21 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Type';
+extends 'Google::Chart';
+with 'Google::Chart::WithData';
 
 enum 'Google::Chart::Type::Bar::Orientation' => qw(horizontal vertical);
-
-has stacked => (
-    is       => 'ro',
-    isa      => 'Bool',
-    default  => 1,
-);
-
-has orientation => (
-    is      => 'ro',
-    isa     => 'Google::Chart::Type::Bar::Orientation',
-    default => 'vertical',
-);
-
-has width => (
-    is => 'ro',
-    isa => 'Int',
-    predicate => 'has_width',
-);
 
 has bar_space => (
     is => 'ro',
     isa => 'Int',
     predicate => 'has_bar_space',
+);
+
+has bar_width => (
+    is => 'ro',
+    isa => 'Int',
+    predicate => 'has_bar_width',
 );
 
 has group_space => (
@@ -38,25 +27,40 @@ has group_space => (
     predicate => 'has_group_space',
 );
     
+has orientation => (
+    is      => 'ro',
+    isa     => 'Google::Chart::Type::Bar::Orientation',
+    default => 'vertical',
+);
 
-sub as_query {
+has stacked => (
+    is       => 'ro',
+    isa      => 'Bool',
+    default  => 1,
+);
+
+sub _build_type {
     my $self = shift;
-
-    my %query = (
-        cht => sprintf( 'b%s%s', 
-            $self->orientation eq 'vertical' ? 'v' : 'h',
-            $self->stacked                   ? 's' : 'g'
-        )
+    
+    return sprintf( 'b%s%s', 
+        $self->orientation eq 'vertical' ? 'v' : 'h',
+        $self->stacked                   ? 's' : 'g'
     );
-    if ($self->has_width || $self->has_bar_space || $self->has_group_space) {
-        $query{ chbh } = join(',', 
-            $self->width || '',
+}
+
+around prepare_query => sub {
+    my ($next, $self, @args) = @_;
+
+    my $query = $next->($self, @args);
+    if ($self->has_bar_width || $self->has_bar_space || $self->has_group_space) {
+        $query->{ chbh } = join(',', 
+            $self->bar_width || '',
             $self->bar_space || '',
             $self->group_space || '',
         );
     }
-    return %query;
-}
+    return $query;
+};
 
 __PACKAGE__->meta->make_immutable;
 
