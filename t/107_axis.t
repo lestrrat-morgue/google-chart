@@ -12,20 +12,22 @@ BEGIN
         type => "Line",
         size => "400x300",
         data => [ 1, 2, 3, 4, 5 ],
-        axis => [
-            {
-                location => 'x',
-                labels   => [ '1', '50', '100' ],
-            },
-            {
-                location => 'y',
-                labels   => [ 'x', 'y', 'z' ],
-            },
-            {
-                location => 't',
-                labels   => [ 'A', 'B', 'C' ],
-            }
-        ]
+        axis => Google::Chart::Axis->new(
+            axes => [
+                Google::Chart::Axis::Item->new(
+                    location => 'x',
+                    labels   => [ '1', '50', '100' ],
+                ),
+                Google::Chart::Axis::Item->new(
+                    location => 'y',
+                    labels   => [ 'x', 'y', 'z' ],
+                ),
+                Google::Chart::Axis::Item->new(
+                    location => 't',
+                    labels   => [ 'A', 'B', 'C' ],
+                )
+            ]
+        )
     );
 
     ok( $chart );
