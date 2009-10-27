@@ -55,25 +55,6 @@ use namespace::clean -except => qw(meta);
         => message { "value '$_' is not a valid hexadecimal value" }
     ;
 
-    class_type 'Google::Chart::Color';
-    coerce 'Google::Chart::Color'
-        => from 'Str'
-        => via {
-            if (! Class::MOP::is_class_loaded('Google::Chart::Color')) {
-                Class::MOP::load_class('Google::Chart::Color');
-            }
-            Google::Chart::Color->new(values => [ $_ ])
-        }
-    ;
-    coerce 'Google::Chart::Color'
-        => from 'ArrayRef[Str]'
-        => via {
-            if (! Class::MOP::is_class_loaded('Google::Chart::Color')) {
-                Class::MOP::load_class('Google::Chart::Color');
-            }
-            Google::Chart::Color->new(values => $_)
-        }
-    ;
 }
 
 { # These are the most simplistic coercions
