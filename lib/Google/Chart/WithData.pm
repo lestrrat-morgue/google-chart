@@ -50,3 +50,27 @@ sub add_dataset {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Google::Chart::WithData - Role For Charts That Have "Plottable" Data
+
+=head1 ATTRIBUTES
+
+=head2 data
+
+Google::Chart::Data instance.
+
+=head1 METHODS
+
+=head2 data_encoding( $class [, %args] )
+
+Change the default encoding.
+
+=head2 add_dataset( %dataset_args )
+
+Adds a new data set
+
+=cut
