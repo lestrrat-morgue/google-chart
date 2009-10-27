@@ -77,6 +77,31 @@ use namespace::clean -except => qw(meta);
 }
 
 { # These are the most simplistic coercions
+    coerce 'Google::Chart::Size'
+        => from 'Str'
+        => via {
+            if (! /^(\d+)x(\d+)$/) {
+                confess("Could not parse $_ as size");
+            }
+
+            return Google::Chart::Size->new(width => $1, height => $2);
+        }
+    ;
+
+    coerce 'Google::Chart::Size'
+        => from 'HashRef'
+        => via { 
+            my $h = $_;
+    
+            my ($width, $height) = ($h->{args}) ?
+                ($h->{args}->{width}, $h->{args}->{height}) :
+                ($h->{width}, $h->{height})
+            ;
+
+            return Google::Chart::Size->new( width => $width, height => $height );
+        }
+    ;
+
     class_type 'Google::Chart::Data';
     coerce 'Google::Chart::Data'
         => from 'ArrayRef'
@@ -253,30 +278,6 @@ sub hash_coercion {
     ;
 }
 
-coerce 'Google::Chart::Size'
-    => from 'Str'
-    => via {
-        if (! /^(\d+)x(\d+)$/) {
-            confess("Could not parse $_ as size");
-        }
-
-        return Google::Chart::Size->new(width => $1, height => $2);
-    }
-;
-
-coerce 'Google::Chart::Size'
-    => from 'HashRef'
-    => via { 
-        my $h = $_;
-
-        my ($width, $height) = ($h->{args}) ?
-            ($h->{args}->{width}, $h->{args}->{height}) :
-            ($h->{width}, $h->{height})
-        ;
-
-        return Google::Chart::Size->new( width => $width, height => $height );
-    }
-;
 
 1;
 

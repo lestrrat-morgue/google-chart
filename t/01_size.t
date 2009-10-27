@@ -1,5 +1,5 @@
 use strict;
-use Test::More (tests => 23);
+use Test::More (tests => 13);
 use Test::Exception;
 
 BEGIN
@@ -14,7 +14,7 @@ BEGIN
     isa_ok($size, "Google::Chart::Size");
     is( $size->width, 100 );
     is( $size->height, 100 );
-    is( [ $size->as_query ], [ 'chs', '100x100' ] );
+    is_deeply( [ $size->as_query ], [ 'chs', '100x100' ] );
 }
 
 {
@@ -36,43 +36,11 @@ BEGIN
     isa_ok( $size, "Google::Chart::Size" );
     is( $size->width, 100 );
     is( $size->height, 200 );
-    is( [ $size->as_query ], [ 'chs', '100x200' ] );
+    is_deeply( [ $size->as_query ], [ 'chs', '100x200' ] );
 
     dies_ok {
         Test::Google::Chart::Size->new( size => "10.1x20.3" )
     } "bad spec";
-
 }
 
-{
-    my $test = Test::Google::Chart::Size->new( size => {
-        args => {
-            width => 100,
-            height => 200
-        }
-    } );
-
-    my $size = $test->size;
-    ok( $size );
-    isa_ok( $size, "Google::Chart::Size" );
-    is( $size->width, 100 );
-    is( $size->height, 200 );
-    is( [ $size->as_query ], [ 'chs', '100x200' ] );
-}
-
-{
-    my $test = Test::Google::Chart::Size->new( 
-        size => {
-            width => 100,
-            height => 200
-        }
-    );
-
-    my $size = $test->size;
-    ok( $size );
-    isa_ok( $size, "Google::Chart::Size" );
-    is( $size->width, 100 );
-    is( $size->height, 200 );
-    is( [ $size->as_query ], [ 'chs', '100x200' ] );
-}
 
