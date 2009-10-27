@@ -3,11 +3,10 @@ package Google::Chart::Type::Line;
 use Moose;
 use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::Type';
+extends 'Google::Chart';
 
-sub as_query {
-    my $self = shift;
-    return (cht => 'lc');
+sub _build_type {
+    return 'lc';
 }
 
 __PACKAGE__->meta->make_immutable;
