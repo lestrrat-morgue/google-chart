@@ -1,6 +1,7 @@
 
 package Google::Chart;
 use Moose;
+use Google::Chart::Axis;
 use Google::Chart::Data;
 use Google::Chart::Size;
 use Google::Chart::Title;

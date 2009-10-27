@@ -11,6 +11,16 @@ has values => (
     required => 1,
 );
 
+around BUILDARGS => sub {
+    my $next = shift;
+    my $class = shift;
+    my $args = $class->$next(@_);
+    if (! ref $args->{values} ) {
+        $args->{values} = [ $args->{values} ];
+    }
+    return $args;
+};
+
 sub as_query {
     my $self = shift;
     return ( chco => join(',', @{$self->values}) );

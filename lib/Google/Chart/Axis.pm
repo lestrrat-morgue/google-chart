@@ -1,6 +1,7 @@
 
 package Google::Chart::Axis;
 use Moose;
+use Google::Chart::Axis::Item;
 use Google::Chart::Types;
 use namespace::clean -except => qw(meta);
 
@@ -8,7 +9,7 @@ with 'Google::Chart::QueryComponent';
 
 has axes => (
     is => 'ro',
-    isa => 'ArrayRef[Google::Chart::Axis::Position]',
+    isa => 'ArrayRef[Google::Chart::Axis::Item]',
     required => 1,
 );
 

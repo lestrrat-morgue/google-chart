@@ -15,9 +15,9 @@ BEGIN
 
     ok($color);
     isa_ok($color, "Google::Chart::Color");
-    my $query = $color->as_query;
-    note($query);
-    is( $query, "chco=000000%2Cff0000" );
+    my @query = $color->as_query;
+    note(@query);
+    is_deeply( \@query, [ chco => "000000,ff0000" ] );
 }
 {
     my $color = Google::Chart::Color->new(
@@ -26,9 +26,9 @@ BEGIN
 
     ok($color);
     isa_ok($color, "Google::Chart::Color");
-    my $query = $color->as_query;
-    note($query);
-    is( $query, "chco=000000" );
+    my @query = $color->as_query;
+    note(@query);
+    is_deeply( \@query, [ chco => "000000" ] );
 }
 
 {
@@ -36,12 +36,14 @@ BEGIN
         type => 'Line',
         size => '300x300',
         data => [20, 40, 90],
-        axis => [
-            {
-                location => 'x',
-                labels => [1, 2, 3],
-            },
-        ],
+        axis => Google::Chart::Axis->new(
+            axes => [
+                Google::Chart::Axis::Item->new(
+                    location => 'x',
+                    labels => [1, 2, 3],
+                )
+            ],
+        ),
         color => 'ff0000'
     );
     ok($graph);
@@ -56,16 +58,18 @@ BEGIN
         type => 'Line',
         size => '300x300',
         data => [[20, 40, 90], [100, 70, 20]],
-        axis => [
-            {
-                location => 'x',
-                labels => [1, 2, 3],
-            },
-            {
-                location => 'y',
-                labels => [0,25,50,75,100],
-            },
-        ],
+        axis => Google::Chart::Axis->new(
+            axes => [
+                Google::Chart::Axis::Item->new(
+                    location => 'x',
+                    labels => [1, 2, 3],
+                ),
+                Google::Chart::Axis::Item->new(
+                    location => 'y',
+                    labels => [0,25,50,75,100],
+                )
+            ],
+        ),
         color => ['ff0000', '00ffff'],
     );
     ok($graph);
