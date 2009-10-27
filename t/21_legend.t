@@ -35,19 +35,27 @@ BEGIN
     my $graph = Google::Chart->new(
         type => 'Line',
         size => '300x300',
-        data => [[20, 40, 90], [100, 70, 20]],
-        axis => [
-            {
-                location => 'x',
-                labels => [1, 2, 3],
-            },
-            {
-                location => 'y',
-                labels => [0,25,50,75,100],
-            },
-        ],
+        data => Google::Chart::Data->new(
+            data => [
+                Google::Chart::DataSet->new(
+                    data => [[20, 40, 90], [100, 70, 20]],
+                    legend => 'data1',
+                )
+            ]
+        ),
+        axis => Google::Chart::Axis->new(
+            axes => [
+                Google::Chart::Axis::Item->new(
+                    location => 'x',
+                    labels => [1, 2, 3],
+                ),
+                Google::Chart::Axis::Item->new(
+                    location => 'y',
+                    labels => [0,25,50,75,100],
+                )
+            ],
+        ),
         color => ['ff0000', '00ffff'],
-        legend => 'data1',
     );
     ok($graph);
     isa_ok($graph, 'Google::Chart');
@@ -61,19 +69,31 @@ BEGIN
     my $graph = Google::Chart->new(
         type => 'Line',
         size => '300x300',
-        data => [[20, 40, 90], [100, 70, 20]],
-        axis => [
-            {
-                location => 'x',
-                labels => [1, 2, 3],
-            },
-            {
-                location => 'y',
-                labels => [0,25,50,75,100],
-            },
-        ],
+        data => Google::Chart::Data->new(
+            data => [
+                Google::Chart::DataSet->new(
+                    legend => 'data1',
+                    data => [20, 40, 90],
+                ),
+                Google::Chart::DataSet->new(
+                    legend => 'data2',
+                    data =>  [100, 70, 20],
+                )
+            ]
+        ),
+        axis => Google::Chart::Axis->new(
+            axes => [
+                Google::Chart::Axis::Item->new(
+                    location => 'x',
+                    labels => [1, 2, 3],
+                ),
+                Google::Chart::Axis::Item->new(
+                    location => 'y',
+                    labels => [0,25,50,75,100],
+                )
+            ],
+        ),
         color => ['ff0000', '00ffff'],
-        legend => ['data1', 'data2'],
     );
     ok($graph);
     isa_ok($graph, 'Google::Chart');

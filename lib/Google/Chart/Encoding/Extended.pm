@@ -30,6 +30,7 @@ sub encode {
 
     my $scale    = $map_size ** 2  - 1;
     my $result = 'e:' . join(',', map {
+        my $set = $_;
         join( '',
             map {
                 my $data = $_;
@@ -45,7 +46,7 @@ sub encode {
                     $v = $map[ int($normalized / $map_size)  ] . $map[ int($normalized % $map_size) ];
 #               }
                 $v;
-            } @$_
+            } @{$set->data}
         )
         } @$sets
     );

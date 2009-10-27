@@ -26,12 +26,13 @@ sub encode {
 
     return 't:' . join( '|', # join data sets
         map {
+            my $set = $_;
             join(',', 
                 map { 
                     defined $_ && looks_like_number($_) ? 
                         $_ == -1 ? -1 :
                         sprintf("%0.1f", $_) : -1
-                } @{$_}
+                } @{$set->data}
             ) # join data values
         } @$sets
     );

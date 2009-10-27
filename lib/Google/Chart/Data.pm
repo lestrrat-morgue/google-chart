@@ -2,6 +2,7 @@
 package Google::Chart::Data;
 use Moose;
 use Google::Chart::Types;
+use Google::Chart::DataSet;
 use namespace::clean -except => qw(meta);
 
 with 'Google::Chart::QueryComponent';
@@ -15,7 +16,7 @@ has encoding => (
 
 has data => (
     is       => 'ro',
-    isa      => 'ArrayRef[ArrayRef]',
+    isa      => 'ArrayRef[Google::Chart::DataSet]',
     coerce   => 1,
     required => 1,
 );
@@ -47,16 +48,36 @@ around BUILDARGS => sub {
         @dataset = ([ @dataset]);
     }
 
-    my $args =  $class->$next( %args, data => \@dataset );
+    foreach (@dataset) {
+        if ( ! blessed $_ ) {
+            $_ = Google::Chart::DataSet->new(data => $_);
+        }
+    }
+
+    my $args = $class->$next( %args, data => \@dataset );
     return $args;
 };
 
 sub as_query {
     my $self = shift;
 
-    return (
+    my %args = (
         chd => $self->encoding->encode( $self->data ),
     );
+
+    my @legends;
+    my $do_legend = 0;
+    foreach my $set (@{$self->data}) {
+        if ($set->has_legend) {
+            $do_legend++;
+        }
+        push @legends, $set->legend;
+    }
+
+    if ($do_legend) {
+        $args{chdl} = join('|', map { defined $_ ? $_ : '' } @legends);
+    }
+    return %args;
 }
 
 __PACKAGE__->meta->make_immutable();
@@ -67,15 +88,32 @@ __END__
 
 =head1 NAME
 
-Google::Chart::Data - Google::Chart
+Google::Chart::Data - Google::Chart Data
 
 =head1 SYNOPSIS
 
     use Google::Chart::Data;
 
+    # simple, text encoding
     Google::Chart::Data->new(
-        encoding => Google::Chart::Encoding::Text->new(),
-        data => [ 1.0, 2.0, undef, 50.0, -1, 100.0 ]
+        [ 1.0, 2.0, undef, 50.0, -1, 100.0 ]
+    );
+
+    # Explicity encoding specification, with legend
+    Google::Chart::Data->new(
+        encoding => Google::Chart::Encoding::Extended->new(
+            max_value => 150,
+        ),
+        data => [
+            Google::Chart::DataSet->new(
+                legend => "Data set 1",
+                data   => [ 1.0, 2.0, undef, 50.0, -1, 100.0 ]
+            ),
+            Google::Chart::DataSet->new(
+                legend => "Data set 2",
+                data   => [ 1, 400, 500, 100]
+            )
+        ]
     );
 
 =cut

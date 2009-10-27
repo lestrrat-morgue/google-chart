@@ -11,11 +11,12 @@ sub encode {
 
     return 's:' . join( ',', # join data sets
         map {
+            my $set = $_;
             join('', map {
                 defined $_ ? 
                     (looks_like_number($_) ? $ENCODE_VALUES[$_] : '_') :
                     '_'
-            } @$_) # join data values
+            } @{$set->data} ) # join data values
         } @$sets
     );
     
