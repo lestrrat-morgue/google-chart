@@ -41,19 +41,19 @@ has grid_blank_length => (
 around prepare_query => sub {
     my ($next, $self, @args) = @_;
 
-    my $query = $next->($self, @args);
+    my @query = $next->($self, @args);
     if ($self->_grid_enabled) {
-        $query->{chg} = join(',',
+        push @query, (chg => join(',',
             map { $self->$_ || '' } qw(
                 grid_x_step_size 
                 grid_y_step_size 
                 grid_line_length 
                 grid_blank_length
             )
-        );
+        ));
     }
 
-    return $query;
+    return @query;
 };
 
 1;

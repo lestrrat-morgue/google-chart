@@ -47,18 +47,19 @@ sub _build_type { 'qr' }
 
 override prepare_query => sub {
     my $self = shift;
-    my $query = super();
-
-    $query->{cht} = 'qr';
-    $query->{chl} = Encode::is_utf8($self->text) ?
-        Encode::decode_utf8($self->text) : $self->text;
-    $query->{choe} = $self->qrcode_encoding;
+    my @query = super();
+    
+    push @query, (cht => 'qr');
+    push @query, (choe => $self->qrcode_encoding);
+    push @query, (chl => Encode::is_utf8($self->text) ?
+        Encode::decode_utf8($self->text) : $self->text);
     if ($self->eclevel || $self->margin ) {
-        $query->{chld} =
-            join( '|', $self->eclevel || '', $self->margin || '');
+        push @query, (chld =>
+            join( '|', $self->eclevel || '', $self->margin || '')
+        );
     }
 
-    return $query;
+    return @query;
 };
 
 __PACKAGE__->meta->make_immutable();

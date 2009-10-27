@@ -54,15 +54,15 @@ sub _build_type {
 around prepare_query => sub {
     my ($next, $self, @args) = @_;
 
-    my $query = $next->($self, @args);
+    my @query = $next->($self, @args);
     my @comps;
     $comps[0] = $self->bar_width if $self->has_bar_width;
     $comps[1] = $self->bar_space if $self->has_bar_space;
     $comps[2] = $self->group_space if $self->has_group_space;
     if (@comps > 0) { 
-        $query->{ chbh } = join(',', @comps)
+        push @query, (chbh => join(',', @comps));
     }
-    return $query;
+    return @query;
 };
 
 __PACKAGE__->meta->make_immutable;

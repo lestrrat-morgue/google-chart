@@ -99,9 +99,7 @@ sub create {
 sub prepare_query {
     my $self = shift;
 
-    my %query = (
-        cht => $self->type
-    );
+    my @query = ( cht => $self->type );
 
     foreach my $element (map { $self->$_() } qw(size title axis)) {
         next unless defined $element;
@@ -109,11 +107,11 @@ sub prepare_query {
         while (@params) {
             my ($name, $value) = splice(@params, 0, 2);
             next unless length $value;
-            $query{$name} = $value;
+            push @query, ($name => $value);
         }
     }
 
-    return \%query;
+    return @query;
 }
 
 sub as_uri {

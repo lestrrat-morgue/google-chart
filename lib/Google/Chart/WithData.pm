@@ -33,15 +33,11 @@ sub data_encoding {
 
 around prepare_query => sub {
     my ($next, $self, @args) = @_;
-    my $query = $next->( $self, @args );
+    my @query = $next->( $self, @args );
 
     my @params = $self->data->as_query( $self );
-    while (@params) {
-        my ($name, $value) = splice(@params, 0, 2);
-        next unless length $value;
-        $query->{$name} = $value;
-    }
-    return $query;
+    push @query, @params;
+    return @query;
 };
 
 sub add_dataset {
