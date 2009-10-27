@@ -197,7 +197,10 @@ Google::Chart - Interface to Google Charts API
       stacked     => 1, 
     )
   );
-
+  $chart->add_axis(
+    location => 'x',
+    label => [ qw(foo bar baz) ],
+  );
   $chart->add_dataset(
     color => 'FF0000',
     data => [ 1, 2, 3, 4, 5 ],
@@ -219,40 +222,12 @@ backwards compatibility.
 
 =head2 create( $chart_type => %args )
 
-Creates a new chart of type $chart_type
-
-=head2 new(%args)
-
-Creates a new Google::Chart instance. You should be using C<create> unless you're hacking on a new chart type.
+Creates a new chart of type $chart_type. The rest of the arguments are passed
+to the constructor of the appropriate $chart_type class. Each chart type may
+have a different set of attributes that it can initialize, but the following
+are commong to all graphs:
 
 =over 4
-
-=item type
-
-Specifies the chart type, such as line, bar, pie, etc. If given a string like
-'Bar', it will instantiate an instance of Google::Chart::Type::Bar by
-invoking argument-less constructor.
-
-If you want to pass parameters to the constructor, either pass in an
-already instanstiated object, or pass in a hash, which will be coerced to
-the appropriate object
-
-  my $chart = Google::Chart->new(
-    type => Google::Chart::Bar->new(
-      orientation => "horizontal"
-    )
-  );
-
-  # or
-
-  my $chart = Google::Chart->new(
-    type => {
-      module => "Bar",
-      args   => {
-        orientation => "horizontal"
-      }
-    }
-  );
 
 =item size
 
@@ -274,19 +249,13 @@ instantiated objects can be used:
 
 Specifies the markers that go on line charts.
 
-=item axis
-
-Specifies the axis labels and such that go on line and bar charts
-
-=item legend
-
-=item color
-
-=item fill
-
 =item
 
 =back
+
+=head2 new(%args)
+
+Creates a new Google::Chart instance. You should be using C<create> unless you're hacking on a new chart type.
 
 =head2 as_uri()
 
