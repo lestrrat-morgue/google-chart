@@ -1,7 +1,7 @@
 Changes
 ======
 
-0.10000_01 05 Oc 2009
+0.99000_01 2009
   * So I'm being a bad boy and doing it again. Time for another take.
     This time I'd like everybody's input.
 
@@ -14,6 +14,13 @@ Changes
 
     In this release, I've conjured up what I believe to be a saner API.
 
+  * Significant <BACKWARD IMCOMPATIBLE> Changes
+    - New syntax
+
+          my $g = Google::Chart->create(
+            $type => %args
+          );
+          $g->add_dataset(...);
 
 0.05014 - 21 Aug 2009
   * Having completely forgotten about releasing a prod release for
