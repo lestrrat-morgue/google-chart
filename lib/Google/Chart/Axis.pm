@@ -17,7 +17,46 @@ has axes => (
 sub as_query {
     my $self = shift;
 
-    return (chxt => join(',', @{$self->axes}));
+    my $count = 0;
+    my %query = (
+        chxt => [],
+        chxl => [],
+        chxp => [],
+        chxr => [],
+        chxs => [],
+    );
+    foreach my $axis (@{ $self->axes }) {
+        push @{$query{chxt}}, $axis->location;
+        if (my @labels = $axis->labels) {
+            push @{$query{chxl}}, join('|', "$count:", map { defined $_ ? $_ : '' } @labels);
+        }
+        if (my @label_positions = $axis->label_positions) {
+            push @{$query{chxp}}, join(',', "$count:", @label_positions);
+        }
+        if (my @range = $axis->range) {
+            push @{$query{chxr}}, join(',', "$count:", @range);
+        }
+        if (my $style = $axis->style) {
+            push @{$query{chxs}}, join(',', $style->color, $style->font_size, $style->alignment);
+        }
+        $count++;
+    }
+
+    foreach my $comp qw( chxt ) {
+        my $list = delete $query{ $comp };
+        if (scalar @$list > 0) {
+            $query{ $comp } = join(',', @$list);
+        }
+    }
+        
+    foreach my $comp qw( chxl chxp chxr chxs ) {
+        my $list = delete $query{ $comp };
+        if (scalar @$list > 0) {
+            $query{ $comp } = join('|', @$list);
+        }
+    }
+
+    return %query;
 }
 
 __PACKAGE__->meta->make_immutable;

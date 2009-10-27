@@ -1,60 +1,42 @@
-# $Id$
 
 package Google::Chart::Axis::Item;
 use Moose;
 use Moose::Util::TypeConstraints;
 use Google::Chart::Axis::Style;
+use namespace::clean -except => qw(meta);
 
 enum 'Google::Chart::Axis::Location' => qw(x y r t);
 
-subtype 'Google::Chart::Axis::StyleList'
-    => as 'ArrayRef[Google::Chart::Axis::Style]'
-;
-
-coerce 'Google::Chart::Axis::StyleList'
-    => from 'ArrayRef[HashRef]'
-    => via { 
-        my @list;
-        foreach my $h (@$_) {
-            push @list, Google::Chart::Axis::Style->new(%$h);
-        }
-        return \@list;
-    }
-;
-
-has 'location' => (
+has location => (
     is => 'rw',
     isa => 'Google::Chart::Axis::Location',
 );
 
-has 'labels' => (
+has labels => (
     is => 'rw',
-    isa => 'ArrayRef[Str]',
+    isa => 'ArrayRef[Str|Undef]',
     auto_deref => 1,
 );
 
-has 'label_positions' => (
+has label_positions => (
     is => 'rw',
     isa => 'ArrayRef[Num]',
     auto_deref => 1,
 );
 
-has 'range' => (
+has range => (
     is => 'rw',
-    isa => 'ArrayRef[Num]',
+    isa => 'ArrayRef[Num]', # XXX should validate @range == 2
     auto_deref => 1,
 );
 
-has 'styles' => (
+has style => (
     is => 'rw',
-    isa => 'Google::Chart::Axis::StyleList',
-    auto_deref => 1,
+    isa => 'Google::Chart::Axis::Style',
 );
 
 __PACKAGE__->meta->make_immutable;
 
-no Moose;
-no Moose::Util::TypeConstraints;
 
 1;
 
