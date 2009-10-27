@@ -77,6 +77,7 @@ use namespace::clean -except => qw(meta);
 }
 
 { # These are the most simplistic coercions
+    class_type 'Google::Chart::Size';
     coerce 'Google::Chart::Size'
         => from 'Str'
         => via {
