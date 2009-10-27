@@ -68,7 +68,7 @@ has google_chart_uri => (
 );
 
 has ua => (
-    is         => 'rw',
+    is         => 'ro',
     isa        => 'LWP::UserAgent',
     lazy_build => 1,
 );
