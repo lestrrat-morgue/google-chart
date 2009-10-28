@@ -685,6 +685,12 @@ my @charts = (
             color => '224499',
             data => [ qw(0 19 18 19 26 21 29 54 53 61 60 53 46 40 28 0 ) ],
         );
+        $g->add_range_fill(
+            type => 'B',
+            color => '76A4FB',
+            start_index => 0,
+            end_index => 0
+        );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp&chco=FF0000&chls=4.0,3.0,0.0&chs=200x125&chxt=x,y&chxl=0:|Jun|July|Aug|1:||20|30|40|50&chf=bg,s,efefef' => sub {
@@ -764,14 +770,62 @@ my @charts = (
     'http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=s:elg,ors&chbh=10,15&chco=cc0000,00aa00' => sub {
     },
     'http://chart.apis.google.com/chart?cht=bvg&chs=200x125&chd=t:20,35,50,10,95&chco=cc0000&chp=.5' => sub {
+        my $g = Google::Chart->create(
+            Bar => (
+                orientation => 'vertical',
+                bar_zero => 0.5,
+                size => '200x125',
+            )
+        );
+        $g->add_dataset(
+            color => 'cc0000',
+            data => [ qw(20 35 50 10 95) ]
+        );
+        return $g;
     },
-    'http://chart.apis.google.com/chart?cht=bvg&chs=200x125&chco=cc0000,00aa00&chd=t:30,' => sub {
+    'http://chart.apis.google.com/chart?cht=bvg&chs=200x125&chco=cc0000,00aa00&chd=t:30,-60,50,120,80&chds=-80,140' => sub {
+        my $g = Google::Chart->create(
+            Bar => (
+                orientation => 'vertical',
+                size => '200x125',
+            )
+        );
+        $g->add_dataset(
+            color => 'cc0000',
+            data => [ 30, -60, 50, 120, 80 ],
+            min_value => -80,
+            max_value => 140,
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:93zyvneTTOMJMLIJFHEAECFJGHDBFCFIERcgnpy45879,IJKNUWUWYdnswz047977315533zy1246872tnkgcaZQONHCECAAAAEII&chls=3,6,3|1,1,0&chs=200x125' => sub {
     },
     'http://chart.apis.google.com/chart?cht=bvg&chbh=5,2&chm=B,C6D9FD,0,0,0|D,4D89F9,0,0,5,1&chbh=20&chs=200x150&chd=s:1XQbnf4&chco=76A4FB' => sub {
+        my $g = Google::Chart->create(
+            Bar => (
+                orientation => 'vertical',
+                bar_width => 5,
+                bar_space => 2,
+                size => '200x150',
+            )
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=ls&chs=200x125&chd=s:foeZ9Gat,lkjtf3asv&chm=D,C6D9FD,1,0,8|D,4D89F9,0,0,4' => sub {
+        my $g = Google::Chart->create(
+            SparkLine => (
+                size => '200x125',
+                encoding_class => 'Simple'
+            )
+        );
+        $g->add_dataset(
+            data => [ qw( 31 40 30 25 61 6 26 45 ) ],
+            
+        );
+        $g->add_dataset(
+            data => [ qw( 37 36 35 45 31 55 26 44 47 ) ],
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0,0.0,0.0&chxt=x,y&chxl=0:|0|1|2|3|4|5|1:|0|50|100&chs=200x125&chg=20,50' => sub {
         my $g = Google::Chart->create(
