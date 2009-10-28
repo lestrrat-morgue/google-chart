@@ -10,13 +10,9 @@ my @charts = (
             )
         );
         $g->add_dataset(
-            data => [ 60 ],
-            label => "Hello",
+            data => [ 60, 40 ],
         );
-        $g->add_dataset(
-            data => [ 40 ],
-            label => "World",
-        );
+        $g->add_pie_label( 'Hello', 'World' );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chs=200x100&chd=s:fohmnytenefohmnytene&chxt=x,y&chxl=0:|Apr|May|June|1:||50' => sub {
@@ -264,24 +260,24 @@ my @charts = (
             )
         );
         $g->add_dataset(
-            data => [ 20 ],
-            label => 'January',
+            data => [ 20, 31, 61, 26  ],
         );
-        $g->add_dataset(
-            data => [ 31 ],
-            label => 'February',
-        );
-        $g->add_dataset(
-            data => [ 61 ],
-            label => 'March',
-        );
-        $g->add_dataset(
-            data => [ 26 ],
-            label => 'April',
-        );
+        $g->add_pie_label( qw(January February March April) );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April' => sub {
+        my $g = Google::Chart->create(
+            Pie => (
+                encoding_class => 'Simple',
+                size => '200x100',
+                pie_type => '3d',
+            )
+        );
+        $g->add_dataset(
+            data => [ 20, 31, 61, 26  ],
+        );
+        $g->add_pie_label( qw(January February March April) );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,80,60,30,30,30,10' => sub {
         my $g = Google::Chart->create(
@@ -654,8 +650,8 @@ my @charts = (
         $g->add_dataset(
             color => '0000ff',
             data => [ qw(7 30 37 37 40 27 37 26) ],
-            lagend => [ qw( May Jun Jul Aug Sep Oct ) ],
         );
+        $g->add_pie_label(qw( May Jun Jul Aug Sep Oct ) );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,80,60,30,30,30,10&chco=00ff00,0000ff' => sub {
@@ -720,10 +716,43 @@ my @charts = (
     'http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,20,20,20,20,0,0&chdl=First|Second|Third&chco=ff0000,00ff00,0000ff&chdlp=l' => sub {
     },
     'http://chart.apis.google.com/chart?cht=p3&chs=220x100&chd=s:Hellob&chl=May|Jun|Jul|Aug|Sep|Oct' => sub {
+        my $g = Google::Chart->create(
+            Pie => (
+                size => '220x100',
+                pie_type => '3d',
+            )
+        );
+        $g->add_dataset(
+            data => [ qw(7 30 37 37 40 27) ],
+        );
+        $g->add_pie_label( qw(May Jun Jul Aug Sep Oct) );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=p3&chs=220x100&chd=s:Hellob&chl=May|June|July|August|September|October' => sub {
+        my $g = Google::Chart->create(
+            Pie => (
+                size => '220x100',
+                pie_type => '3d',
+            )
+        );
+        $g->add_dataset(
+            data => [ qw(7 30 37 37 40 27) ],
+        );
+        $g->add_pie_label( qw(May June July August September October) );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=p3&chs=280x100&chd=s:Hellob&chl=May|June|July|August|September|October' => sub {
+        my $g = Google::Chart->create(
+            Pie => (
+                size => '280x100',
+                pie_type => '3d',
+            )
+        );
+        $g->add_dataset(
+            data => [ qw(7 30 37 37 40 27) ],
+        );
+        $g->add_pie_label( qw(May June July August September October) );
+        return $g;
     },
     'http://chart.apis.google.com/chart?chs=225x125&cht=gom&chd=t:70&chl=Hello' => sub {
     },
