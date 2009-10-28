@@ -14,6 +14,12 @@ with qw(
 
 enum 'Google::Chart::Type::Bar::Orientation' => qw(horizontal vertical);
 
+has bar_zero => (
+    is => 'ro',
+    isa => 'Num',
+    predicate => 'has_bar_zero',
+);
+
 has bar_space => (
     is => 'ro',
     isa => 'Int',
@@ -64,6 +70,11 @@ around prepare_query => sub {
     if (@comps > 0) { 
         push @query, (chbh => join(',', @comps));
     }
+
+    if ($self->has_bar_zero) {
+        push @query, (chp => $self->bar_zero);
+    }
+
     return @query;
 };
 
