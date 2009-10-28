@@ -8,6 +8,7 @@ with qw(
     Google::Chart::WithAxis
     Google::Chart::WithData 
     Google::Chart::WithGrid
+    Google::Chart::WithRangeMarker
 );
 
 sub _build_type { 's' }
