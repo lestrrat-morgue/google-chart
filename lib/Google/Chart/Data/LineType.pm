@@ -1,6 +1,6 @@
 package Google::Chart::Data::LineType;
 use Moose;
-use Google::Chart::Data::LineType;
+use Google::Chart::DataSet::LineType;
 use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart::Data';
