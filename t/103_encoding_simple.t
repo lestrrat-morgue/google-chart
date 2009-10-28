@@ -1,5 +1,6 @@
 use strict;
 use Test::More (tests => 8);
+use Test::MockObject;
 
 BEGIN
 {
@@ -18,7 +19,7 @@ BEGIN
 
     ok($data);
     isa_ok($data, "Google::Chart::Data");
-    my @query = $data->as_query;
+    my @query = $data->prepare_query( Test::MockObject->new() );
     note(@query);
     is_deeply( [@query], [ chd => 's:ABZabz09__' ] );
 }
@@ -36,7 +37,7 @@ BEGIN
 
     ok($data);
     isa_ok($data, "Google::Chart::Data");
-    my @query = $data->as_query;
+    my @query = $data->prepare_query( Test::MockObject->new() );
     note(@query);
     is_deeply( [@query], [ chd => 's:ABZabz09__,__90zbaZBA'] )
 }

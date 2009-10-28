@@ -8,8 +8,6 @@ use Google::Chart::Encoding::Text;
 use Google::Chart::Types;
 use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::QueryComponent';
-
 has dataset => (
     traits     => ['Array'],
     is         => 'ro',
@@ -81,42 +79,48 @@ around BUILDARGS => sub {
     return $args;
 };
 
-sub as_query {
+sub prepare_query {
     my ($self, $chart) = @_;
 
     # Data delimiter *DIFFERS* between chart types (can you believe it?)
     my $data;
-    if ( $self->encoding->isa('Google::Chart::Encoding::Text') && 
+    my $encoding = $self->encoding;
+    if ( $encoding->isa('Google::Chart::Encoding::Text') && 
          $chart->isa('Google::Chart::Type::Pie') ) {
-        $data = $self->encoding->encode( $self->dataset, ',' );
+        $data = $encoding->encode( $self->dataset, ',' );
     } else {
-        $data = $self->encoding->encode( $self->dataset );
+        $data = $encoding->encode( $self->dataset );
     }
 
-    my %args = (
-        chd => $data
-    );
+    my @query = (chd => $data);
+    my (@chco, @chdl, @chds);
 
-    my @colors;
-    my @legends;
-    my $dataset = $self->dataset;
-    for my $i (0..$#{$dataset}) {
-        my $set = $dataset->[$i];
-        if ($set->has_legend) {
-            $legends[$i] = $set->legend;
+    my $datasets =  $self->dataset;
+    my $max = $self->dataset_count - 1;
+    my $is_text_encoding = $encoding->isa('Google::Chart::Encoding::Text');
+    for my $i (0..$max) {
+        my $dataset = $datasets->[$i];
+        if ($dataset->has_legend) {
+            $chdl[$i] = $dataset->legend;
         }
-        if ($set->has_color) {
-            $colors[$i] = $set->color;
+        if ($dataset->has_color) {
+            $chco[$i] = $dataset->color;
+        }
+        if ($dataset->has_min_value || $dataset->has_max_value) {
+            $chds[$i] = join(',', $dataset->min_value, $dataset->max_value);
         }
     }
+    if (@chds > 0) {
+        push @query, (chds => join(",", map { defined $_ ? $_ : "," } @chds));
+    }
 
-    if (@legends) {
-        $args{chdl} = join('|', map { defined $_ ? $_ : '' } @legends);
+    if (@chdl) {
+        push @query, (chdl => join('|', map { defined $_ ? $_ : '' } @chdl));
     }
-    if (@colors) {
-        $args{chco} = join(',', map { defined $_ ? $_ : '' } @colors);
+    if (@chco) {
+        push @query, (chco => join(',', map { defined $_ ? $_ : '' } @chco));
     }
-    return %args;
+    return @query;
 }
 
 sub add_dataset {

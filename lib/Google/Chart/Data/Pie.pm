@@ -9,9 +9,9 @@ sub _build_dataset_class {
     return "Google::Chart::DataSet::Pie";
 }
 
-override as_query => sub {
+override prepare_query => sub {
     my $self = shift;
-    my %query = super();
+    my @query = super();
 
     my @chl;
     my $datasets = $self->dataset;
@@ -23,9 +23,9 @@ override as_query => sub {
     }
 
     if (@chl) {
-        $query{chl} = join('|', @chl);
+        push @query, (chl => join('|', @chl));
     }
-    return %query;
+    return @query;
 };
 
 __PACKAGE__->meta->make_immutable();

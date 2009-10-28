@@ -85,8 +85,7 @@ around prepare_query => sub {
     my ($next, $self, @args) = @_;
     my @query = $next->( $self, @args );
 
-    my @params = $self->data->as_query( $self );
-    push @query, @params;
+    push @query, $self->data->prepare_query( $self );
     return @query;
 };
 

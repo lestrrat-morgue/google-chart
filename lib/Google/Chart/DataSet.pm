@@ -20,6 +20,18 @@ has legend => (
     predicate => 'has_legend'
 );
 
+has max_value => (
+    is => 'ro',
+    isa => 'Int',
+    predicate => 'has_max_value',
+);
+
+has min_value => (
+    is => 'ro',
+    isa => 'Int',
+    predicate => 'has_min_value',
+);
+
 sub as_query {
     my $self = shift;
 
