@@ -1,6 +1,9 @@
 package Google::Chart::WithMarker;
 use Moose::Role;
 use namespace::clean -except => qw(meta);
+with 'Google::Chart::WithData';
+
+sub add_marker { shift->data->add_marker(@_) }
 
 around _build_data_traits => sub {
     my ($next, $self) = @_;
@@ -20,19 +23,18 @@ around prepare_query => sub {
     for my $i (0..$max) {
         my $dataset = $datasets->[$i];
 
-        if ( $dataset->has_marker_type ||
-             $dataset->has_marker_color ||
-             $dataset->has_marker_points ||
-             $dataset->has_marker_size ||
-             $dataset->has_marker_priority ) {
-            $chm[$i] = join(',',
-                $dataset->marker_type,
-                $dataset->marker_color || '',
-                $i,
-                $dataset->marker_points || -1,
-                $dataset->marker_size || '',
-                $dataset->marker_priority || ''
-            );
+        if ( $dataset->has_markers ) {
+            my $markers = $dataset->markers;
+            foreach my $marker (@$markers) {
+                push @chm, join(',',
+                    $marker->type,
+                    $marker->color || '',
+                    $i,
+                    !defined $marker->point ? -1 : $marker->point,
+                    $marker->size || '',
+                    $marker->priority || ''
+                );
+            }
         }
     }
 
@@ -56,40 +58,36 @@ around _build_dataset_traits => sub {
     return $traits;
 };
 
+sub add_marker {
+    my ($self, %args) = @_;
+
+    my $dataset_index = delete $args{dataset_index};
+    my $dataset = $self->dataset->[$dataset_index] or
+        confess "dataset at index $dataset_index does NOT exist!";
+
+    $dataset->add_marker(%args);
+}
+
 package # hide from PAUSE
     Google::Chart::DataSet::WithMarker;
 use Moose::Role;
-use Moose::Util::TypeConstraints;
+use Google::Chart::Marker;
 use namespace::clean -except => qw(meta);
 
-has marker_type => (
+has markers => (
     is => 'ro',
-    isa => enum([ qw(a c d o s t v V h x) ]),
-    predicate => 'has_marker_type',
+    isa => 'ArrayRef[Google::Chart::Marker]',
+    lazy_build => 1,
+    predicate => 'has_markers',
 );
 
-has marker_color => (
-    is => 'ro',
-    isa => 'Str',
-    predicate => 'has_marker_color',
-);
+sub _build_markers { [] }
 
-has marker_size => (
-    is => 'ro',
-    isa => 'Int',
-    predicate => 'has_marker_size',
-);
+sub add_marker {
+    my ($self, %args) = @_;
 
-has marker_points => (
-    is => 'ro',
-    isa => 'ArrayRef',
-    predicate => 'has_marker_points',
-);
-
-has marker_priority => (
-    is => 'ro',
-    isa => 'Int',
-    predicate => 'has_marker_priority'
-);
+    my $marker = Google::Chart::Marker->new(%args);
+    push @{ $self->markers }, $marker;
+}
 
 1;
