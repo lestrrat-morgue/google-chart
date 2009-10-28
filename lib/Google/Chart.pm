@@ -114,7 +114,19 @@ sub as_uri {
 
     # If in case you want to change this for debugging or whatever...
     my $uri = $self->google_chart_uri()->clone;
-    $uri->query_form( $self->prepare_query() );
+    my @query = $self->prepare_query();
+
+    my %query;
+    while (@query) {
+        my ($key, $value) = splice(@query, 0, 2);
+        if ($key eq 'chm' && $query{$key}) {
+            $query{$key} = join('|', $query{$key}, $value);
+        } else {
+            $query{$key} = $value;
+        }
+    }
+
+    $uri->query_form( %query );
     return $uri;
 }
 
