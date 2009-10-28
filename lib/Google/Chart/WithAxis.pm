@@ -1,11 +1,9 @@
 
-package Google::Chart::Axis;
-use Moose;
+package Google::Chart::WithAxis;
+use Moose::Role;
 use Google::Chart::Axis::Item;
 use Google::Chart::Types;
 use namespace::clean -except => qw(meta);
-
-with 'Google::Chart::QueryComponent';
 
 has axes => (
     traits => ['Array'],
@@ -13,15 +11,18 @@ has axes => (
     isa => 'ArrayRef[Google::Chart::Axis::Item]',
     required => 1,
     lazy_build => 1,
-    handles => {
-        add_axes => 'push',
-    }
 );
 
 sub _build_axes { [] }
 
-sub as_query {
+sub add_axis {
     my $self = shift;
+    push @{$self->axes}, Google::Chart::Axis::Item->new(@_);
+}
+
+around prepare_query => sub {
+    my ($next, $self, @args) = @_;
+    my @query = $next->($self, @args);
 
     my $count = 0;
     my %query = (
@@ -62,10 +63,9 @@ sub as_query {
         }
     }
 
-    return %query;
-}
-
-__PACKAGE__->meta->make_immutable;
+    push @query, %query;
+    return @query;
+};
 
 1;
 
@@ -73,7 +73,7 @@ __END__
 
 =head1 NAME
 
-Google::Chart::Axis - Google::Chart Axis Specification 
+Google::Chart::WithAxis - Google::Chart Axis Specification 
 
 =head1 METHODS
 

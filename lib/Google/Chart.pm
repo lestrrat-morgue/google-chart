@@ -55,11 +55,6 @@ sub _build_axis {
     return Google::Chart::Axis->new();
 }
 
-sub add_axis {
-    my $self = shift;
-    $self->axis->add_axes( Google::Chart::Axis::Item->new(@_) );
-}
-
 sub _build_google_chart_uri {
     require URI;
     return $ENV{GOOGLE_CHART_URI} ? 

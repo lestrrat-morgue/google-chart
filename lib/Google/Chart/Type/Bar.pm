@@ -6,6 +6,7 @@ use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart';
 with qw(
+    Google::Chart::WithAxis
     Google::Chart::WithData 
     Google::Chart::WithGrid
 );
