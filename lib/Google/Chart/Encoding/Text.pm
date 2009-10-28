@@ -12,7 +12,7 @@ has strict => (
 );
 
 sub encode {
-    my ($self, $sets) = @_;
+    my ($self, $sets, $delim) = @_;
 
     if ($self->strict) {
         foreach my $set (@$sets) {
@@ -24,7 +24,7 @@ sub encode {
         }
     }
 
-    return 't:' . join( '|', # join data sets
+    return 't:' . join( $delim || '|', # join data sets
         map {
             my $set = $_;
             join(',', 

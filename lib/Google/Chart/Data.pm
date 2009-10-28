@@ -74,10 +74,19 @@ around BUILDARGS => sub {
 };
 
 sub as_query {
-    my $self = shift;
+    my ($self, $chart) = @_;
+
+    # Data delimiter *DIFFERS* between chart types (can you believe it?)
+    my $data;
+    if ( $self->encoding->isa('Google::Chart::Encoding::Text') && 
+         $chart->isa('Google::Chart::Type::Pie') ) {
+        $data = $self->encoding->encode( $self->dataset, ',' );
+    } else {
+        $data = $self->encoding->encode( $self->dataset );
+    }
 
     my %args = (
-        chd => $self->encoding->encode( $self->dataset ),
+        chd => $data
     );
 
     my @colors;
