@@ -25,16 +25,12 @@ has grid_y_step_size => (
 has grid_line_length => (
     is => 'ro',
     isa => 'Num',
-    lazy => 1,
-    default => 1,
     trigger => sub { $_[0]->_grid_enabled(1) }
 );
 
 has grid_blank_length => (
     is => 'ro',
     isa => 'Num',
-    lazy => 1,
-    default => 1,
     trigger => sub { $_[0]->_grid_enabled(1) }
 );
 
@@ -43,14 +39,12 @@ around prepare_query => sub {
 
     my @query = $next->($self, @args);
     if ($self->_grid_enabled) {
-        push @query, (chg => join(',',
-            map { $self->$_ || '' } qw(
-                grid_x_step_size 
-                grid_y_step_size 
-                grid_line_length 
-                grid_blank_length
-            )
-        ));
+        my @chg;
+        $chg[0] = $self->grid_x_step_size if defined $self->grid_x_step_size;
+        $chg[1] = $self->grid_y_step_size if defined $self->grid_y_step_size;
+        $chg[2] = $self->grid_line_length if defined $self->grid_line_length;
+        $chg[3] = $self->grid_blank_length if defined $self->grid_blank_length;
+        push @query, (chg => join(',', @chg));
     }
 
     return @query;
