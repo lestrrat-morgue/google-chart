@@ -13,9 +13,9 @@ use URI;
     my $g = Google::Chart->create(
         Line => (
             size => '200x125',
+            encoding_class => 'Simple',
         )
     );
-    $g->data_encoding( 'Simple' );
     $g->add_dataset(
         data     => [ 31, 40, 40, 25, 26, 43, 40, 40 ],
     );
@@ -30,12 +30,12 @@ use URI;
 
     my $g = Google::Chart->create(
         Bar => (
+            encoding_class => 'Simple',
             orientation => 'horizontal',
             size => '200x125',
             stacked => 1,
         )
     );
-    $g->data_encoding('Simple');
     $g->add_dataset(
         color => '4d89f9',
         data => [ 30, 37, 37, 40 ],
@@ -76,11 +76,12 @@ TODO: { # bar chart example (3)
 
     my $g = Google::Chart->create(
         Bar => (
+            encoding_class => 'Extended',
+            encoding_max_value => 160,
             bar_width => 20,
             size => '200x125',
         ),
     );
-    $g->data_encoding( 'Extended' => ( max_value => 160 ) );
     $g->add_dataset(
         color => '4d89f9',
         data  => [10, 50, 60, 80, 40], 
@@ -98,11 +99,11 @@ TODO: { # bar chart example (3)
 
     my $g = Google::Chart->create(
         Bar => (
+            encoding_class => 'Simple',
             orientation => 'horizontal',
             size => '200x125',
         )
     );
-    $g->data_encoding( 'Simple' );
     $g->add_dataset(
         color => '4d89f9',
         data => [ 30, 37 ],
@@ -121,10 +122,10 @@ TODO: { # bar chart example (3)
 
     my $g = Google::Chart->create(
         Bar => (
+            encoding_class => 'Simple',
             size => '200x125',
         )
     );
-    $g->data_encoding( 'Simple' );
     $g->add_dataset(
         color => '4d89f9',
         data => [ 33, 30, 37, 37, 40 ],
@@ -153,6 +154,7 @@ TODO: {
 
     my $g = Google::Chart->create(
         Line => (
+            encoding_class => 'Simple',
             size => '200x125',
         )
     );
@@ -164,7 +166,6 @@ TODO: {
         location => 'y',
         labels => [ undef, '20K', undef, '60K', undef, '100K' ],
     );
-    $g->data_encoding( 'Simple' );
     $g->add_dataset(
         color => 'ff0000',
         data => [ 5, 14, 4, 19, 7, 4, 2, 26, 45, ],
@@ -187,10 +188,10 @@ TODO: {
 
     my $g = Google::Chart->create(
         SparkLine => (
+            encoding_class => 'Simple',
             size => '200x125',
         )
     );
-    $g->data_encoding('Simple');
     $g->add_dataset(
         color => 'ff0000',
         data => [ 5, 14, 4, 19, 7, 4, 2, 26, 45, ],

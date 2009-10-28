@@ -27,6 +27,25 @@ has data_traits => (
     lazy_build => 1,
 );
 
+has encoding_class => (
+    is => 'ro',
+    isa => 'Str',
+    default => 'Text',
+);
+
+sub BUILD {
+    my ($self, $params) = @_;
+
+    my %encoding_params;
+    foreach my $key ( grep { /^encoding_(?!class)/ } keys %$params) {
+        my $new_key = $key;
+        $new_key =~ s/^encoding_//;
+        $encoding_params{ $new_key } = $params->{$key};
+    }
+    $self->data_encoding( $self->encoding_class, %encoding_params );
+    return $self;
+}
+
 sub _build_data {
     my $self = shift;
 
