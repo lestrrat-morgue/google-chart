@@ -3,6 +3,10 @@ use Test::More;
 use Google::Chart;
 use URI;
 
+# This is based on 
+# http://code.google.com/intl/ja/apis/chart/types.html
+# (note the "ja", not "en" -- they differ on their examples
+
 { # line chart
     my $uri = URI->new("http://chart.apis.google.com/chart?cht=lc&chs=200x125&chd=s:fooZaroo");
     
