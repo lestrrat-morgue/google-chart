@@ -41,5 +41,5 @@ BEGIN
     my $uri = $graph->as_uri;
     note ($uri);
     my %h = $uri->query_form;
-    is( $h{chg}, '50,33.3,1,1' );
+    is( $h{chg}, '50,33.3' );
 }
