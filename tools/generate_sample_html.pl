@@ -16,11 +16,13 @@ print <<EOHTML;
 <div>These samples were taken from the Google Chart API Developer's Manual</div>
 
 EOHTML
+
+my ($g_count, $skip_count) = (0, 0);
 while (@samples) {
     my ($uri, $code) = splice(@samples, 0, 2);
-
     my $g = $code->();
-    next unless $g;
+    (++$skip_count and next) unless $g;
+    $g_count++;
     my $generated_uri = $g->as_uri;
     local $Data::Dumper::Indent = 1;
     local $Data::Dumper::Deparse = 1;
@@ -57,3 +59,6 @@ print <<EOHTML;
 </html>
 EOHTML
 
+
+print STDERR "Generated $g_count charts\n";
+print STDERR "Skipped $skip_count charts\n";
