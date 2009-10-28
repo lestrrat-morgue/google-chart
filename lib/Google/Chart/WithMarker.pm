@@ -61,7 +61,7 @@ around _build_dataset_traits => sub {
 sub add_marker {
     my ($self, %args) = @_;
 
-    my $dataset_index = delete $args{dataset_index};
+    my $dataset_index = delete $args{dataset_index} || 0;
     my $dataset = $self->dataset->[$dataset_index] or
         confess "dataset at index $dataset_index does NOT exist!";
 
