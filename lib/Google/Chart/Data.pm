@@ -11,9 +11,13 @@ use namespace::clean -except => qw(meta);
 with 'Google::Chart::QueryComponent';
 
 has dataset => (
+    traits     => ['Array'],
     is         => 'ro',
     isa        => 'ArrayRef[Google::Chart::DataSet]',
     lazy_build => 1,
+    handles    => {
+        dataset_count => 'count',
+    }
 );
 
 has dataset_class => (
