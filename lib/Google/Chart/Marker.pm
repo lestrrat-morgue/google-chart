@@ -20,17 +20,17 @@ has color => (
 
 has size => (
     is => 'ro',
-    isa => 'Int',
+    isa => 'Num',
 );
 
 has point => (
     is => 'ro',
-    isa => 'Int',
+    isa => 'Num',
 );
 
 has priority => (
     is => 'ro',
-    isa => 'Int',
+    isa => 'Num',
 );
 
 __PACKAGE__->meta->make_immutable();
