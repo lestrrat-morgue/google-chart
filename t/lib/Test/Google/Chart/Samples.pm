@@ -480,6 +480,7 @@ my @charts = (
         my $g = Google::Chart->create(
             GoogleOMeter => (
                 size => '225x125',
+                label => 'Hello',
             )
         );
         $g->add_dataset(
@@ -657,6 +658,17 @@ my @charts = (
     'http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,80,60,30,30,30,10&chco=00ff00,0000ff' => sub {
     },
     'http://chart.apis.google.com/chart?chs=200x125&cht=gom&chd=t:70&chco=ffffff,ff0000' => sub {
+        my $g = Google::Chart->create(
+            GoogleOMeter => (
+                size => '225x125',
+                label => 'Hello',
+                colors => [ 'ffffff', 'ff0000' ],
+            )
+        );
+        $g->add_dataset(
+            data => [ 70 ]
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH,AA&chco=000000,000000,000000,000000,000000&chls=1,1,0|1,1,0|1,1,0|1,4,0&chs=200x125&chxt=x,y&chxl=0:|Sep|Oct|Nov|Dec|1:||50|100&chg=25,25&chm=b,76A4FB,0,1,0|b,224499,1,2,0|b,FF0000,2,3,0|b,80C65A,3,4,0' => sub {
     },
@@ -755,6 +767,16 @@ my @charts = (
         return $g;
     },
     'http://chart.apis.google.com/chart?chs=225x125&cht=gom&chd=t:70&chl=Hello' => sub {
+        my $g = Google::Chart->create(
+            GoogleOMeter => (
+                size => '225x125',
+                label => 'Hello',
+            )
+        );
+        $g->add_dataset(
+            data => [ 70 ]
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?chxt=x,y,r,x,t&cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=200x125' => sub {
     },
