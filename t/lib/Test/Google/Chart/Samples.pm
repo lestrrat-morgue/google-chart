@@ -90,9 +90,6 @@ my @charts = (
         $g->add_dataset( 
             color => "3072F3",
             data => [ 0,30,60,70,90,95,100 ],
-            marker_type => 's',
-            marker_color => 'FF0000',
-            marker_size => 5,
             line_thickness => 2,
             line_segment_length => 4,
             blank_segment_length => 1,
@@ -100,20 +97,37 @@ my @charts = (
         $g->add_dataset(
             color => "ff0000",
             data => [ 20,30,40,50,60,70,80 ],
-            marker_type => 's',
-            marker_color => '0000ff',
-            marker_size => 5,
         );
         $g->add_dataset(
             color => "00aaaa",
             data => [ 10,30,40,45,52 ],
-            marker_type => 's',
-            marker_color => '00aa00',
-            marker_size => 5,
         );
         $g->add_dataset( data => [ 100,90,40,20,10 ]);
         $g->add_dataset( data => [ -1 ]);
         $g->add_dataset( data => [ 5,33,50,55,7 ] );
+
+        $g->add_marker(
+            dataset_index => 0,
+            type => 's',
+            color => 'FF0000',
+            point => -1,
+            size => 5,
+        );
+        $g->add_marker(
+            dataset_index => 1,
+            type => 's',
+            color => '0000ff',
+            point => -1,
+            size => 5,
+        );
+        $g->add_marker(
+            dataset_index => 2,
+            type => 's',
+            color => '00aa00',
+            point => -1,
+            size => 5,
+        );
+
         return $g;
     },
     'http://chart.apis.google.com/chart?chs=100x20&cht=ls&chco=0077CC&chm=B,E6F2FA,0,0,0&chls=1,0,0&chd=t:27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25' => sub {
