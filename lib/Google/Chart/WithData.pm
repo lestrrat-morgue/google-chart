@@ -1,5 +1,6 @@
 package Google::Chart::WithData;
 use Moose::Role;
+use Google::Chart::Data;
 use namespace::clean -except => qw(meta);
 
 # guess what, not all Chart types have datasets associated with it.
@@ -12,9 +13,39 @@ has data => (
     lazy_build => 1,
 );
 
+has data_class => (
+    is         => 'ro',
+    isa        => 'ClassName',
+    required   => 1,
+    lazy_build => 1,
+);
+
+has data_traits => (
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    required   => 1,
+    lazy_build => 1,
+);
+
 sub _build_data {
-    return Google::Chart::Data->new();
+    my $self = shift;
+
+    my $traits = $self->data_traits;
+    my $class  = $self->data_class;
+    if (@$traits > 0) {
+        my $meta = Moose::Meta::Class->create_anon_class(
+            superclasses => [ $class ],
+            roles => $traits,
+            cache => 1,
+        );
+        $class = $meta->name;
+    }
+
+    return $class->new();
 }
+
+sub _build_data_class { 'Google::Chart::Data' }
+sub _build_data_traits { [] }
 
 sub data_encoding {
     my $self = shift;
