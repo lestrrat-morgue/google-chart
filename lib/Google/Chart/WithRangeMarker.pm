@@ -29,7 +29,7 @@ around prepare_query => sub {
     for my $i (0..$max) {
         my $marker = $markers->[$i];
         push @chm, join(',',
-            ($marker->orientation || '') eq 'vertital' ? 'R' : 'r',
+            ($marker->orientation || '') eq 'vertical' ? 'R' : 'r',
             $marker->color,
             0,
             $marker->start,
