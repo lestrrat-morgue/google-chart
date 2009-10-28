@@ -221,7 +221,7 @@ my @charts = (
         );
         $g->add_dataset(
             color => 'c6d9fd',
-            data => [ 42, 39 ],
+            data => [ 40, 43 ],
         );
         return $g;
     },
@@ -291,7 +291,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Pie => (
                 encoding_class => 'Simple',
-                size => '200x100',
+                size => '250x100',
                 pie_type => '3d',
             )
         );
@@ -692,6 +692,74 @@ my @charts = (
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH,AA&chco=000000,000000,000000,000000,000000&chls=1,1,0|1,1,0|1,1,0|1,4,0&chs=200x125&chxt=x,y&chxl=0:|Sep|Oct|Nov|Dec|1:||50|100&chg=25,25&chm=b,76A4FB,0,1,0|b,224499,1,2,0|b,FF0000,2,3,0|b,80C65A,3,4,0' => sub {
+        my $g = Google::Chart->create(
+            Line => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'y',
+            labels => [ undef, 50, 100 ]
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw( Sep Oct Nov Dec ) ],
+        );
+        $g->add_dataset(
+            line_thickness => 1,
+            line_segment_length => 1,
+            blank_segment_length => 0,
+            color => '000000',
+            data => [ qw( 61 61 ) ],
+        );
+        $g->add_dataset(
+            line_thickness => 1,
+            line_segment_length => 1,
+            blank_segment_length => 0,
+            color => '000000',
+            data => [ qw( 28 30 31 33 35 36 42 48 43 37 32 24 28 31 32 28 ) ],
+        );
+        $g->add_dataset(
+            line_thickness => 1,
+            line_segment_length => 1,
+            blank_segment_length => 0,
+            color => '000000',
+            data => [ qw( 16 18 18 21 23 23 29 36 31 25 20 12 17 19 20 16 ) ],
+        );
+        $g->add_dataset(
+            line_thickness => 1,
+            line_segment_length => 4,
+            blank_segment_length => 0,
+            color => '000000',
+            data => [ qw( 7 9 9 12 14 14 20 27 21 15 10 3 7 10 11 7 ) ],
+        );
+        $g->add_dataset(
+            color => '000000',
+            data => [ qw( 0 0 ) ]
+        );
+        $g->add_range_fill(
+            color => '76A4FB',
+            start_index => 0,
+            end_index => 1,
+        );
+        $g->add_range_fill(
+            color => '224499',
+            start_index => 1,
+            end_index => 2,
+        );
+        $g->add_range_fill(
+            color => 'FF0000',
+            start_index => 2,
+            end_index => 3,
+        );
+        $g->add_range_fill(
+            color => '80C65A',
+            start_index => 3,
+            end_index => 4,
+        );
+
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH&chls=1,1,0|1,1,0|1,1,0|1,4,0&chxt=x,y&chxl=0:|Sep|Oct|Nov|Dec|1:||50|100&chs=200x125&chm=b,224499,0,1,0|b,FF0000,1,2,0|b,80C65A,2,3,0' => sub {
     },
