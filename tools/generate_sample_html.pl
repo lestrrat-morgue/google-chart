@@ -15,12 +15,6 @@ print <<EOHTML;
 
 <div>These samples were taken from the Google Chart API Developer's Manual</div>
 
-<table>
-<tr>
-    <td align="middle">From the Manual</td>
-    <td align="middle">Generated</td>
-    <td align="middle">Code</td>
-</tr>
 EOHTML
 while (@samples) {
     my ($uri, $code) = splice(@samples, 0, 2);
@@ -36,15 +30,29 @@ while (@samples) {
     $code_str =~ s/    package Test::Google::Chart::Samples;\n//;
     $code_str =~ s/'Google::Chart'/Google::Chart/g;
     print <<EOHTML;
+<div style="margin-top: 20px; padding: 20px; border-bottom: 1px solid #000">
+<table style="margin: 0 auto">
     <tr>
-        <td><img src="$uri"></td>
-        <td><img src="$generated_uri"></td>
-        <td><div style="font-size: 9pt; width: 400px; height: 200px; overflow: auto"><pre>$code_str</pre></div></td>
+        <td colspan="2"><input type="text" style="font-size: 9pt; width: 600px" value="$uri"></td>
     </tr>
+    <tr>
+        <td align="middle">From the Manual</td>
+        <td align="middle">Generated</td>
+    </tr>
+    <tr>
+        <td align="middle"><img style="border: 1px solid #000; margin: 0 auto" src="$uri"></td>
+        <td align="middle"><img style="border: 1px solid #f00; margin: 0 auto" src="$generated_uri"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div style="font-size: 9pt; padding-left: 1em; width: 600px; height: 150px; overflow: auto; border: 1px solid #ccc; background-color: #eee"><pre>$code_str</pre></div>
+        </td>
+    </tr>
+</table>
+</div>
 EOHTML
 }
 print <<EOHTML;
-</table>
 </body>
 </html>
 EOHTML
