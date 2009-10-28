@@ -1120,6 +1120,7 @@ my @charts = (
             color => '000000',
             size => 13,
             point => 1,
+            priority => -1,
         );
         $g->add_marker(
             dataset_index => 1,
