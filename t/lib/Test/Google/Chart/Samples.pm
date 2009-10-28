@@ -898,6 +898,9 @@ my @charts = (
         $g->add_dataset(
             color => '76A4FB',
             data => [ qw(28 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
+            line_thickness => 2,
+            line_segment_length => 0,
+            blank_segment_length => 0,
         );
         return $g;
     },
@@ -923,6 +926,9 @@ my @charts = (
         $g->add_dataset(
             color => '76A4FB',
             data => [ qw(28 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
+            line_thickness => 2,
+            line_segment_length => 0,
+            blank_segment_length => 0,
         );
         return $g;
     },
@@ -934,6 +940,7 @@ my @charts = (
                 grid_x_step_size => 20,
                 grid_y_step_size => 50,
                 grid_line_length => 1,
+                grid_blank_length => 0,
             )
         );
         $g->add_axis(
@@ -947,6 +954,9 @@ my @charts = (
         $g->add_dataset(
             color => '76A4FB',
             data => [ qw(28 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
+            line_thickness => 2,
+            line_segment_length => 0,
+            blank_segment_length => 0,
         );
         return $g;
     },
