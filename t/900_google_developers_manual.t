@@ -240,14 +240,14 @@ TODO: {
     );
     $g->add_dataset( 
         data  => [ 77, 66, 15, 0, 31, 48, 100, 77 ],
-        thickness => '2.0',
+        line_thickness => '2.0',
         line_segment_length => '4.0',
         blank_segment_length => '0.0',
         color => 'FF0000',
     );
     $g->add_dataset(
         data => [ 20, 36, 100, 2, 0, 100 ],
-        thickness => '2.0',
+        line_thickness => '2.0',
         line_segment_length => '4.0',
         blank_segment_length => '0.0',
         color => 'FF9900',
