@@ -2,7 +2,6 @@
 package Google::Chart::Type::Pie;
 use Moose;
 use Moose::Util::TypeConstraints;
-use Google::Chart::Data::Pie;
 use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart';
@@ -18,14 +17,34 @@ has pie_type => (
     default => '2d'
 );
 
-sub _build_data {
-    return Google::Chart::Data::Pie->new();
-}
+has pie_labels => (
+    traits => ['Array'],
+    is => 'ro',
+    isa => 'ArrayRef',
+    lazy_build => 1,
+    handles => {
+        add_pie_label => 'push',
+    }
+);
+
+sub _build_pie_labels { [] }
 
 sub _build_type {
     my $self = shift;
     return $self->pie_type eq '3d' ? 'p3' : 'p';
 }
+
+around prepare_query => sub {
+    my ($next, $self, @args) = @_;
+    my @query = $next->($self, @args);
+
+    my $labels = $self->pie_labels();
+    if (@$labels > 0) {
+        push @query, (chl => join('|', map { defined $_ ? $_ : '' } @$labels));
+    }
+
+    return @query;
+};
 
 __PACKAGE__->meta->make_immutable;
 
