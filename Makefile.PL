@@ -29,6 +29,7 @@ requires 'Moose', '0.92';
 requires 'URI';
 requires 'URI::Escape';
 
+test_requires 'Test::MockObject';
 test_requires 'Test::More' => '0.82';
 test_requires 'Test::UseAllModules';
 
