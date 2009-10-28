@@ -3,7 +3,14 @@ package Google::Chart::Type::XY;
 use Moose;
 use namespace::clean -except => qw(meta);
 
+extends 'Google::Chart';
+
 sub _build_type { 'lxy' };
+
+with qw(
+    Google::Chart::WithData
+    Google::Chart::WithGrid
+);
 
 __PACKAGE__->meta->make_immutable();
 
