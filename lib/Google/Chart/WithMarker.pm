@@ -41,8 +41,6 @@ around prepare_query => sub {
         push @query, ( chm => join('|', @chm) );
     }
 
-use Data::Dumper;
-warn Dumper(\@query);
     return @query;
 };
 
