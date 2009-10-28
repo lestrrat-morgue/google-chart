@@ -558,7 +558,7 @@ my @charts = (
         );
         $g->add_axis(
             location => 'x',
-            labels => [ undef, '20K', undef, '60K', undef, '100K' ],
+            labels => [ undef, '20K', undef, '60K', undef, '100K', undef, ],
         );
         $g->add_axis(
             location => 'y',
@@ -590,7 +590,7 @@ my @charts = (
         );
         $g->add_axis(
             location => 'x',
-            labels => [ undef, '20K', undef, '60K', undef, '100K' ],
+            labels => [ undef, '20K', undef, '60K', undef, '100K', undef, ],
         );
         $g->add_axis(
             location => 'y',
@@ -620,7 +620,7 @@ my @charts = (
         );
         $g->add_axis(
             location => 'x',
-            labels => [ undef, '20K', undef, '60K', undef, '100K' ],
+            labels => [ undef, '20K', undef, '60K', undef, '100K', undef, ],
         );
         $g->add_axis(
             location => 'y',
@@ -660,8 +660,7 @@ my @charts = (
     'http://chart.apis.google.com/chart?chs=200x125&cht=gom&chd=t:70&chco=ffffff,ff0000' => sub {
         my $g = Google::Chart->create(
             GoogleOMeter => (
-                size => '225x125',
-                label => 'Hello',
+                size => '200x125',
                 colors => [ 'ffffff', 'ff0000' ],
             )
         );
