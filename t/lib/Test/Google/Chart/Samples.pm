@@ -134,13 +134,21 @@ my @charts = (
 
         my $g = Google::Chart->create(
             SparkLine => (
-                size => '100x200',
+                size => '100x20',
             ),
         );
         $g->add_dataset(
             color => "0077CC",
             data => [ 27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25 ],
             line_thickness => 1,
+            line_segment_length => 0,
+            blank_segment_length => 0,
+        );
+        $g->add_range_fill(
+            type => 'B',
+            color => 'E6F2FA',
+            start_index => 0,
+            end_index => 0,
         );
 
         return $g;
