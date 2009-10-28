@@ -10,6 +10,7 @@ with qw(
     Google::Chart::WithGrid
     Google::Chart::WithLineStyle
     Google::Chart::WithMarker
+    Google::Chart::WithRangeFill
     Google::Chart::WithRangeMarker
 );
 
