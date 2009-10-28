@@ -2,6 +2,7 @@
 package Google::Chart::Type::Pie;
 use Moose;
 use Moose::Util::TypeConstraints;
+use Google::Chart::Data::Pie;
 use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart';
@@ -16,6 +17,10 @@ has pie_type => (
     required => 1,
     default => '2d'
 );
+
+sub _build_data {
+    return Google::Chart::Data::Pie->new();
+}
 
 sub _build_type {
     my $self = shift;
