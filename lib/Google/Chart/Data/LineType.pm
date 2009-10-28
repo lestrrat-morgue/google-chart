@@ -14,13 +14,16 @@ override as_query => sub {
     my %query = super();
 
     my @chls;
-    foreach my $dataset ( @{ $self->dataset } ) {
-        if ($dataset->has_thickness || $dataset->has_line_segment_length || $dataset->has_blank_segment_length ) {
-            push @chls, join(',',
+    my $datasets = $self->dataset;
+    my $max = $self->dataset_count - 1;
+    for my $i (0..$max) {
+        my $dataset = $datasets->[$i];
+        if ($dataset->has_line_thickness || $dataset->has_line_segment_length || $dataset->has_blank_segment_length ) {
+            $chls[$i] = join(',',
                 map { defined $_ ? $_ : '' }
-                    $dataset->thickness,
-                    $dataset->line_segment_length,
-                    $dataset->blank_segment_length,
+                    $dataset->line_thickness || 1,
+                    $dataset->line_segment_length || 0,
+                    $dataset->blank_segment_length || 0,
             );
         }
     }

@@ -4,10 +4,10 @@ use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart::DataSet';
 
-has thickness => (
+has line_thickness => (
     is => 'ro',
     isa => 'Num',
-    predicate => 'has_thickness',
+    predicate => 'has_line_thickness',
 );
 
 has line_segment_length => (
