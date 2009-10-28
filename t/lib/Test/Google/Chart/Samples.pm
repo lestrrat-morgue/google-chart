@@ -897,7 +897,7 @@ my @charts = (
         );
         $g->add_dataset(
             color => '76A4FB',
-            data => [ qw(4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
+            data => [ qw(28 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
         );
         return $g;
     },
@@ -922,7 +922,7 @@ my @charts = (
         );
         $g->add_dataset(
             color => '76A4FB',
-            data => [ qw(4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
+            data => [ qw(28 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
         );
         return $g;
     },
@@ -946,7 +946,7 @@ my @charts = (
         );
         $g->add_dataset(
             color => '76A4FB',
-            data => [ qw(4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
+            data => [ qw(28 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ],
         );
         return $g;
     },
@@ -959,7 +959,7 @@ my @charts = (
         );
         $g->add_axis(
             location => 'x',
-            labels => [ undef, qw(c d a o x v V x) ]
+            labels => [ undef, qw(c d a o x v V x), undef]
         );
         $g->add_dataset(
             color => '008000',
