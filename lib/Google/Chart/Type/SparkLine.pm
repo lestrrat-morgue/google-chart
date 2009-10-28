@@ -1,7 +1,6 @@
 
 package Google::Chart::Type::SparkLine;
 use Moose;
-use Google::Chart::Data::LineType;
 use namespace::clean -except => qw(meta);
 
 extends 'Google::Chart';
@@ -9,11 +8,8 @@ with qw(
     Google::Chart::WithAxis
     Google::Chart::WithData 
     Google::Chart::WithGrid
+    Google::Chart::WithLineStyle
 );
-
-sub _build_data {
-    return Google::Chart::Data::LineType->new();
-}
 
 sub _build_type { 'ls' }
 

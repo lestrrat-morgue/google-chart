@@ -11,6 +11,7 @@ with qw(
     Google::Chart::WithAxis
     Google::Chart::WithData
     Google::Chart::WithGrid
+    Google::Chart::WithLineStyle
     Google::Chart::WithMarker
 );
 
