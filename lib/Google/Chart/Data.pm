@@ -27,6 +27,13 @@ has dataset_class => (
     lazy_build => 1,
 );
 
+has dataset_traits => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    required => 1,
+    lazy_build => 1,
+);
+
 has encoding => (
     is => 'ro',
     does => 'Google::Chart::Encoding',
@@ -36,6 +43,7 @@ has encoding => (
 
 sub _build_dataset { [] }
 sub _build_dataset_class { 'Google::Chart::DataSet' }
+sub _build_dataset_traits { [] }
 sub _build_encoding {
     my $self = shift;
     if (! Class::MOP::is_class_loaded('Google::Chart::Encoding::Text')) {
@@ -117,6 +125,16 @@ sub add_dataset {
     my $class = $self->dataset_class;
     if (! Class::MOP::is_class_loaded($class) ) {
         Class::MOP::load_class($class);
+    }
+
+    my $traits = $self->dataset_traits;
+    if (@$traits > 0) {
+        my $meta = Moose::Meta::Class->create_anon_class(
+            superclasses => [ $class ],
+            roles =>  $traits,
+            cache => 1,
+        );
+        $class = $meta->name;
     }
 
     push @{ $self->dataset }, $class->new(@_);

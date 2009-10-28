@@ -8,8 +8,10 @@ extends 'Google::Chart';
 sub _build_type { 'lxy' };
 
 with qw(
+    Google::Chart::WithAxis
     Google::Chart::WithData
     Google::Chart::WithGrid
+    Google::Chart::WithMarker
 );
 
 __PACKAGE__->meta->make_immutable();
