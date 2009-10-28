@@ -37,7 +37,9 @@ around prepare_query => sub {
         );
     }
 
-    push @query, (chm => join('|', @chm));
+    if (@chm) {
+        push @query, (chm => join('|', @chm));
+    }
 
     return @query;
 };
