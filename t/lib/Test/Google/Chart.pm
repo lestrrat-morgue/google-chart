@@ -46,7 +46,11 @@ sub test_render {
 
         ok(-f $filename );
     }
+}
 
+sub samples {
+    require Test::Google::Chart::Samples;
+    return Test::Google::Chart::Samples->samples;
 }
 
 1;
