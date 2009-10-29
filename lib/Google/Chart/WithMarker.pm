@@ -71,7 +71,6 @@ sub add_marker {
 package # hide from PAUSE
     Google::Chart::DataSet::WithMarker;
 use Moose::Role;
-use Google::Chart::Marker;
 use namespace::clean -except => qw(meta);
 
 has markers => (
@@ -89,5 +88,46 @@ sub add_marker {
     my $marker = Google::Chart::Marker->new(%args);
     push @{ $self->markers }, $marker;
 }
+
+package # hide from PAUSE
+    Google::Chart::Marker;
+use Moose;
+use Moose::Util::TypeConstraints;
+subtype 'Google::Chart::DataSet::MarkerType'
+    => as 'Str'
+    => where {
+        /^(?:[acdosvVhx]|t[^,]+)/
+    }
+;
+
+has type => (
+    is => 'ro',
+    isa => 'Google::Chart::DataSet::MarkerType',
+);
+
+has color => (
+    is => 'ro',
+    isa => 'Str',
+);
+
+has size => (
+    is => 'ro',
+    isa => 'Num',
+);
+
+has point => (
+    is => 'ro',
+    isa => 'Num',
+);
+
+has priority => (
+    is => 'ro',
+    isa => 'Num',
+);
+
+__PACKAGE__->meta->make_immutable();
+
+1;
+
 
 1;
