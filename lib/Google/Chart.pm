@@ -61,10 +61,6 @@ around BUILDARGS => sub {
     return $args;
 };
 
-sub _build_axis {
-    return Google::Chart::Axis->new();
-}
-
 sub _build_google_chart_uri {
     require URI;
     return $ENV{GOOGLE_CHART_URI} ? 
