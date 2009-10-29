@@ -6,21 +6,31 @@ Changes
     This time I'd like everybody's input.
 
     RATIONALE: I wrote the code for Google::Chart (after having received
-    maintainership from Marcel) when I was crazy about Roles. Roles rocked
-    my world, but after having used Moose for more than a year now, I'm
-    much better at finding out when to use Roles and when to use Inheritance.
-
-    In that light, all the crazy Role things look stupid.
-
-    In this release, I've conjured up what I believe to be a saner API.
+    maintainership from Marcel) when I was going crazy about Roles,
+    but I can't say I had the appropriate knowledge to deal with them.
+   
+    In this release, I've fixed what I can, organized things a bit better,
+    and conjured up what I believe to be a saner API.
 
   * Significant <BACKWARD IMCOMPATIBLE> Changes
     - New syntax
 
-          my $g = Google::Chart->create(
-            $type => %args
-          );
-          $g->add_dataset(...);
+        my $g = Google::Chart->create(
+          $type => %args
+        );
+        $g->add_dataset(...);
+
+    - Most operations are now done against the main chart object via
+      add_* calls:
+
+        $g->add_axis( ... );
+        $g->add_dataset( ... );
+        $g->add_range_fill( ... );
+
+    - Related to the above, since we now cover most of the gory details in
+      method calls, lots of object deprecated, or made invisible to 
+      regular users.
+      Things like markers, fill objects, etc, are now hidden.
 
 0.05014 - 21 Aug 2009
   * Having completely forgotten about releasing a prod release for

@@ -7,7 +7,7 @@ use Google::Chart::Types;
 use LWP::UserAgent;
 use namespace::clean -except => qw(meta);
 
-our $VERSION = '0.10000';
+our $VERSION = '0.99000_01';
 
 has title => (
     is        => 'ro',
@@ -220,33 +220,27 @@ backwards compatibility.
 Creates a new chart of type $chart_type. The rest of the arguments are passed
 to the constructor of the appropriate $chart_type class. Each chart type may
 have a different set of attributes that it can initialize, but the following
-are commong to all graphs:
+are common to all chrats:
 
 =over 4
 
-=item size
+=item width, height
 
-Specifies the chart size. Strings like "400x300", hash references, or already
-instantiated objects can be used:
+Specifies the chart width and height.
+
+=item size (deprecated)
+
+Strings like "400x300" are converted to their respective width and height
 
   my $chart = Google::Chart->new(
     size => "400x300",
   );
 
-  my $chart = Google::Chart->new(
-    size => {
-      width => 400,
-      height => 300
-    }
-  );
-
-=item marker
-
-Specifies the markers that go on line charts.
-
-=item
+=item title
 
 =back
+
+Other parameters differ depending on the chart type.
 
 =head2 new(%args)
 
@@ -297,12 +291,6 @@ the documents.
 
 You can check which ones are failing in the included "samples.html",
 and send us patches ;)
-
-=item Moose-ish Errors
-
-I've been reported that some Moose-related errors occur on certain platforms.
-I have not been able to reproduce it myself, so if you do, please let me
-know.
 
 =back
 
