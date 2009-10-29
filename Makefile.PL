@@ -32,6 +32,8 @@ requires 'URI::Escape';
 test_requires 'Test::MockObject';
 test_requires 'Test::More' => '0.82';
 test_requires 'Test::UseAllModules';
+no_index directory => 'docs';
+no_index directory => 'tool';
 
 # auto_include_deps;
 WriteAll;
