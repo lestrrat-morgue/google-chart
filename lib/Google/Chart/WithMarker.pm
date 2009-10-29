@@ -1,14 +1,14 @@
 package Google::Chart::WithMarker;
 use Moose::Role;
 use namespace::clean -except => qw(meta);
+
 with 'Google::Chart::WithData';
 
-sub add_marker { shift->data->add_marker(@_) }
-
-around _build_data_traits => sub {
+around _build_dataset_traits => sub {
     my ($next, $self) = @_;
+
     my $traits = $next->($self);
-    push @$traits, 'Google::Chart::Data::WithMarker';
+    push @$traits, 'Google::Chart::DataSet::WithMarker';
     return $traits;
 };
 
@@ -17,8 +17,8 @@ around prepare_query => sub {
 
     my @query = $next->($self, @args);
 
-    my $datasets = $self->data->dataset;
-    my $max = $self->data->dataset_count - 1;
+    my $datasets = $self->get_datasets;
+    my $max = $#$datasets;
     my @chm;
     for my $i (0..$max) {
         my $dataset = $datasets->[$i];
@@ -45,24 +45,11 @@ around prepare_query => sub {
     return @query;
 };
 
-package  # hide from PAUSE
-    Google::Chart::Data::WithMarker;
-use Moose::Role;
-use namespace::clean -except => qw(meta);
-
-around _build_dataset_traits => sub {
-    my ($next, $self) = @_;
-
-    my $traits = $next->($self);
-    push @$traits, 'Google::Chart::DataSet::WithMarker';
-    return $traits;
-};
-
 sub add_marker {
     my ($self, %args) = @_;
 
     my $dataset_index = delete $args{dataset_index} || 0;
-    my $dataset = $self->dataset->[$dataset_index] or
+    my $dataset = $self->data->get_dataset_at($dataset_index) or
         confess "dataset at index $dataset_index does NOT exist!";
 
     $dataset->add_marker(%args);
@@ -126,8 +113,5 @@ has priority => (
 );
 
 __PACKAGE__->meta->make_immutable();
-
-1;
-
 
 1;

@@ -16,7 +16,9 @@ BEGIN
         ),
     );
     $data->add_dataset(
-        data => [ 1.0, 1.2, 1.3, 50, 100 ],
+        Google::Chart::DataSet->new(
+            data => [ 1.0, 1.2, 1.3, 50, 100 ],
+        )
     );
 
     ok($data);
@@ -32,10 +34,14 @@ BEGIN
         ),
     );
     $data->add_dataset(
-        data => [ 1.0, 1.2, 1.3, 50, 100 ],
+        Google::Chart::DataSet->new(
+            data => [ 1.0, 1.2, 1.3, 50, 100 ],
+        )
     );
     $data->add_dataset(
-        data => [ 100, 50, 1.3, 1.2, 1.0 ],
+        Google::Chart::DataSet->new(
+            data => [ 100, 50, 1.3, 1.2, 1.0 ],
+        )
     );
 
     ok($data);
@@ -53,10 +59,14 @@ BEGIN
         ),
     );
     $data->add_dataset(
-        data => [ -10, -40, 10, 70, 100 ],
+        Google::Chart::DataSet->new(
+            data => [ -10, -40, 10, 70, 100 ],
+        )
     );
     $data->add_dataset(
-        data => [ 100, 50, -0.5, 2, -35.7 ],
+        Google::Chart::DataSet->new(
+            data => [ 100, 50, -0.5, 2, -35.7 ],
+        )
     );
 
     ok($data);

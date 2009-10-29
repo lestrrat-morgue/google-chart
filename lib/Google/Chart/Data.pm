@@ -8,28 +8,16 @@ use Google::Chart::Encoding::Text;
 use Google::Chart::Types;
 use namespace::clean -except => qw(meta);
 
-has dataset => (
+has datasets => (
     traits     => ['Array'],
     is         => 'ro',
     isa        => 'ArrayRef[Google::Chart::DataSet]',
     lazy_build => 1,
     handles    => {
-        dataset_count => 'count',
+        add_dataset    => 'push',
+        dataset_count  => 'count',
+        get_dataset_at => 'get',
     }
-);
-
-has dataset_class => (
-    is => 'ro',
-    isa => 'Str',
-    required => 1,
-    lazy_build => 1,
-);
-
-has dataset_traits => (
-    is => 'ro',
-    isa => 'ArrayRef',
-    required => 1,
-    lazy_build => 1,
 );
 
 has encoding => (
@@ -39,9 +27,7 @@ has encoding => (
     writer => 'set_encoding'
 );
 
-sub _build_dataset { [] }
-sub _build_dataset_class { 'Google::Chart::DataSet' }
-sub _build_dataset_traits { [] }
+sub _build_datasets { [] }
 sub _build_encoding {
     my $self = shift;
     if (! Class::MOP::is_class_loaded('Google::Chart::Encoding::Text')) {
@@ -87,15 +73,15 @@ sub prepare_query {
     my $encoding = $self->encoding;
     if ( $encoding->isa('Google::Chart::Encoding::Text') && 
          $chart->isa('Google::Chart::Type::Pie') ) {
-        $data = $encoding->encode( $self->dataset, ',' );
+        $data = $encoding->encode( $self->datasets, ',' );
     } else {
-        $data = $encoding->encode( $self->dataset );
+        $data = $encoding->encode( $self->datasets );
     }
 
     my @query = (chd => $data);
     my (@chco, @chdl, @chds);
 
-    my $datasets =  $self->dataset;
+    my $datasets =  $self->datasets;
     my $max = $self->dataset_count - 1;
     my $is_text_encoding = $encoding->isa('Google::Chart::Encoding::Text');
     for my $i (0..$max) {
@@ -121,27 +107,6 @@ sub prepare_query {
         push @query, (chco => join(',', map { defined $_ ? $_ : '' } @chco));
     }
     return @query;
-}
-
-sub add_dataset {
-    my $self = shift;
-
-    my $class = $self->dataset_class;
-    if (! Class::MOP::is_class_loaded($class) ) {
-        Class::MOP::load_class($class);
-    }
-
-    my $traits = $self->dataset_traits;
-    if (@$traits > 0) {
-        my $meta = Moose::Meta::Class->create_anon_class(
-            superclasses => [ $class ],
-            roles =>  $traits,
-            cache => 1,
-        );
-        $class = $meta->name;
-    }
-
-    push @{ $self->dataset }, $class->new(@_);
 }
 
 __PACKAGE__->meta->make_immutable();

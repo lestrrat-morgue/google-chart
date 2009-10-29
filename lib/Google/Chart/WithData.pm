@@ -27,6 +27,20 @@ has data_traits => (
     lazy_build => 1,
 );
 
+has dataset_class => (
+    is => 'ro',
+    isa => 'Str',
+    required => 1,
+    lazy_build => 1,
+);
+
+has dataset_traits => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    required => 1,
+    lazy_build => 1,
+);
+
 has encoding_class => (
     is => 'ro',
     isa => 'Str',
@@ -41,6 +55,14 @@ around BUILDARGS => sub {
         $args->{encoding_class} = $encoding_class;
     }
     return $args;
+};
+
+around prepare_query => sub {
+    my ($next, $self, @args) = @_;
+    my @query = $next->( $self, @args );
+
+    push @query, $self->data->prepare_query( $self );
+    return @query;
 };
 
 sub BUILD {
@@ -75,6 +97,29 @@ sub _build_data {
 
 sub _build_data_class { 'Google::Chart::Data' }
 sub _build_data_traits { [] }
+sub _build_dataset_class{ 'Google::Chart::DataSet' }
+sub _build_dataset_traits{ [] }
+
+sub add_dataset {
+    my $self = shift;
+
+    my $class = $self->dataset_class;
+    if (! Class::MOP::is_class_loaded($class) ) {
+        Class::MOP::load_class($class);
+    }
+
+    my $traits = $self->dataset_traits;
+    if (@$traits > 0) {
+        my $meta = Moose::Meta::Class->create_anon_class(
+            superclasses => [ $class ],
+            roles =>  $traits,
+            cache => 1,
+        );
+        $class = $meta->name;
+    }
+
+    $self->data->add_dataset( $class->new(@_) );
+}
 
 sub data_encoding {
     my $self = shift;
@@ -91,17 +136,9 @@ sub data_encoding {
     $self->data->set_encoding($encoding);
 }
 
-around prepare_query => sub {
-    my ($next, $self, @args) = @_;
-    my @query = $next->( $self, @args );
-
-    push @query, $self->data->prepare_query( $self );
-    return @query;
-};
-
-sub add_dataset {
+sub get_datasets {
     my $self = shift;
-    $self->data->add_dataset(@_);
+    return $self->data->datasets;
 }
 
 1;

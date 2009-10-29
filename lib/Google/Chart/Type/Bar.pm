@@ -15,8 +15,6 @@ with qw(
     Google::Chart::WithSolidFill
 );
 
-enum 'Google::Chart::Type::Bar::Orientation' => qw(horizontal vertical);
-
 has bar_zero => (
     is => 'ro',
     isa => 'Num',
@@ -43,7 +41,7 @@ has group_space => (
     
 has orientation => (
     is      => 'ro',
-    isa     => 'Google::Chart::Type::Bar::Orientation',
+    isa     => enum([ qw(horizontal vertical) ]),
     default => 'vertical',
 );
 

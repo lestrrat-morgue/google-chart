@@ -2,10 +2,10 @@ package Google::Chart::WithLineStyle;
 use Moose::Role;
 use namespace::clean -except => qw(meta);
 
-around _build_data_traits => sub {
+around _build_dataset_traits => sub {
     my ($next, $self) = @_;
     my $traits = $next->($self);
-    push @$traits, 'Google::Chart::Data::WithLineStyle';
+    push @$traits, 'Google::Chart::DataSet::WithLineStyle';
     return $traits;
 };
 
@@ -15,8 +15,8 @@ around prepare_query => sub {
     my @query = $next->($self, @args);
 
     my @chls;
-    my $datasets = $self->data->dataset;
-    my $max = $self->data->dataset_count - 1;
+    my $datasets = $self->get_datasets;
+    my $max = $#$datasets;
     for my $i (0..$max) {
         my $dataset = $datasets->[$i];
         if ($dataset->has_line_thickness || $dataset->has_line_segment_length || $dataset->has_blank_segment_length ) {
@@ -33,18 +33,6 @@ around prepare_query => sub {
         push @query, (chls => join('|', @chls));
     }
     return @query;
-};
-
-package # hide from PAUSE
-    Google::Chart::Data::WithLineStyle;
-use Moose::Role;
-use namespace::clean -except => qw(meta);
-
-around _build_dataset_traits => sub {
-    my ($next, $self) = @_;
-    my $traits = $next->($self);
-    push @$traits, 'Google::Chart::DataSet::WithLineStyle';
-    return $traits;
 };
 
 package # hide from PAUSE

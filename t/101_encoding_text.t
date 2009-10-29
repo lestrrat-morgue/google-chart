@@ -10,7 +10,9 @@ BEGIN
 {
     my $data = Google::Chart::Data->new();
     $data->add_dataset(
-        data => [ 1.0, 1.2, 1.3, undef, 50, -1, 100 ]
+        Google::Chart::DataSet->new(
+            data => [ 1.0, 1.2, 1.3, undef, 50, -1, 100 ]
+        )
     );
 
     ok($data);
@@ -23,10 +25,14 @@ BEGIN
 {
     my $data = Google::Chart::Data->new();
     $data->add_dataset(
-        data => [ 1.0, 1.2, 1.3, undef, 50, -1, 100 ]
+        Google::Chart::DataSet->new(
+            data => [ 1.0, 1.2, 1.3, undef, 50, -1, 100 ]
+        )
     );
     $data->add_dataset(
-        data => [ 100, -1, 50, undef, 1.3, 1.2, 1.0 ],
+        Google::Chart::DataSet->new(
+            data => [ 100, -1, 50, undef, 1.3, 1.2, 1.0 ],
+        )
     );
 
     ok($data);
