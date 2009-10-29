@@ -32,6 +32,7 @@ lib/Google/Chart/WithData.pm
 lib/Google/Chart/WithGrid.pm
 lib/Google/Chart/WithLinearGradientFill.pm
 lib/Google/Chart/WithLinearStripe.pm
+lib/Google/Chart/WithLineDrawStyle.pm
 lib/Google/Chart/WithLineStyle.pm
 lib/Google/Chart/WithMarker.pm
 lib/Google/Chart/WithRangeFill.pm
@@ -65,3 +66,4 @@ t/lib/Test/Google/Chart.pm
 t/lib/Test/Google/Chart/Samples.pm
 t/rt42260.t
 tools/generate_sample_html.pl
+docs/samples.html
