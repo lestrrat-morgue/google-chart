@@ -8,6 +8,7 @@ with qw(
     Google::Chart::WithAxis
     Google::Chart::WithData 
     Google::Chart::WithGrid
+    Google::Chart::WithLinearGradientFill
     Google::Chart::WithMarker
     Google::Chart::WithRangeMarker
     Google::Chart::WithSolidFill
