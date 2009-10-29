@@ -3,8 +3,6 @@ package Google::Chart::Title;
 use Moose;
 use namespace::clean -except => qw(meta);
 
-with 'Google::Chart::QueryComponent';
-
 has 'text' => (
     is => 'rw',
     isa => 'Str',
