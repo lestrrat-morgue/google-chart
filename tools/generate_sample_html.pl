@@ -1,8 +1,11 @@
 use strict;
 use lib "t/lib";
 use Data::Dumper;
+use Digest::MD5 qw(md5_hex);
+use LWP::UserAgent;
 use Test::Google::Chart::Samples;
 
+my $ua = LWP::UserAgent->new();
 my @samples = Test::Google::Chart::Samples->samples;
 print <<EOHTML;
 <html>
@@ -24,6 +27,15 @@ while (@samples) {
     (++$skip_count and next) unless $g;
     $g_count++;
     my $generated_uri = $g->as_uri;
+
+    my $o_res = $ua->get($uri);
+    my $g_res = $ua->get($generated_uri);
+
+    my $bg_color = 'fff';
+    if (md5_hex($o_res->content) != md5_hex($g_res->content)) {
+        $bg_color = 'f00';
+    }
+
     local $Data::Dumper::Indent = 1;
     local $Data::Dumper::Deparse = 1;
     my $code_str = Dumper($code);
@@ -33,7 +45,7 @@ while (@samples) {
     $code_str =~ s/'Google::Chart'/Google::Chart/g;
     print <<EOHTML;
 <div style="margin-top: 20px; padding: 20px; border-bottom: 1px solid #000">
-<table style="margin: 0 auto">
+<table style="margin: 0 auto; background-color: $bg_color">
     <tr>
         <td colspan="2"><input type="text" style="font-size: 9pt; width: 600px" value="$uri"></td>
     </tr>
