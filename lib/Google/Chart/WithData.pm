@@ -112,20 +112,56 @@ __END__
 
 Google::Chart::WithData - Role For Charts That Have "Plottable" Data
 
+=head1 SYNOPSIS
+
+    my $chart = Google::Chart->create(...);
+    $chart->add_dataset( @args ); # delegates to Google::Chart::Data
+                                  # see there for details
+
 =head1 ATTRIBUTES
 
 =head2 data
 
 Google::Chart::Data instance.
 
+=head2 data_class
+
+Class name to use when auto-generating the C<data> object. 
+If your chart class needs some extra mangling, you may want to check this 
+or C<data_traits>
+
+=head2 data_traits
+
+Role names to be applied to the data object upon creation.
+If your chart class needs some extra mangling, you may want to check this 
+or C<data_class>
+
+=head2 encoding_class
+
+Name of the Encoding class that will encode your data. See
+L<Google::Chart::Encoding::Extended>, L<Google::Chart::Encoding::Simple>, and L<Google::Chart::Encoding::Text>
+
 =head1 METHODS
+
+=head2 BUILDARGS
+
+Hooks in to Google::Chart's BUILDARGS, and allows the following extra
+constructor parameters:
+
+    Google::Chart->create(
+        Line => (
+            encoding => 'Simple', # Data encoding scheme
+        )
+    );
+
+=head2 add_dataset( @args )
+
+Adds a new dataset. This method is delegated to Google::Chart::Data.
+Please see there for details.
 
 =head2 data_encoding( $class [, %args] )
 
-Change the default encoding.
-
-=head2 add_dataset( %dataset_args )
-
-Adds a new data set
+Change the default encoding. This is a convenience function to change the
+encoding scheme after you've created the object.
 
 =cut
