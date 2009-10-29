@@ -380,7 +380,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Radar => (
                 size => '200x200',
-                encoding => 'Simple',
+                encoding => 'Text',
             )
         );
         $g->set_grid(
@@ -399,25 +399,25 @@ my @charts = (
             line_thickness => 2,
             line_segment_length => 4,
             blank_segment_length => 0,
-            data => [ qw( 47 40 9 0 19 29 61 47 ) ],
+            data => [ 77,66,15,0,31,48,100,77 ],
         );
         $g->add_dataset(
             color => 'FF9900',
             line_thickness => 2,
             line_segment_length => 4,
             blank_segment_length => 0,
-            data => [ qw( 12 22 61 1 0 61 ) ],
+            data => [ 20,36,100,2,0,100 ],
         );
         $g->add_range_fill(
             type => 'B',
-            color => 'FF000000',
+            color => 'FF000080',
             start_index => 0,
             end_index => 1,
         );
         $g->add_range_fill(
             type => 'B',
             color => 'FF990080',
-            start_index => 0,
+            start_index => 1,
             end_index => 1,
         );
         return $g;
@@ -426,7 +426,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Radar => (
                 size => '200x200',
-                encoding => 'Simple',
+                encoding => 'Text',
             )
         );
         $g->set_grid(
@@ -444,25 +444,25 @@ my @charts = (
             line_thickness => 2,
             line_segment_length => 4,
             blank_segment_length => 0,
-            data => [ qw( 47 40 9 0 19 29 61 47 ) ],
+            data => [ 77,66,15,0,31,48,100,77 ],
         );
         $g->add_dataset(
             color => 'FF9900',
             line_thickness => 2,
             line_segment_length => 4,
             blank_segment_length => 0,
-            data => [ qw( 12 22 61 1 0 61 ) ],
+            data => [ 20,36,100,2,0,100 ],
         );
         $g->add_range_fill(
             type => 'B',
-            color => 'FF000000',
+            color => 'FF000080',
             start_index => 0,
             end_index => 1,
         );
         $g->add_range_fill(
             type => 'B',
             color => 'FF990080',
-            start_index => 0,
+            start_index => 1,
             end_index => 1,
         );
         $g->add_marker(
@@ -1880,7 +1880,20 @@ my @charts = (
                 bar_width => 5,
                 bar_space => 2,
                 size => '200x150',
+                encoding => 'Simple',
             )
+        );
+        $g->add_range_fill(
+            type => 'B',
+            color => 'C6D9FD',
+            start_index => 0,
+            end_index => 0
+        );
+        $g->add_dataset(
+            color => '4D89F9',
+            size => 5,
+            priority => 0,
+            data => [ qw( 53 23 16 27 39 31 56 ) ],
         );
         return $g;
     },
