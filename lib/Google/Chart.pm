@@ -68,7 +68,7 @@ sub _build_google_chart_uri {
         URI->new("http://chart.apis.google.com/chart");
 }
 
-sub _build_type { }
+sub _build_type { confess "Unknown type $_[0] (Did you implement a _build_type() method ?" }
 
 sub _build_ua {
     my $self = shift;
