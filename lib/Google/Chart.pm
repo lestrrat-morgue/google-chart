@@ -1,7 +1,6 @@
 
 package Google::Chart;
 use Moose;
-use Google::Chart::Axis;
 use Google::Chart::Data;
 use Google::Chart::Size;
 use Google::Chart::Title;
@@ -10,12 +9,6 @@ use LWP::UserAgent;
 use namespace::clean -except => qw(meta);
 
 our $VERSION = '0.10000';
-
-has axis => (
-    is         => 'ro',
-    isa        => 'Google::Chart::Axis',
-    lazy_build => 1,
-);
 
 has size => (
     is       => 'ro',
