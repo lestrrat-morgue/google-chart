@@ -12,6 +12,7 @@ with qw(
     Google::Chart::WithMarker
     Google::Chart::WithRangeFill
     Google::Chart::WithRangeMarker
+    Google::Chart::WithSolidFill
 );
 
 has use_smooth_line => (

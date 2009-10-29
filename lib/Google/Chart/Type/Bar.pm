@@ -10,6 +10,7 @@ with qw(
     Google::Chart::WithData 
     Google::Chart::WithGrid
     Google::Chart::WithMarker
+    Google::Chart::WithSolidFill
 );
 
 enum 'Google::Chart::Type::Bar::Orientation' => qw(horizontal vertical);

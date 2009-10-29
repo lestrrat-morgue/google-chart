@@ -11,6 +11,7 @@ with qw(
     Google::Chart::WithLineStyle
     Google::Chart::WithRangeFill
     Google::Chart::WithRangeMarker
+    Google::Chart::WithSolidFill
 );
 
 sub _build_type { 'ls' }

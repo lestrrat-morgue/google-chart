@@ -10,6 +10,7 @@ with qw(
     Google::Chart::WithGrid
     Google::Chart::WithMarker
     Google::Chart::WithRangeMarker
+    Google::Chart::WithSolidFill
 );
 
 sub _build_type { 's' }
