@@ -588,7 +588,7 @@ my @charts = (
     },
     'http://chart.apis.google.com/chart?cht=ls&chco=ff0000,0000ff&chs=200x125&chd=s:FOETHECat,lkjtf3asv,KATYPSNXJ' => sub {
         my $g = Google::Chart->create(
-            Line => (
+            SparkLine => (
                 size => '200x125',
                 encoding_class => 'Simple',
             )
@@ -653,7 +653,7 @@ my @charts = (
         );
         $g->add_axis(
             location => 'y',
-            labels => [ qw(Dec Nov Oc) ],
+            labels => [ qw(Dec Nov Oct) ],
         );
         $g->add_dataset(
             color => 'ff0000',
@@ -683,7 +683,7 @@ my @charts = (
         );
         $g->add_axis(
             location => 'y',
-            labels => [ qw(Dec Nov Oc) ],
+            labels => [ qw(Dec Nov Oct) ],
         );
         $g->add_dataset(
             color => 'ff0000',
@@ -714,7 +714,17 @@ my @charts = (
         $g->add_pie_label(qw( May Jun Jul Aug Sep Oct ) );
         return $g;
     },
-    'http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,80,60,30,30,30,10&chco=00ff00,0000ff' => sub {},
+    'http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,80,60,30,30,30,10&chco=00ff00,0000ff' => sub {
+        my $g = Google::Chart->create(
+            Venn => (
+                size => '200x100',
+            )
+        );
+        $g->add_dataset(
+            data => [ qw(100 80 60 30 30 30 10) ]
+        );
+        return $g;
+    },
     'http://chart.apis.google.com/chart?chs=200x125&cht=gom&chd=t:70&chco=ffffff,ff0000' => sub {
         my $g = Google::Chart->create(
             GoogleOMeter => (
@@ -732,6 +742,8 @@ my @charts = (
             Line => (
                 size => '200x125',
                 encoding_class => 'Simple',
+                grid_x_step_size => 25,
+                grid_y_step_size => 25,
             )
         );
         $g->add_axis(
@@ -962,7 +974,7 @@ my @charts = (
         );
         $g->add_solid_fill(
             type => 'bg',
-            color => 'efefef',
+            color => 'efefef20',
         );
         $g->add_solid_fill(
             type => 'c',
@@ -1020,6 +1032,10 @@ my @charts = (
                 'ffffff' => 0,
             ]
         );
+        $g->add_solid_fill(
+            type => 'bg',
+            color => 'EFEFEF',
+        );
         $g->add_dataset(
             color => '676767',
             line_thickness => 4,
@@ -1051,6 +1067,10 @@ my @charts = (
                 'ffffff' => 0,
                 '76A4FB' => 0.75,
             ]
+        );
+        $g->add_solid_fill(
+            type => 'bg',
+            color => 'EFEFEF',
         );
         $g->add_dataset(
             color => '676767',
@@ -1291,14 +1311,210 @@ my @charts = (
                 encoding_class => 'Simple',
             )
         );
+        $g->add_axis(
+            location => 'x',
+        );
+        $g->add_axis(
+            location => 'y',
+        );
+        $g->add_axis(
+            location => 'r',
+        );
+        $g->add_axis(
+            location => 'x',
+        );
+        $g->add_axis(
+            location => 't',
+        );
+        $g->add_dataset(
+            color => '76A4FB',
+            line_thickness => 2,
+            data => [ qw( 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ]
+        );
         return $g;
      },
-    'http://chart.apis.google.com/chart?chxt=x,y,r,x,t&cht=bvs&chd=s:cLJHc&chco=76A4FB&chls=2.0&chs=200x125' => sub { },
-    'http://chart.apis.google.com/chart?chxt=x,y,r,x,t&cht=bhs&chd=s:cLJHc&chco=76A4FB&chls=2.0&chs=200x200' => sub { },
-    'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxl=0:|Jan|July|Jan|July|Jan|1:|0|100|2:|A|B|C|3:|2005|2006|2007&cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=200x125' => sub { },
-    'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxl=0:|Jan|July|Jan|July|Jan|1:|0|100|2:|A|B|C|3:|2005|2005|2006|2006|2007&cht=bvs&chd=s:c9uDc&chco=76A4FB&chls=2.0&chs=200x125' => sub { },
-    'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxl=0:|Jan|July|Jan|July|Jan|2:|A|B|C|3:|2005|2006|2007&cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=200x125' => sub { },
-    'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxl=0:|Jan|July|Jan|July|Jan|2:|A|B|C|3:|2005|2005|2006|2006|2007&cht=bvs&chd=s:c9uDc&chco=76A4FB&chls=2.0&chs=200x125' => sub { },
+    'http://chart.apis.google.com/chart?chxt=x,y,r,x,t&cht=bvs&chd=s:cLJHc&chco=76A4FB&chls=2.0&chs=200x125' => sub {
+        my $g = Google::Chart->create(
+            Bar => (
+                orientation => 'vertical',
+                stacked => 1,
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+        );
+        $g->add_axis(
+            location => 'y',
+        );
+        $g->add_axis(
+            location => 'r',
+        );
+        $g->add_axis(
+            location => 'x',
+        );
+        $g->add_axis(
+            location => 't',
+        );
+        $g->add_dataset(
+            color => '76A4FB',
+            data => [ qw( 28 11 9 7 28 ) ]
+        );
+        return $g;
+     },
+    'http://chart.apis.google.com/chart?chxt=x,y,r,x,t&cht=bhs&chd=s:cLJHc&chco=76A4FB&chls=2.0&chs=200x200' => sub {
+        my $g = Google::Chart->create(
+            Bar => (
+                orientation => 'horizontal',
+                stacked => 1,
+                size => '200x200',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+        );
+        $g->add_axis(
+            location => 'y',
+        );
+        $g->add_axis(
+            location => 'r',
+        );
+        $g->add_axis(
+            location => 'x',
+        );
+        $g->add_axis(
+            location => 't',
+        );
+        $g->add_dataset(
+            color => '76A4FB',
+            data => [ qw( 28 11 9 7 28 ) ]
+        );
+        return $g;
+    },
+    'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxl=0:|Jan|July|Jan|July|Jan|1:|0|100|2:|A|B|C|3:|2005|2006|2007&cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=200x125' => sub {
+        my $g = Google::Chart->create(
+            Line => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Jan July Jan July Jan) ],
+        );
+        $g->add_axis(
+            location => 'y',
+            labels => [ qw( 0 100 ) ],
+        );
+        $g->add_axis(
+            location => 'r',
+            labels => [ qw(A B C) ],
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(2005 2006 2007) ],
+        );
+        $g->add_dataset(
+            line_thickness => 2,
+            color => '76A4FB',
+            data => [ qw( 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ]
+        );
+        return $g;
+    },
+    'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxl=0:|Jan|July|Jan|July|Jan|1:|0|100|2:|A|B|C|3:|2005|2005|2006|2006|2007&cht=bvs&chd=s:c9uDc&chco=76A4FB&chls=2.0&chs=200x125' => sub { 
+        my $g = Google::Chart->create(
+            Bar => (
+                orientation => 'vertical',
+                stacked => 1,
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Jan July Jan July Jan) ],
+        );
+        $g->add_axis(
+            location => 'y',
+            labels => [ qw( 0 100 ) ],
+        );
+        $g->add_axis(
+            location => 'r',
+            labels => [ qw(A B C) ],
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(2005 2005 2006 2006 2007) ],
+        );
+        $g->add_dataset(
+            color => '76A4FB',
+            line_thickness => 2,
+            data => [ qw(28 61 46 3 28) ],
+        );
+        return $g;
+    },
+    'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxl=0:|Jan|July|Jan|July|Jan|2:|A|B|C|3:|2005|2006|2007&cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=200x125' => sub {
+        my $g = Google::Chart->create(
+            Line => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Jan July Jan July Jan) ],
+        );
+        $g->add_axis(
+            location => 'y',
+        );
+        $g->add_axis(
+            location => 'r',
+            labels => [ qw(A B C) ],
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(2005 2006 2007) ],
+        );
+        $g->add_dataset(
+            line_thickness => 2,
+            color => '76A4FB',
+            data => [ qw( 4 0 4 11 5 9 7 7 7 10 20 35 46 61 46 46 23 20 28 ) ]
+        );
+        return $g;
+    },
+    'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxl=0:|Jan|July|Jan|July|Jan|2:|A|B|C|3:|2005|2005|2006|2006|2007&cht=bvs&chd=s:c9uDc&chco=76A4FB&chls=2.0&chs=200x125' => sub { 
+        my $g = Google::Chart->create(
+            Bar => (
+                orientation => 'vertical',
+                stacked => 1,
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Jan July Jan July Jan) ],
+        );
+        $g->add_axis(
+            location => 'y',
+        );
+        $g->add_axis(
+            location => 'r',
+            labels => [ qw(A B C) ],
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(2005 2005 2006 2006 2007) ],
+        );
+        $g->add_dataset(
+            color => '76A4FB',
+            line_thickness => 2,
+            data => [ qw(28 61 46 3 28) ],
+        );
+        return $g;
+    },
     'http://chart.apis.google.com/chart?chxt=x,y,r&chxr=2,0,4&chxl=1:|min|average|max&chxp=1,10,35,75|2,0,1,2,4&cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=200x125' => sub { },
     'http://chart.apis.google.com/chart?chxt=x,y,r,x&chxr=2,0,4|3,0,4&chxl=1:|min|average|max&chxp=0,10,35,75|1,10,35,75|2,0,1,2,4|3,0,1,2,4&cht=bvs&chd=s:c9uDc&chco=76A4FB&chls=2.0&chs=200x125' => sub { },
     'http://chart.apis.google.com/chart?chxt=x,y,r&chxr=0,100,500|1,0,200|2,1000,0&cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=200x125' => sub { },
