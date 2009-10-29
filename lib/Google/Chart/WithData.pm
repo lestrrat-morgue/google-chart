@@ -173,6 +173,18 @@ Role names to be applied to the data object upon creation.
 If your chart class needs some extra mangling, you may want to check this 
 or C<data_class>
 
+=head2 dataset_class
+
+Class name to use when auto-generating the C<dataset> object. 
+If your chart class needs some extra mangling, you may want to check this 
+or C<dataset_traits>
+
+=head2 dataset_traits
+
+Role names to be applied to the dataset object upon creation.
+If your chart class needs some extra mangling, you may want to check this 
+or C<dataset_class>
+
 =head2 encoding_class
 
 Name of the Encoding class that will encode your data. See
@@ -193,12 +205,16 @@ constructor parameters:
 
 =head2 add_dataset( @args )
 
-Adds a new dataset. This method is delegated to Google::Chart::Data.
-Please see there for details.
+Adds a new dataset. @args are used to instantiate the dataset object, whose
+class definition is decided by the conbination of C<dataset_class> and C<dataset_traits>
 
 =head2 data_encoding( $class [, %args] )
 
 Change the default encoding. This is a convenience function to change the
 encoding scheme after you've created the object.
+
+=head2 get_datasets()
+
+Returns the list (as reference) of the underlying dataset objects.
 
 =cut
