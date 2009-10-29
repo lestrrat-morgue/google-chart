@@ -1,54 +1,71 @@
 
 package Google::Chart::WithGrid;
 use Moose::Role;
-use Moose::Util::TypeConstraints;
 use namespace::clean -except => qw(meta);
 
-has _grid_enabled => (
-    is => 'rw',
-    isa => 'Bool',
-    default => 0
+has grids => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    lazy_build => 1,
 );
 
-has grid_x_step_size => (
-    is => 'ro',
-    isa => 'Num',
-    trigger => sub { $_[0]->_grid_enabled(1) }
-);
+sub _build_grids { [] }
 
-has grid_y_step_size => (
-    is => 'ro',
-    isa => 'Num',
-    trigger => sub { $_[0]->_grid_enabled(1) }
-);
-
-has grid_line_length => (
-    is => 'ro',
-    isa => 'Num',
-    trigger => sub { $_[0]->_grid_enabled(1) }
-);
-
-has grid_blank_length => (
-    is => 'ro',
-    isa => 'Num',
-    trigger => sub { $_[0]->_grid_enabled(1) }
-);
+# we have a list of grids, but only a set_grid -- why? because I'm anticipating
+# changes like Google suddenly allowing multiple grids or something
+sub set_grid {
+    my ($self, @args) = @_;
+    push @{ $self->grids },
+        Google::Chart::Grid->new(@args);
+}
 
 around prepare_query => sub {
     my ($next, $self, @args) = @_;
 
     my @query = $next->($self, @args);
-    if ($self->_grid_enabled) {
+    my $grids = $self->grids;
+    if (@$grids > 0) {
         my @chg;
-        $chg[0] = $self->grid_x_step_size if defined $self->grid_x_step_size;
-        $chg[1] = $self->grid_y_step_size if defined $self->grid_y_step_size;
-        $chg[2] = $self->grid_line_length if defined $self->grid_line_length;
-        $chg[3] = $self->grid_blank_length if defined $self->grid_blank_length;
-        push @query, (chg => join(',', @chg));
+        foreach my $grid (@$grids) {
+            my @comps;
+            $comps[0] = $grid->x_step_size if defined $grid->x_step_size;
+            $comps[1] = $grid->y_step_size if defined $grid->y_step_size;
+            $comps[2] = $grid->line_length if defined $grid->line_length;
+            $comps[3] = $grid->blank_length if defined $grid->blank_length;
+            push @chg, join(',', @comps);
+        }
+        push @query, (chg => join('|', @chg));
     }
 
     return @query;
 };
+
+package # hide from PAUSE
+    Google::Chart::Grid;
+use Moose;
+use namespace::clean -except => qw(meta);
+
+has x_step_size => (
+    is => 'ro',
+    isa => 'Num',
+);
+
+has y_step_size => (
+    is => 'ro',
+    isa => 'Num',
+);
+
+has line_length => (
+    is => 'ro',
+    isa => 'Num',
+);
+
+has blank_length => (
+    is => 'ro',
+    isa => 'Num',
+);
+
+__PACKAGE__->meta->make_immutable();
 
 1;
 
@@ -56,7 +73,7 @@ __END__
 
 =head1 NAME
 
-Google::Chart::Grid - Google::Chart Grid Specification 
+Google::Chart::WithGrid - Charts With Grids
 
 =head1 METHODS
 

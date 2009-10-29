@@ -11,13 +11,17 @@ BEGIN
     my $graph = Google::Chart->create(
         Line => (
             size => '300x300',
-            grid_x_step_size => 50,
-            grid_y_step_size => 33.3,
             encoding => 'Extended',
             encoding_min_value => -100,
             encoding_max_value => 200,
         )
     );
+
+    $graph->set_grid(
+        x_step_size => 50,
+        y_step_size => 33.3,
+    );
+
     $graph->add_dataset(
         legend => 'data1',
         color => 'ff0000', 

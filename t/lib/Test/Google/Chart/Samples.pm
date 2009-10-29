@@ -381,12 +381,15 @@ my @charts = (
             Radar => (
                 size => '200x200',
                 encoding => 'Simple',
-                grid_x_step_size => 25,
-                grid_y_step_size => 25,
-                grid_line_length => 4,
-                grid_blank_length => 4,
             )
         );
+        $g->set_grid(
+            x_step_size => 25,
+            y_step_size => 25,
+            line_length => 4,
+            blank_length => 4,
+        );
+
         $g->add_axis(
             location => 'x',
             labels => [ qw( 0 45 90 135 180 225 270 315 ) ],
@@ -424,11 +427,13 @@ my @charts = (
             Radar => (
                 size => '200x200',
                 encoding => 'Simple',
-                grid_x_step_size => 25,
-                grid_y_step_size => 25,
-                grid_line_length => 4,
-                grid_blank_length => 4,
             )
+        );
+        $g->set_grid(
+            x_step_size => 25,
+            y_step_size => 25,
+            line_length => 4,
+            blank_length => 4,
         );
         $g->add_axis(
             location => 'x',
@@ -742,9 +747,11 @@ my @charts = (
             Line => (
                 size => '200x125',
                 encoding => 'Simple',
-                grid_x_step_size => 25,
-                grid_y_step_size => 25,
             )
+        );
+        $g->set_grid(
+            x_step_size => 25,
+            y_step_size => 25,
         );
         $g->add_axis(
             location => 'y',
@@ -1122,9 +1129,11 @@ my @charts = (
             Line => (
                 size => '200x125',
                 encoding => 'Simple',
-                grid_x_step_size => 100,
-                grid_y_step_size => 25,
             )
+        );
+        $g->set_grid(
+            x_step_size => 100,
+            y_step_size => 25,
         );
         $g->add_axis(
             location => 'y',
@@ -1156,9 +1165,11 @@ my @charts = (
             Line => (
                 size => '200x125',
                 encoding => 'Simple',
-                grid_x_step_size => 100,
-                grid_y_step_size => 25,
             )
+        );
+        $g->set_grid(
+            x_step_size => 100,
+            y_step_size => 25,
         );
         $g->add_axis(
             location => 'y',
@@ -1894,9 +1905,11 @@ my @charts = (
             Line => (
                 size => '200x125',
                 encoding => 'Simple',
-                grid_x_step_size => 20,
-                grid_y_step_size => 50,
             )
+        );
+        $g->set_grid(
+            x_step_size => 20,
+            y_step_size => 50,
         );
         $g->add_axis(
             location => 'x',
@@ -1920,11 +1933,13 @@ my @charts = (
             Line => (
                 size => '200x125',
                 encoding => 'Simple',
-                grid_x_step_size => 20,
-                grid_y_step_size => 50,
-                grid_line_length => 1,
-                grid_blank_length => 5,
             )
+        );
+        $g->set_grid(
+            x_step_size => 20,
+            y_step_size => 50,
+            line_length => 1,
+            blank_length => 5,
         );
         $g->add_axis(
             location => 'x',
@@ -1948,11 +1963,13 @@ my @charts = (
             Line => (
                 size => '200x125',
                 encoding => 'Simple',
-                grid_x_step_size => 20,
-                grid_y_step_size => 50,
-                grid_line_length => 1,
-                grid_blank_length => 0,
             )
+        );
+        $g->set_grid(
+            x_step_size => 20,
+            y_step_size => 50,
+            line_length => 1,
+            blank_length => 0,
         );
         $g->add_axis(
             location => 'x',
@@ -2050,9 +2067,11 @@ my @charts = (
             ScatterPlot => (
                 size => '200x125',
                 encoding => 'Simple',
-                grid_x_step_size  => 20,
-                grid_y_step_size  => 25
             )
+        );
+        $g->set_grid(
+            x_step_size  => 20,
+            y_step_size  => 25
         );
         $g->add_axis(
             location => 'x',
