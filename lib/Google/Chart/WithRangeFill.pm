@@ -24,7 +24,7 @@ around prepare_query => sub {
     my $fills = $self->range_fills;
     my @chm;
     foreach my $fill (@$fills) {
-        push @chm, join(',', $fill->type, $fill->color, $fill->start_index, $fill->end_index, 0);
+        push @chm, join(',', $fill->type, $fill->color, $fill->start_index, $fill->end_index, 5);
     }
     if (@chm) {
         push @query, (chm => join('|', @chm));
