@@ -121,17 +121,24 @@ sub as_uri {
     my $uri = $self->google_chart_uri()->clone;
     my @query = $self->prepare_query();
 
-    my %query;
+    # XXX Be paranoid and don't squash duplicates... unless we should!
+    my %seen;
+    my @final;
     while (@query) {
         my ($key, $value) = splice(@query, 0, 2);
-        if ($key =~ /^ch[mf]$/ && $query{$key}) {
-            $query{$key} = join('|', $query{$key}, $value);
+        if ($key =~ /^ch[mf]$/) {
+            if ($seen{$key}) {
+                ${$seen{$key}} = join( '|', ${$seen{$key}}, $value );
+            } else {
+                $seen{$key} = \$value;
+                push @final, ($key => $value);
+            }
         } else {
-            $query{$key} = $value;
+            push @final, ($key => $value);
         }
     }
 
-    $uri->query_form( %query );
+    $uri->query_form( @final );
     return $uri;
 }
 
