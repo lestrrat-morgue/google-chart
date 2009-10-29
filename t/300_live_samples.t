@@ -5,7 +5,9 @@ use Test::More;
 use LWP::UserAgent;
 use Digest::MD5 qw(md5_hex);
 
-if (! have_connection()) {
+if (! $ENV{AUTHOR_TEST}) {
+    plan skip_all => "author tests (set AUTHOR_TEST to enable)";
+} elsif (! have_connection()) {
     plan skip_all => "No connection";
 }
 
