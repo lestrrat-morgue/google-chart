@@ -493,10 +493,47 @@ my @charts = (
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=t&chs=440x220&chd=s:_&chtm=world' => sub {
+        my $g = Google::Chart->create(
+            Map => (
+                size => '440x220',
+            )
+        );
+        $g->add_dataset( data => [ undef ] );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=t&chs=440x220&chd=s:Af9&chco=ffffff,edf0d4,13390a&chld=MGKETN&chtm=africa&chf=bg,s,EAF7FE' => sub {
+        my $g = Google::Chart->create(
+            Map => (
+                size => '440x220',
+                colors => [ 'ffffff', 'edf0d4', '13390a' ],
+                codes => [ qw(MG KE TN) ],
+                area => 'africa',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_solid_fill(
+            type => 'bg',
+            color => 'EAF7FE',
+        );
+        $g->add_dataset( data => [ qw(0 31 61) ] );
+        return $g;
     },
     'http://chart.apis.google.com/chart?chco=f5f5f5,edf0d4,6c9642,365e24,13390a&chd=s:fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC&chf=bg,s,eaf7fe&chtm=usa&chld=NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR&chs=440x220&cht=t' => sub {
+        my $g = Google::Chart->create(
+            Map => (
+                size => '440x220',
+                colors => [ qw( f5f5f5 edf0d4 6c9642 365e24 13390a ) ],
+                codes => [ qw( NY PA TN WV NV NJ NH VA HI VT NM NC ND NE LA SD DC DE FL WA KS WI OR KY ME OH IA ID CT WY UT IN IL AK TX CO MD MA AL MO MN CA OK MI GA AZ MT MS SC RI AR ) ],
+                area => 'usa',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_solid_fill(
+            type => 'bg',
+            color => 'EAF7FE',
+        );
+        $g->add_dataset( data => [ qw( 31 18 6 1 3 16 1 16 1 1 0 6 0 1 2 1 3 0 10 11 2 3 6 5 2 11 1 1 4 1 1 4 15 0 18 3 10 9 1 3 3 61 1 7 7 4 0 0 2 0 2 ) ] );
+        return $g;
     },
     'http://chart.apis.google.com/chart?chs=225x125&cht=gom&chd=t:70&chl=Hello' => sub {
         my $g = Google::Chart->create(
@@ -762,6 +799,58 @@ my @charts = (
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH&chls=1,1,0|1,1,0|1,1,0|1,4,0&chxt=x,y&chxl=0:|Sep|Oct|Nov|Dec|1:||50|100&chs=200x125&chm=b,224499,0,1,0|b,FF0000,1,2,0|b,80C65A,2,3,0' => sub {
+
+        my $g = Google::Chart->create(
+            Line => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Sep Oct Nov Dec) ],
+        );
+        $g->add_axis(
+            location => 'y',
+            labels => [ undef, 50, 100 ]
+        );
+        $g->add_dataset(
+            line_thickness => 1,
+            line_segment_length => 1,
+            blank_segment_length => 0,
+            data => [ qw( 28 30 31 33 35 36 42 48 43 37 32 24 28 31 32 28 ) ],
+        );
+        $g->add_dataset(
+            line_thickness => 1,
+            line_segment_length => 1,
+            blank_segment_length => 0,
+            data => [ qw( 16 18 18 21 23 23 29 36 31 25 20 12 17 19 20 16 ) ],
+        );
+        $g->add_dataset(
+            line_thickness => 1,
+            line_segment_length => 1,
+            blank_segment_length => 0,
+            data => [ qw(  7 9 9 12 14 14 20 27 21 15 10 3 7 10 11 7 ) ],
+        );
+        $g->add_range_fill(
+            type => 'b',
+            color => '224499',
+            start_index => 0,
+            end_index => 1,
+        );
+        $g->add_range_fill(
+            type => 'b',
+            color => 'FF0000',
+            start_index => 1,
+            end_index => 2,
+        );
+        $g->add_range_fill(
+            type => 'b',
+            color => '80C65A',
+            start_index => 2,
+            end_index => 3,
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chs=200x125&chd=s:ATSTaVd21981uocA&chco=224499&chxt=x,y&chxl=0:|Sep|Oct|Nov|Dec|1:||50|100&chm=B,76A4FB,0,0,0' => sub {
         my $g = Google::Chart->create(
@@ -791,12 +880,123 @@ my @charts = (
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp&chco=FF0000&chls=4.0,3.0,0.0&chs=200x125&chxt=x,y&chxl=0:|Jun|July|Aug|1:||20|30|40|50&chf=bg,s,efefef' => sub {
+        my $g = Google::Chart->create(
+            Line => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Jun July Aug) ],
+        );
+        $g->add_axis(
+            location => 'y',
+            labels => [ undef, 20, 30, 40, 50 ]
+        );
+        $g->add_dataset(
+            color => 'FF0000',
+            line_thickness => 4,
+            line_segment_length => 3,
+            blank_segment_length => 0,
+            data => [ qw(41 42 40 36 30 24 14 13 14 12 4 1 0 10 15 14 16 21 19 23 25 29 30 28 26 25 28 32 37 41 43 42 49 46 46 49 55 61 55 51 45 41 40 40 39 36 30 32 32 35 41 ) ]
+        );
+        $g->add_solid_fill(
+            type => 'bg',
+            color => 'efefef',
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=s&chd=s:pqokeYONOMEPOQVTXZdeca,Zcglprqxuuxztpoonkeggjp&chco=FF0000&chls=4.0,3.0,0.0&chs=200x125&chxt=x,y&chxl=0:|Jun|July|Aug|1:||20|30|40|50&chf=bg,s,efefef|c,s,000000' => sub {
+        my $g = Google::Chart->create(
+            ScatterPlot => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Jun July Aug) ],
+        );
+        $g->add_axis(
+            location => 'y',
+            labels => [ undef, 20, 30, 40, 50 ]
+        );
+        $g->add_dataset(
+            color => 'FF0000',
+            data => [ qw( 41 42 40 36 30 24 14 13 14 12 4 15 14 16 21 19 23 25 29 30 28 26 ) ]
+        );
+        $g->add_dataset(
+            data => [ qw( 25 28 32 37 41 43 42 49 46 46 49 51 45 41 40 40 39 36 30 32 32 35 41  ) ]
+        );
+        $g->add_solid_fill(
+            type => 'bg',
+            color => 'efefef',
+        );
+        $g->add_solid_fill(
+            type => 'c',
+            color => '000000',
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=s&chd=s:pqokeYONOMEPOQVTXZdeca,Zcglprqxuuxztpoonkeggjp&chco=FF0000&chls=4.0,3.0,0.0&chs=200x125&chxt=x,y&chxl=0:|Jun|July|Aug|1:||20|30|40|50&chf=bg,s,efefef20|c,s,00000080' => sub {
+        my $g = Google::Chart->create(
+            ScatterPlot => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Jun July Aug) ],
+        );
+        $g->add_axis(
+            location => 'y',
+            labels => [ undef, 20, 30, 40, 50 ]
+        );
+        $g->add_dataset(
+            color => 'FF0000',
+            data => [ qw( 41 42 40 36 30 24 14 13 14 12 4 15 14 16 21 19 23 25 29 30 28 26 ) ]
+        );
+        $g->add_dataset(
+            data => [ qw( 25 28 32 37 41 43 42 49 46 46 49 51 45 41 40 40 39 36 30 32 32 35 41  ) ]
+        );
+        $g->add_solid_fill(
+            type => 'bg',
+            color => 'efefef',
+        );
+        $g->add_solid_fill(
+            type => 'c',
+            color => '00000080',
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=s&chd=s:pqokeYONOMEPOQVTXZdeca,Zcglprqxuuxztpoonkeggjp&chls=4.0,3.0,0.0&chs=200x125&chxt=x,y&chxl=0:|Jun|July|Aug|1:||20|30|40|50&chf=a,s,efefeff0' => sub {
+        my $g = Google::Chart->create(
+            ScatterPlot => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+        $g->add_axis(
+            location => 'x',
+            labels => [ qw(Jun July Aug) ],
+        );
+        $g->add_axis(
+            location => 'y',
+            labels => [ undef, 20, 30, 40, 50 ]
+        );
+        $g->add_dataset(
+            data => [ qw( 41 42 40 36 30 24 14 13 14 12 4 15 14 16 21 19 23 25 29 30 28 26 ) ]
+        );
+        $g->add_dataset(
+            data => [ qw( 25 28 32 37 41 43 42 49 46 46 49 51 45 41 40 40 39 36 30 32 32 35 41  ) ]
+        );
+        $g->add_solid_fill(
+            type => 'a',
+            color => 'efefeff0',
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp&chco=676767&chls=4.0,3.0,0.0&chs=200x125&chxt=x,y&chxl=0:|1|2|3|4|5|1:|0|50|100&chf=c,lg,0,76A4FB,1,ffffff,0|bg,s,EFEFEF' => sub {
     },
@@ -939,6 +1139,26 @@ my @charts = (
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chd=s:93zyvneTTOMJMLIJFHEAECFJGHDBFCFIERcgnpy45879,IJKNUWUWYdnswz047977315533zy1246872tnkgcaZQONHCECAAAAEII&chls=3,6,3|1,1,0&chs=200x125' => sub {
+        my $g = Google::Chart->create(
+            Line => (
+                size => '200x125',
+                encoding_class => 'Simple',
+            )
+        );
+
+        $g->add_dataset(
+            line_thickness => 3,
+            line_segment_length => 6,
+            blank_segment_length => 3,
+            data => [ qw( 61 55 51 50 47 39 30 19 19 14 12 9 12 11 8 9 5 7 4 0 4 2 5 9 6 7 3 1 5 2 5 8 4 17 28 32 39 41 50 56 57 60 59 61 ) ],
+        );
+        $g->add_dataset(
+            line_thickness => 1,
+            line_segment_length => 1,
+            blank_segment_length => 0,
+            data => [ qw( 8 9 10 13 20 22 20 22 24 29 39 44 48 51 52 56 59 61 59 59 55 53 57 57 55 55 51 50 53 54 56 58 60 59 54 45 39 36 32 28 26 25 16 14 13 7 2 4 2 0 0 0 0 4 8 8 ) ]
+        );
+        return $g;
     },
     'http://chart.apis.google.com/chart?cht=bvg&chbh=5,2&chm=B,C6D9FD,0,0,0|D,4D89F9,0,0,5,1&chbh=20&chs=200x150&chd=s:1XQbnf4&chco=76A4FB' => sub {
         my $g = Google::Chart->create(
