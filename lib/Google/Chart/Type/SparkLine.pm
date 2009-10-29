@@ -9,6 +9,7 @@ with qw(
     Google::Chart::WithData 
     Google::Chart::WithGrid
     Google::Chart::WithLinearGradientFill
+    Google::Chart::WithLinearStripe
     Google::Chart::WithLineStyle
     Google::Chart::WithRangeFill
     Google::Chart::WithRangeMarker

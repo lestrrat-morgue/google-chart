@@ -119,7 +119,7 @@ sub as_uri {
     my %query;
     while (@query) {
         my ($key, $value) = splice(@query, 0, 2);
-        if ($key eq 'chm' && $query{$key}) {
+        if ($key =~ /^ch[mf]$/ && $query{$key}) {
             $query{$key} = join('|', $query{$key}, $value);
         } else {
             $query{$key} = $value;
