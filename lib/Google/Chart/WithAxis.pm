@@ -43,11 +43,10 @@ around prepare_query => sub {
             push @{$query{chxr}}, join(',', $count, @range);
         }
         if ($axis->has_color || $axis->has_font_size || $axis->has_alignment) {
-            push @{$query{chxs}}, join(',', 
-                $axis->color     || '', 
-                $axis->font_size || '',
-                $axis->alignment || ''
-            );
+            my @args = ( $axis->color );
+            push @args, $axis->font_size if $axis->font_size;
+            push @args, $axis->alignment if $axis->alignment;
+            push @{$query{chxs}}, join(',', $count, @args);
         }
         $count++;
     }
@@ -109,7 +108,7 @@ has color => (
 has font_size => (
     is => 'ro',
     isa => 'Num',
-    predicate => 'has_font_sizeY',
+    predicate => 'has_font_size',
 );
 
 has alignment => (

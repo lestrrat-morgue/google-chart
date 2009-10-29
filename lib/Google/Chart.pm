@@ -89,7 +89,7 @@ sub prepare_query {
 
     my @query = ( cht => $self->type );
 
-    foreach my $element (map { $self->$_() } qw(size title axis)) {
+    foreach my $element (map { $self->$_() } qw(size title)) {
         next unless defined $element;
         my @params = $element->as_query( $self );
         while (@params) {
