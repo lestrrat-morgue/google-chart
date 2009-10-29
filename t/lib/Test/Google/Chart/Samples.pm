@@ -212,7 +212,7 @@ my @charts = (
             Bar => (
                 orientation => 'horizontal',
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -229,7 +229,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Bar => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -247,7 +247,7 @@ my @charts = (
             Bar => (
                 orientation => 'horizontal',
                 stacked => 1,
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 size => '200x125',
             )
         );
@@ -264,7 +264,7 @@ my @charts = (
                 orientation => 'horizontal',
                 stacked => 1,
                 bar_width => 10,
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 size => '200x125',
             )
         );
@@ -277,7 +277,7 @@ my @charts = (
     'http://chart.apis.google.com/chart?cht=p&chd=s:Uf9a&chs=200x100&chl=January|February|March|April' => sub {
         my $g = Google::Chart->create(
             Pie => (
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 size => '200x100',
             )
         );
@@ -290,7 +290,7 @@ my @charts = (
     'http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April' => sub {
         my $g = Google::Chart->create(
             Pie => (
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 size => '250x100',
                 pie_type => '3d',
             )
@@ -316,7 +316,7 @@ my @charts = (
         my $g = Google::Chart->create(
             ScatterPlot => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -380,7 +380,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Radar => (
                 size => '200x200',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size => 25,
                 grid_y_step_size => 25,
                 grid_line_length => 4,
@@ -423,7 +423,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Radar => (
                 size => '200x200',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size => 25,
                 grid_y_step_size => 25,
                 grid_line_length => 4,
@@ -508,7 +508,7 @@ my @charts = (
                 colors => [ 'ffffff', 'edf0d4', '13390a' ],
                 codes => [ qw(MG KE TN) ],
                 area => 'africa',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_solid_fill(
@@ -525,7 +525,7 @@ my @charts = (
                 colors => [ qw( f5f5f5 edf0d4 6c9642 365e24 13390a ) ],
                 codes => [ qw( NY PA TN WV NV NJ NH VA HI VT NM NC ND NE LA SD DC DE FL WA KS WI OR KY ME OH IA ID CT WY UT IN IL AK TX CO MD MA AL MO MN CA OK MI GA AZ MT MS SC RI AR ) ],
                 area => 'usa',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_solid_fill(
@@ -561,7 +561,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -590,7 +590,7 @@ my @charts = (
         my $g = Google::Chart->create(
             SparkLine => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -612,7 +612,7 @@ my @charts = (
                 stacked => 1,
                 orientation => 'horizontal',
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -644,7 +644,7 @@ my @charts = (
                 size => '200x125',
                 stacked => 1,
                 orientation => 'horizontal',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -674,7 +674,7 @@ my @charts = (
             Bar => (
                 size => '200x125',
                 orientation => 'horizontal',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -704,7 +704,7 @@ my @charts = (
             Pie => (
                 size => '200x90',
                 pie_type => '3d',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -741,7 +741,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size => 25,
                 grid_y_step_size => 25,
             )
@@ -814,7 +814,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -867,7 +867,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -894,7 +894,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -922,7 +922,7 @@ my @charts = (
         my $g = Google::Chart->create(
             ScatterPlot => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -954,7 +954,7 @@ my @charts = (
         my $g = Google::Chart->create(
             ScatterPlot => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -986,7 +986,7 @@ my @charts = (
         my $g = Google::Chart->create(
             ScatterPlot => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1013,7 +1013,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1048,7 +1048,7 @@ my @charts = (
     'http://chart.apis.google.com/chart?cht=lc&chd=s:pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp&chco=676767&chls=4.0,3.0,0.0&chxt=x,y&chxl=0:|1|2|3|4|5|1:|0|50|100&chs=200x125&chf=c,lg,45,ffffff,0,76A4FB,0.75|bg,s,EFEFEF' => sub {
         my $g = Google::Chart->create(
             Line => (
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 size => '200x125',
             )
         );
@@ -1084,7 +1084,7 @@ my @charts = (
     'http://chart.apis.google.com/chart?cht=lc&chd=s:pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp&chco=676767&chls=4.0,3.0,0.0&chs=200x125&chxt=x,y&chxl=0:|1|2|3|4|5|1:|0|50|100&chf=c,lg,90,76A4FB,0.5,ffffff,0|bg,s,EFEFEF' => sub {
         my $g = Google::Chart->create(
             Line => (
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 size => '200x125',
             )
         );
@@ -1121,7 +1121,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size => 100,
                 grid_y_step_size => 25,
             )
@@ -1155,7 +1155,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size => 100,
                 grid_y_step_size => 25,
             )
@@ -1192,7 +1192,7 @@ my @charts = (
                 orientation => 'vertical',
                 stacked => 1,
                 size => '180x150',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 title => 'Site',
             )
         );
@@ -1308,7 +1308,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1339,7 +1339,7 @@ my @charts = (
                 orientation => 'vertical',
                 stacked => 1,
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1369,7 +1369,7 @@ my @charts = (
                 orientation => 'horizontal',
                 stacked => 1,
                 size => '200x200',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1397,7 +1397,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1429,7 +1429,7 @@ my @charts = (
                 orientation => 'vertical',
                 stacked => 1,
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1459,7 +1459,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1490,7 +1490,7 @@ my @charts = (
                 orientation => 'vertical',
                 stacked => 1,
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1519,7 +1519,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1548,7 +1548,7 @@ my @charts = (
                 vertical => 1,
                 stacked => 1,
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1581,7 +1581,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1609,7 +1609,7 @@ my @charts = (
                 vertical => 1,
                 stacked => 1,
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1635,7 +1635,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1657,7 +1657,7 @@ my @charts = (
                 vertical => 1,
                 stacked => 1,
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1677,7 +1677,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '220x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1709,7 +1709,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '220x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -1737,7 +1737,7 @@ my @charts = (
                 orientation => 'horizontal',
                 size => '200x125',
                 bar_width => 10,
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -1758,7 +1758,7 @@ my @charts = (
                 bar_width => 10,
                 bar_space => 5,
                 group_space => 15,
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -1778,7 +1778,7 @@ my @charts = (
                 size => '200x125',
                 bar_width => 10,
                 bar_space => 8,
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -1798,7 +1798,7 @@ my @charts = (
                 size => '200x125',
                 bar_width => 10,
                 bar_space => 15,
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -1844,7 +1844,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
 
@@ -1877,7 +1877,7 @@ my @charts = (
         my $g = Google::Chart->create(
             SparkLine => (
                 size => '200x125',
-                encoding_class => 'Simple'
+                encoding => 'Simple'
             )
         );
         $g->add_dataset(
@@ -1893,7 +1893,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size => 20,
                 grid_y_step_size => 50,
             )
@@ -1919,7 +1919,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size => 20,
                 grid_y_step_size => 50,
                 grid_line_length => 1,
@@ -1947,7 +1947,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size => 20,
                 grid_y_step_size => 50,
                 grid_line_length => 1,
@@ -1975,7 +1975,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_axis(
@@ -2049,7 +2049,7 @@ my @charts = (
         my $g = Google::Chart->create(
             ScatterPlot => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
                 grid_x_step_size  => 20,
                 grid_y_step_size  => 25
             )
@@ -2081,7 +2081,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_dataset(
@@ -2156,7 +2156,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_range_marker(
@@ -2192,7 +2192,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_range_marker(
@@ -2228,7 +2228,7 @@ my @charts = (
         my $g = Google::Chart->create(
             Line => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_range_marker(
@@ -2276,7 +2276,7 @@ my @charts = (
         my $g = Google::Chart->create(
             SparkLine => (
                 size => '200x125',
-                encoding_class => 'Simple',
+                encoding => 'Simple',
             )
         );
         $g->add_range_marker(

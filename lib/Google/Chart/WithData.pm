@@ -33,6 +33,16 @@ has encoding_class => (
     default => 'Text',
 );
 
+around BUILDARGS => sub {
+    my ($next, $self, @args) = @_;
+    my $args = $next->($self, @args);
+
+    if (my $encoding_class = delete $args->{encoding}) {
+        $args->{encoding_class} = $encoding_class;
+    }
+    return $args;
+};
+
 sub BUILD {
     my ($self, $params) = @_;
 

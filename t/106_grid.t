@@ -13,7 +13,7 @@ BEGIN
             size => '300x300',
             grid_x_step_size => 50,
             grid_y_step_size => 33.3,
-            encoding_class => 'Extended',
+            encoding => 'Extended',
             encoding_min_value => -100,
             encoding_max_value => 200,
         )

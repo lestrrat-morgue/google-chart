@@ -13,7 +13,7 @@ use URI;
     my $g = Google::Chart->create(
         Line => (
             size => '200x125',
-            encoding_class => 'Simple',
+            encoding => 'Simple',
         )
     );
     $g->add_dataset(
@@ -30,7 +30,7 @@ use URI;
 
     my $g = Google::Chart->create(
         Bar => (
-            encoding_class => 'Simple',
+            encoding => 'Simple',
             orientation => 'horizontal',
             size => '200x125',
             stacked => 1,
@@ -76,7 +76,7 @@ TODO: { # bar chart example (3)
 
     my $g = Google::Chart->create(
         Bar => (
-            encoding_class => 'Extended',
+            encoding => 'Extended',
             encoding_max_value => 160,
             bar_width => 20,
             size => '200x125',
@@ -99,7 +99,7 @@ TODO: { # bar chart example (3)
 
     my $g = Google::Chart->create(
         Bar => (
-            encoding_class => 'Simple',
+            encoding => 'Simple',
             orientation => 'horizontal',
             size => '200x125',
         )
@@ -122,7 +122,7 @@ TODO: { # bar chart example (3)
 
     my $g = Google::Chart->create(
         Bar => (
-            encoding_class => 'Simple',
+            encoding => 'Simple',
             size => '200x125',
         )
     );
@@ -154,7 +154,7 @@ TODO: {
 
     my $g = Google::Chart->create(
         Line => (
-            encoding_class => 'Simple',
+            encoding => 'Simple',
             size => '200x125',
         )
     );
@@ -188,7 +188,7 @@ TODO: {
 
     my $g = Google::Chart->create(
         SparkLine => (
-            encoding_class => 'Simple',
+            encoding => 'Simple',
             size => '200x125',
         )
     );
