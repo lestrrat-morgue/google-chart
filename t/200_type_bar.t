@@ -21,8 +21,8 @@ use_ok "Google::Chart::Type::Bar";
     ok( $chart );
     isa_ok( $chart, "Google::Chart" );
 
-    is( $chart->size->width, 400 );
-    is( $chart->size->height, 300 );
+    is( $chart->width, 400 );
+    is( $chart->height, 300 );
 
     my $uri = $chart->as_uri;
     note $uri;

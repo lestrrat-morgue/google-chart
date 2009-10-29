@@ -13,6 +13,7 @@ with qw(
     Google::Chart::WithLineStyle
     Google::Chart::WithRangeFill
     Google::Chart::WithRangeMarker
+    Google::Chart::WithSize
     Google::Chart::WithSolidFill
 );
 

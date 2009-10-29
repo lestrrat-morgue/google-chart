@@ -14,20 +14,26 @@ note "LWP::UserAgent: $LWP::UserAgent::VERSION\n";
 
     local %ENV;
     delete $ENV{HTTP_PROXY};
-    my $g = Google::Chart->new(type => 'Line', data => [ 1, 2, 3 ]);
+    my $g = Google::Chart->create(
+        Line => ( width => 100, height => 200 )
+    );
     ok(! $g->ua->proxy('http'), "http proxy should not be set");
 }
 
 {
     local $ENV{HTTP_PROXY} = 'http://localhost:3128';
-    my $g = Google::Chart->new(type => 'Line', data => [ 1, 2, 3 ]);
+    my $g = Google::Chart->create(
+        Line => ( width => 100, height => 200 )
+    );
     is($g->ua->proxy('http'), $ENV{HTTP_PROXY}, "http proxy should be set");
 }
 
 {
     local $ENV{HTTP_PROXY} = 'http://localhost:3128';
     local $ENV{GOOGLE_CHART_ENV_PROXY} = 0;
-    my $g = Google::Chart->new(type => 'Line', data => [ 1, 2, 3 ]);
+    my $g = Google::Chart->create(
+        Line => ( width => 100, height => 200 )
+    );
     ok(! $g->ua->proxy('http'), "http proxy should not be set");
 }
 

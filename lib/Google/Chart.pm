@@ -2,20 +2,12 @@
 package Google::Chart;
 use Moose;
 use Google::Chart::Data;
-use Google::Chart::Size;
 use Google::Chart::Title;
 use Google::Chart::Types;
 use LWP::UserAgent;
 use namespace::clean -except => qw(meta);
 
 our $VERSION = '0.10000';
-
-has size => (
-    is       => 'ro',
-    isa      => 'Google::Chart::Size',
-    coerce   => 1,
-    lazy_build => 1,
-);
 
 has title => (
     is        => 'ro',
@@ -55,10 +47,6 @@ sub _build_google_chart_uri {
         URI->new("http://chart.apis.google.com/chart");
 }
 
-sub _build_size {
-    return Google::Chart::Size->new( width => 400, height => 200 );
-}
-
 sub _build_type { }
 
 sub _build_ua {
@@ -87,9 +75,11 @@ sub create {
 sub prepare_query {
     my $self = shift;
 
-    my @query = ( cht => $self->type );
+    my @query = (
+        cht => $self->type,
+    );
 
-    foreach my $element (map { $self->$_() } qw(size title)) {
+    foreach my $element (map { $self->$_() } qw(title)) {
         next unless defined $element;
         my @params = $element->as_query( $self );
         while (@params) {

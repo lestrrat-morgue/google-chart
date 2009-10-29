@@ -38,8 +38,8 @@ BEGIN
 
     isa_ok( $chart->type, "Google::Chart::Type::Line" );
 
-    is( $chart->size->width, 400 );
-    is( $chart->size->height, 300 );
+    is( $chart->width, 400 );
+    is( $chart->height, 300 );
 
     my $uri = $chart->as_uri;
     note $uri;

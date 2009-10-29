@@ -13,6 +13,7 @@ with qw(
     Google::Chart::WithGrid
     Google::Chart::WithLineStyle
     Google::Chart::WithMarker
+    Google::Chart::WithSize
 );
 
 __PACKAGE__->meta->make_immutable();
