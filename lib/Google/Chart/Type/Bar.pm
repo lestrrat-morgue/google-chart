@@ -11,7 +11,9 @@ with qw(
     Google::Chart::WithGrid
     Google::Chart::WithLinearGradientFill
     Google::Chart::WithLinearStripe
+    Google::Chart::WithLineDrawStyle
     Google::Chart::WithMarker
+    Google::Chart::WithRangeFill
     Google::Chart::WithSolidFill
 );
 
