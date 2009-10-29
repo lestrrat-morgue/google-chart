@@ -10,6 +10,7 @@ enum 'Google::Chart::Axis::Location' => qw(x y r t);
 has location => (
     is => 'rw',
     isa => 'Google::Chart::Axis::Location',
+    required => 1,
 );
 
 has labels => (
