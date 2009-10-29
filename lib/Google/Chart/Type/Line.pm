@@ -14,7 +14,6 @@ with qw(
     Google::Chart::WithMarker
     Google::Chart::WithRangeFill
     Google::Chart::WithRangeMarker
-    Google::Chart::WithSize
     Google::Chart::WithSolidFill
 );
 

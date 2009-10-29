@@ -10,7 +10,6 @@ with qw(
     Google::Chart::WithGrid
     Google::Chart::WithLinearGradientFill
     Google::Chart::WithLinearStripe
-    Google::Chart::WithSize
     Google::Chart::WithSolidFill
 );
 

@@ -19,6 +19,14 @@ coerce 'Google::Chart::Type::QRcode::Encoding'
     }
 ;
 
+has '+width' => (
+    default => 150
+);
+
+has '+height' => (
+    default => 150
+);
+
 has text => (
     is => 'rw',
     isa => 'Str',

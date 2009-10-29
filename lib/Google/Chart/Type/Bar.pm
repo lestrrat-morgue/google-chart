@@ -12,7 +12,6 @@ with qw(
     Google::Chart::WithLinearGradientFill
     Google::Chart::WithLinearStripe
     Google::Chart::WithMarker
-    Google::Chart::WithSize
     Google::Chart::WithSolidFill
 );
 

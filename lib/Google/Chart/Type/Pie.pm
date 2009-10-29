@@ -8,7 +8,6 @@ extends 'Google::Chart';
 with qw(
     Google::Chart::WithData 
     Google::Chart::WithGrid
-    Google::Chart::WithSize
     Google::Chart::WithSolidFill
 );
 

@@ -12,7 +12,6 @@ with qw(
     Google::Chart::WithLinearStripe
     Google::Chart::WithMarker
     Google::Chart::WithRangeMarker
-    Google::Chart::WithSize
     Google::Chart::WithSolidFill
 );
 

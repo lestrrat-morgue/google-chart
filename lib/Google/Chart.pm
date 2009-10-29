@@ -36,6 +36,31 @@ has ua => (
     lazy_build => 1,
 );
 
+has width => (
+    is       => 'rw',
+    isa      => 'Int',
+    required => 1
+);
+
+has height => (
+    is       => 'rw',
+    isa      => 'Int',
+    required => 1
+);
+
+around BUILDARGS => sub {
+    my ($next, $self, @args) = @_;
+    my $args = $next->($self, @args);
+
+    if (my $size = delete $args->{size}) {
+        my ($width, $height) = split /x/, $size;
+        $args->{width} = $width;
+        $args->{height} = $height;
+    }
+
+    return $args;
+};
+
 sub _build_axis {
     return Google::Chart::Axis->new();
 }
@@ -77,6 +102,7 @@ sub prepare_query {
 
     my @query = (
         cht => $self->type,
+        chs => join('x', $self->width, $self->height )
     );
 
     foreach my $element (map { $self->$_() } qw(title)) {
