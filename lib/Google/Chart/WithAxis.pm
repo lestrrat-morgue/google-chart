@@ -125,25 +125,38 @@ __END__
 
 =head1 NAME
 
-Google::Chart::Axis::Style - Google::Chart Axis Style
+Google::Chart::WithAxis - Charts With Axis
+
+=head1 SYNOPSIS
+
+    my $chart = Google::Chart->create( ... );
+
+    $chart->add_axis(
+        location        => 'x',              # 'x', 'y', 'r', or 't'
+                                             # optional parameters
+        alignment       => 0,                #  -1, 0, or 1
+        color           => $hexcolor,        # color of this axis
+        font_size       => $points,          # font size
+        labels          => \@labels,         # labels for this axis
+        label_positions => \@positions,      # posisions
+        range           => [ $start, $end ], # range start and end
+    );
+
+    # multiple axis can be added
+    $chart->add_axis( ... );
+    $chart->add_axis( ... );
+    $chart->add_axis( ... );
+
+=head1 ATTRIBUTES 
+
+=head2 axes
+
+Individual Axis objects. You probably shouldn't be touching this.
 
 =head1 METHODS
 
-=head2 as_query
+=head2 prepare_query
 
-=cut
-
-
-1;
-
-__END__
-
-=head1 NAME
-
-Google::Chart::WithAxis - Google::Chart Axis Specification 
-
-=head1 METHODS
-
-=head2 as_query
+Hooks to Google::Chart->prepare_query().
 
 =cut
