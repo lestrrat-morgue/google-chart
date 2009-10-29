@@ -288,10 +288,15 @@ code snippets, pseudocode, or even better, test cases, are most welcome.
 
 =over 4
 
-=item Standardize Interface
+=item Coverage
 
-Objects need to expect data in a standard format. This is not the case yet.
-(comments welcome)
+I've taken Google::Chart and challenged myself to implement every example
+in the developer's manual (the japanese version, anyway). Unfortunately
+there are a handful of examples that don't render /exactly/ the way it's in
+the documents.
+
+You can check which ones are failing in the included "samples.html",
+and send us patches ;)
 
 =item Moose-ish Errors
 
