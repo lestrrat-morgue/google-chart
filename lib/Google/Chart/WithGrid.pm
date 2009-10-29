@@ -75,8 +75,26 @@ __END__
 
 Google::Chart::WithGrid - Charts With Grids
 
+=head1 SYNOPSIS
+
+    my $chart = Google::Chart->create( ... );
+    $chart->set_grid(
+        x_step_size  => $x_size,
+        y_step_size  => $y_size,
+        line_length  => $l_length,
+        blank_length => $b_length,
+    );
+
+=head1 ATTRIBUTES
+
+=head2 grids
+
+Grid speficiation list.
+
 =head1 METHODS
 
-=head2 as_query
+=head2 set_grid(%args)
+
+Sets the grid spec.
 
 =cut
