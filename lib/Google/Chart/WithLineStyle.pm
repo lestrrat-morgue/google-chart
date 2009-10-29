@@ -71,3 +71,21 @@ has blank_segment_length => (
 );
 
 1;
+
+__END__
+
+=head1 NAME
+
+Google::Chart::WithLineStyle - Adds Line Style Properties To Your Dataset
+
+=head1 SYNOPSIS
+
+    my $chart = Google::Chart->create( ... );
+    $chart->add_dataset(
+        line_thickness       => $thickness,
+        line_segment_length  => $ls_length,
+        blank_segment_length => $bs_length,
+        # rest of your options...
+    );
+
+=cut
