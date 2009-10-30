@@ -1,6 +1,6 @@
 use strict;
 use lib "t/lib";
-use Test::More (tests => 9);
+use Test::More (tests => 10);
 use Test::Google::Chart qw(test_render);
 
 
@@ -10,6 +10,7 @@ use Test::Google::Chart qw(test_render);
             size => "400x300",
         )
     );
+    $chart->add_labels( "um", "dois", "tres", "quatro", "cinco" );
     $chart->add_dataset(
         data => [ 1, 2, 3, 4, 5 ],
     );
@@ -25,6 +26,7 @@ use Test::Google::Chart qw(test_render);
     my %h = $uri->query_form;
     is( $h{cht}, "p" );
     is( $h{chs}, "400x300" );
+    is( $h{chl}, "um|dois|tres|quatro|cinco" );
 
     test_render($chart);
 }

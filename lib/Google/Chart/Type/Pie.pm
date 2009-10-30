@@ -11,24 +11,33 @@ with qw(
     Google::Chart::WithSolidFill
 );
 
-has pie_type => (
+# NOTE: exists in en version, but not in ja
+has orientation => (
     is => 'ro',
-    isa => enum([ qw(2d 3d) ]),
+    isa => 'Num',
+);
+
+# NOTE: pc does not exist in ja
+has pie_type => ( # this *needs* the pie_ prefix cause it clashes
+                  # with the parent class's type... but the rest shouldn't
+    is => 'ro',
+    isa => enum([ qw(2d 3d pc) ]),
     required => 1,
     default => '2d'
 );
 
-has pie_labels => (
+# This option begs the question: can it be in the dataset?
+has labels => (
     traits => ['Array'],
     is => 'ro',
     isa => 'ArrayRef',
     lazy_build => 1,
     handles => {
-        add_pie_label => 'push',
+        add_labels => 'push',
     }
 );
 
-sub _build_pie_labels { [] }
+sub _build_labels { [] }
 
 sub _build_type {
     my $self = shift;
@@ -39,9 +48,13 @@ around prepare_query => sub {
     my ($next, $self, @args) = @_;
     my @query = $next->($self, @args);
 
-    my $labels = $self->pie_labels();
+    my $labels = $self->labels();
     if (@$labels > 0) {
         push @query, (chl => join('|', map { defined $_ ? $_ : '' } @$labels));
+    }
+
+    if ($self->orientation) {
+        push @query, (chp => $self->orientation);
     }
 
     return @query;

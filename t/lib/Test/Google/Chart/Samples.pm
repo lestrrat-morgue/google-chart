@@ -12,7 +12,7 @@ my @charts = (
         $g->add_dataset(
             data => [ 60, 40 ],
         );
-        $g->add_pie_label( 'Hello', 'World' );
+        $g->add_labels( 'Hello', 'World' );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=lc&chs=200x100&chd=s:fohmnytenefohmnytene&chxt=x,y&chxl=0:|Apr|May|June|1:||50' => sub {
@@ -284,7 +284,7 @@ my @charts = (
         $g->add_dataset(
             data => [ 20, 31, 61, 26  ],
         );
-        $g->add_pie_label( qw(January February March April) );
+        $g->add_labels( qw(January February March April) );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April' => sub {
@@ -298,7 +298,7 @@ my @charts = (
         $g->add_dataset(
             data => [ 20, 31, 61, 26  ],
         );
-        $g->add_pie_label( qw(January February March April) );
+        $g->add_labels( qw(January February March April) );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,80,60,30,30,30,10' => sub {
@@ -716,7 +716,7 @@ my @charts = (
             color => '0000ff',
             data => [ qw(7 30 37 37 40 27 37 26) ],
         );
-        $g->add_pie_label(qw( May Jun Jul Aug Sep Oct ) );
+        $g->add_labels(qw( May Jun Jul Aug Sep Oct ) );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,80,60,30,30,30,10&chco=00ff00,0000ff' => sub {
@@ -1274,7 +1274,7 @@ my @charts = (
         $g->add_dataset(
             data => [ qw(7 30 37 37 40 27) ],
         );
-        $g->add_pie_label( qw(May Jun Jul Aug Sep Oct) );
+        $g->add_labels( qw(May Jun Jul Aug Sep Oct) );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=p3&chs=220x100&chd=s:Hellob&chl=May|June|July|August|September|October' => sub {
@@ -1287,7 +1287,7 @@ my @charts = (
         $g->add_dataset(
             data => [ qw(7 30 37 37 40 27) ],
         );
-        $g->add_pie_label( qw(May June July August September October) );
+        $g->add_labels( qw(May June July August September October) );
         return $g;
     },
     'http://chart.apis.google.com/chart?cht=p3&chs=280x100&chd=s:Hellob&chl=May|June|July|August|September|October' => sub {
@@ -1300,7 +1300,7 @@ my @charts = (
         $g->add_dataset(
             data => [ qw(7 30 37 37 40 27) ],
         );
-        $g->add_pie_label( qw(May June July August September October) );
+        $g->add_labels( qw(May June July August September October) );
         return $g;
     },
     'http://chart.apis.google.com/chart?chs=225x125&cht=gom&chd=t:70&chl=Hello' => sub {
