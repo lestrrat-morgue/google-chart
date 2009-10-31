@@ -1,6 +1,14 @@
 Changes
 ======
 
+0.09000_02 Oct 30 2009
+  * Apply some changes to the Pie chart (nudge and patch by Jason Benguerel).
+    the chp parameter and cht=pc doesn't exist in the Japanese docs.
+    Sigh...
+
+  * Above change also means name of some attributes changed
+    (pie_labels -> labels, etc)
+
 0.09000_01 Oct 29 2009
   * So I'm being a bad boy and doing it again. Time for another take.
     This time I'd like everybody's input.
