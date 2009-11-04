@@ -1,6 +1,13 @@
 Changes
 ======
 
+0.09000_03 Nov 04 2009
+  * rt #51094: Andreas Koenig informs be that some dependencies were missing.
+    added namespace::clean, Encode, Scalar::Util, and Sub::Exporter.
+    (The latter few should actually be there already because of other deps)
+
+  * remove t/105_legend.t, as Google::Chart::Legend no longer exists
+
 0.09000_02 Oct 30 2009
   * Apply some changes to the Pie chart (nudge and patch by Jason Benguerel).
     the chp parameter and cht=pc doesn't exist in the Japanese docs.
