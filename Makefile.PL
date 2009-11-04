@@ -24,8 +24,12 @@ name 'Google-Chart';
 
 all_from('lib/Google/Chart.pm');
 
+requires 'namespace::clean';
+requires 'Encode';
 requires 'LWP::UserAgent';
 requires 'Moose', '0.92';
+requires 'Sub::Exporter';
+requires 'Scalar::Util';
 requires 'URI';
 requires 'URI::Escape';
 
