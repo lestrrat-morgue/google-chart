@@ -1,4 +1,5 @@
 Changes
+docs/samples.html
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
@@ -41,15 +42,12 @@ lib/Google/Chart/WithSolidFill.pm
 Makefile.PL
 MANIFEST
 META.yml
-recode.pl
-scrape.pl
 t/000_compile.t
 t/001_tutorial.t
 t/101_encoding_text.t
 t/102_encoding_extended.t
 t/103_encoding_simple.t
 t/104_color.t
-t/105_legend.t
 t/106_grid.t
 t/107_axis.t
 t/108_env_proxy.t
@@ -62,8 +60,8 @@ t/300_live_samples.t
 t/900_google_developers_manual.t
 t/99-pod-coverage.t
 t/99-pod.t
+t/foo.png
 t/lib/Test/Google/Chart.pm
 t/lib/Test/Google/Chart/Samples.pm
 t/rt42260.t
 tools/generate_sample_html.pl
-docs/samples.html
