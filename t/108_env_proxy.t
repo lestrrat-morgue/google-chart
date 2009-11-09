@@ -13,7 +13,6 @@ note "LWP::UserAgent: $LWP::UserAgent::VERSION\n";
     # but I got a failure report for LWP::UserAgent 5.821
 
     local %ENV;
-    delete $ENV{HTTP_PROXY};
     my $g = Google::Chart->create(
         Line => ( width => 100, height => 200 )
     );
@@ -21,7 +20,8 @@ note "LWP::UserAgent: $LWP::UserAgent::VERSION\n";
 }
 
 {
-    local $ENV{HTTP_PROXY} = 'http://localhost:3128';
+    local %ENV;
+    $ENV{HTTP_PROXY} = 'http://localhost:3128';
     my $g = Google::Chart->create(
         Line => ( width => 100, height => 200 )
     );
@@ -29,8 +29,9 @@ note "LWP::UserAgent: $LWP::UserAgent::VERSION\n";
 }
 
 {
-    local $ENV{HTTP_PROXY} = 'http://localhost:3128';
-    local $ENV{GOOGLE_CHART_ENV_PROXY} = 0;
+    local %ENV;
+    $ENV{HTTP_PROXY} = 'http://localhost:3128';
+    $ENV{GOOGLE_CHART_ENV_PROXY} = 0;
     my $g = Google::Chart->create(
         Line => ( width => 100, height => 200 )
     );
