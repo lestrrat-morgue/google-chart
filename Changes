@@ -1,6 +1,10 @@
 Changes
 ======
 
+0.09000_04 Nov 09 2009
+  * rt #51225 t/108_env_proxy.t was failing when http_proxy was being 
+    explicitly set.
+
 0.09000_03 Nov 04 2009
   * rt #51094: Andreas Koenig informs be that some dependencies were missing.
     added namespace::clean, Encode, Scalar::Util, and Sub::Exporter.

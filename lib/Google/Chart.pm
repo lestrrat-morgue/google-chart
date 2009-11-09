@@ -7,7 +7,7 @@ use Google::Chart::Types;
 use LWP::UserAgent;
 use namespace::clean -except => qw(meta);
 
-our $VERSION = '0.09000_03';
+our $VERSION = '0.09000_04';
 
 has title => (
     is        => 'ro',
