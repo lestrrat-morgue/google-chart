@@ -271,6 +271,30 @@ Generates the chart, and writes the contents out to the file specified by
 
 The base URI for Google Chart
 
+=head1 CHART TYPES
+
+=head2 L<Bar|Google::Chart::Type::Bar>
+
+=head2 L<GoogleOMeter|Google::Chart::Type::GoogleOMeter>
+
+=head2 L<Line|Google::Chart::Type::Line>
+
+=head2 L<Map|Google::Chart::Type::Map>
+
+=head2 L<Pie|Google::Chart::Type::Pie>
+
+=head2 L<QRcode|Google::Chart::Type::QRcode>
+
+=head2 L<Radar|Google::Chart::Type::Radar>
+
+=head2 L<ScatterPlot|Google::Chart::Type::ScatterPlot>
+
+=head2 L<SparkLine|Google::Chart::Type::SparkLine>
+
+=head2 L<Venn|Google::Chart::Type::Venn>
+
+=head2 L<XY|Google::Chart::Type::XY>
+
 =head1 FEEDBACK
 
 We don't believe that we fully utilize Google Chart's abilities. So there
