@@ -41,3 +41,20 @@ around prepare_query => sub {
 __PACKAGE__->meta->make_immutable();
 
 1;
+
+__END__
+
+=head1 NAME
+
+Google::Chart::Type::GoogleOMeter - Implement The GoogleOMeter Chart
+
+=head1 SYNOPSIS
+
+    Google::Chart->create(
+      GoogleOMeter => (
+        colors => [ $color1, $color2, ... $colorN ],
+        label => $label
+      )
+    );
+
+=cut
