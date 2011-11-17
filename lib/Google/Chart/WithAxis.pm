@@ -51,14 +51,14 @@ around prepare_query => sub {
         $count++;
     }
 
-    foreach my $comp qw( chxt ) {
+    foreach my $comp (qw( chxt )) {
         my $list = delete $query{ $comp };
         if (scalar @$list > 0) {
             $query{ $comp } = join(',', @$list);
         }
     }
         
-    foreach my $comp qw( chxl chxp chxr chxs ) {
+    foreach my $comp (qw( chxl chxp chxr chxs )) {
         my $list = delete $query{ $comp };
         if (scalar @$list > 0) {
             $query{ $comp } = join('|', @$list);
