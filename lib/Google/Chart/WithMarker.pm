@@ -79,7 +79,7 @@ sub add_marker {
 package # hide from PAUSE
     Google::Chart::Marker;
 use Moose;
-use Moose::Util::TypeConstraints;
+use Moose::Util::TypeConstraints qw(subtype as where);
 subtype 'Google::Chart::DataSet::MarkerType'
     => as 'Str'
     => where {
